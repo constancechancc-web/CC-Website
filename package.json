@@ -1,0 +1,11 @@
+{
+  "name": "cc-website-listings-sync",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync-listings": "node scripts/sync-listings.mjs"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0"
+  }
+}

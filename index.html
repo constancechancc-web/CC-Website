@@ -7,24 +7,24 @@
 <title>Constance Chan | JB Property Agent</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ivory: #F6F3EC;
-    --ink: #2B2A27;
-    --taupe: #9C8D7C;
-    --jade: #4B5A46;
-    --jade-deep: #333F30;
-    --gold: #B79A5A;
+    --ivory: #F7F4EF;
+    --ink: #201F1D;
+    --taupe: #C7B9A6;
+    --jade: #26221E;
+    --jade-deep: #141210;
+    --gold: #B49A6A;
   }
   html{scroll-behavior:smooth;}
   body{
     background:var(--ivory);
     color:var(--ink);
-    font-family:'Work Sans', sans-serif;
+    font-family:'Manrope', sans-serif;
   }
-  .font-display{font-family:'Fraunces', serif;}
-  .tracking-wide-eyebrow{letter-spacing:0.28em;}
+  .font-display{font-family:'Cormorant Garamond', serif; font-weight:500;}
+  .tracking-wide-eyebrow{letter-spacing:0.22em;}
 
   @media (prefers-reduced-motion: no-preference){
     .reveal{
@@ -117,10 +117,11 @@
     <nav class="hidden md:flex items-center gap-8 text-xs tracking-wide-eyebrow uppercase text-[var(--ink)]/70">
       <a href="#about" class="nav-link focus-ring">About</a>
       <a href="#services" class="nav-link focus-ring">Services</a>
+      <a href="#listings" class="nav-link focus-ring">Listings</a>
       <a href="#testimonials" class="nav-link focus-ring">Testimonials</a>
       <a href="#contact" class="nav-link focus-ring">Contact</a>
     </nav>
-    <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="whatsapp-btn hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-wide-eyebrow px-5 py-2.5 rounded-full focus-ring">
+    <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="whatsapp-btn hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-wide-eyebrow px-5 py-2.5 rounded-sm focus-ring">
       WhatsApp
     </a>
     <button id="menuBtn" aria-label="Open menu" class="md:hidden focus-ring" aria-expanded="false" aria-controls="mobileMenu">
@@ -132,9 +133,10 @@
   <div id="mobileMenu" class="hidden md:hidden flex-col bg-[var(--ivory)] border-t border-black/5 px-6 py-4 gap-4 text-sm uppercase tracking-wide-eyebrow">
     <a href="#about" class="py-2 focus-ring">About</a>
     <a href="#services" class="py-2 focus-ring">Services</a>
+    <a href="#listings" class="py-2 focus-ring">Listings</a>
     <a href="#testimonials" class="py-2 focus-ring">Testimonials</a>
     <a href="#contact" class="py-2 focus-ring">Contact</a>
-    <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="whatsapp-btn text-center rounded-full py-3 mt-2 focus-ring">WhatsApp Constance</a>
+    <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="whatsapp-btn text-center rounded-sm py-3 mt-2 focus-ring">WhatsApp Constance</a>
   </div>
 </header>
 
@@ -147,13 +149,13 @@
     </h1>
     <div class="reveal flex items-center gap-4 mt-8">
       <div class="w-10 h-px bg-[var(--gold)]"></div>
-      <p class="text-lg md:text-2xl font-display italic">Constance Chan</p>
+      <p class="text-lg md:text-2xl italic">Constance Chan <span class="text-base md:text-lg text-[var(--ink)]/60">(PEA3963)</span></p>
     </div>
     <p class="reveal mt-6 max-w-md text-[var(--ink)]/70 text-sm md:text-base leading-relaxed">
       Helping homeowners, investors, and tenants navigate Johor Bahru's property market with honesty and care.
     </p>
     <div class="reveal mt-10 flex flex-wrap items-center gap-4">
-      <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="whatsapp-btn inline-flex items-center gap-3 px-7 py-4 rounded-full text-sm uppercase tracking-wide-eyebrow focus-ring">
+      <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="whatsapp-btn inline-flex items-center gap-3 px-7 py-4 rounded-sm text-sm uppercase tracking-wide-eyebrow focus-ring">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.4 1.33-1.93 1.4-.5.08-1.09.11-1.76-.11-.4-.13-.92-.3-1.58-.6-2.79-1.2-4.6-4.02-4.74-4.2-.14-.19-1.14-1.51-1.14-2.88 0-1.37.72-2.04.98-2.32.26-.28.56-.35.75-.35h.54c.17 0 .4-.03.63.48.24.55.8 1.9.87 2.04.07.14.11.3.02.49-.09.19-.14.3-.27.46-.14.16-.29.36-.41.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.6.75 1.87.89.28.14.46.21.53.32.07.12.07.66-.17 1.34z"/></svg>
         Chat on WhatsApp
       </a>
@@ -215,6 +217,388 @@
 
 <div class="gold-rule max-w-6xl mx-auto"></div>
 
+<!-- LISTINGS -->
+<section id="listings" class="py-20 md:py-28 px-6 md:px-10">
+  <div class="max-w-6xl mx-auto">
+    <p class="reveal text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-4">Current inventory</p>
+    <h2 class="reveal font-display text-3xl md:text-5xl mb-14 max-w-2xl">Featured Listings</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <!-- LISTINGS:FEATURED:START -->
+      <a href="https://nextsix.com/property-listing/taman-bukit-jaya-double-storey-terrace-house-for-sale-ulu-tiram-2-sty-terracelink-house-sale-constance-chan-6a89acff9237a0cf766bf29b" target="_blank" rel="noopener" class="card-testimonial reveal rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a89acff9237a0cf766bf29b/property1.webp" alt="4-bedroom 2-sty Terrace/Link House for sale in Taman Bukit Jaya Double Storey Terrace House, Ulu Tiram, Johor – RM750,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Ulu Tiram, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Taman Bukit Jaya Double Storey Terrace House</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 750,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">4 Beds &middot; 4 Baths &middot; 1,500 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/ksl-avery-park-rinting-kaira-chia-serviced-residence-sale-constance-chan-69c69acf2d67b61074bc0466" target="_blank" rel="noopener" class="card-testimonial reveal rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/69c69acf2d67b61074bc0466/property1.webp" alt="2-bedroom Serviced Residence for sale in KSL Avery Park @ Rinting Kaira Chia, Masai, Johor – RM470,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Masai, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">KSL Avery Park @ Rinting Kaira Chia</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 470,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">2 Beds &middot; 2 Baths &middot; 862 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/astaka-one-bukit-senyum-condominium-sale-constance-chan-6a22d0a8bb0b81e11e837ed7" target="_blank" rel="noopener" class="card-testimonial reveal rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/6a22d0a8bb0b81e11e837ed7/property1.webp" alt="4+1-bedroom Condominium for sale in Astaka @ One Bukit Senyum, Johor Bahru, Johor – RM3,000,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Johor Bahru, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Astaka @ One Bukit Senyum</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 3,000,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">4+1 Beds &middot; 5 Baths &middot; 2,659 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/palazio-serviced-apartment-serviced-residence-sale-constance-chan-6a22d36cbb0b81e11e83bcc7" target="_blank" rel="noopener" class="card-testimonial reveal rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/6a22d36cbb0b81e11e83bcc7/property1.webp" alt="Studio Serviced Residence for sale in Palazio Serviced Apartment, Tebrau, Johor – RM300,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Tebrau, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Palazio Serviced Apartment</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 300,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">Studio &middot; 1 Bath &middot; 500 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/the-wadihana-condo-condominium-rent-constance-chan-6a6b1b65244a227aef13a2c3" target="_blank" rel="noopener" class="card-testimonial reveal rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a6b1b65244a227aef13a2c3/property1.webp" alt="3+1-bedroom Condominium for rent in The Wadihana Condo, Johor Bahru, Johor – RM3,000 per month, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Rent &middot; Johor Bahru, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">The Wadihana Condo</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 3,000/month</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">3+1 Beds &middot; 3 Baths &middot; 1,200 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/taman-tiram-baru-4-storey-shoplot-for-rent-same-row-pbb-shop-rent-constance-chan-6a6b1a4c244a227aef13828a" target="_blank" rel="noopener" class="card-testimonial reveal rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a6b1a4c244a227aef13828a/property1.webp" alt="Shop for rent in Taman Tiram Baru 4 Storey Shoplot, Same row PBB, Ulu Tiram, Johor – RM3,000 per month, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Rent &middot; Ulu Tiram, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Taman Tiram Baru 4 Storey Shoplot, Same row PBB</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 3,000/month</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">Commercial &middot; 1,400 sqft</p>
+        </div>
+      </a>
+      <!-- LISTINGS:FEATURED:END -->
+    </div>
+
+    <div class="reveal mt-10 text-center">
+      <button id="viewMoreBtn" type="button" class="inline-flex items-center gap-2 text-xs uppercase tracking-wide-eyebrow px-6 py-3 rounded-sm border border-[var(--jade)] text-[var(--jade)] hover:bg-[var(--jade)] hover:text-[var(--ivory)] transition-colors focus-ring">
+        View More Listings
+        <svg id="viewMoreIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="transition-transform"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+
+    <div id="moreListings" class="hidden mt-6 md:mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <!-- LISTINGS:MORE:START -->
+      <a href="https://nextsix.com/property-listing/taman-megah-ria-3-storey-low-cost-house-corner-lot-3-sty-terracelink-house-sale-constance-chan-6a89a7d99237a0cf766bae43" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a89a7d99237a0cf766bae43/property1.webp" alt="3-bedroom 3-sty Terrace/Link House for sale in Taman Megah Ria 3 Storey Low Cost House Corner Lot, Masai, Johor – RM458,888, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Masai, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Taman Megah Ria 3 Storey Low Cost House Corner Lot</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 458,888</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">3 Beds &middot; 2 Baths &middot; 1,000 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/mtiara-apartment-larkin-idaman-apartment-sale-constance-chan-69b42ce845459e49b70aabfe" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/69b42ce845459e49b70aabfe/property1.webp" alt="3-bedroom Apartment for sale in M&#39;Tiara Apartment @ Larkin Idaman, Johor Bahru, Johor – RM399,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Johor Bahru, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">M&#39;Tiara Apartment @ Larkin Idaman</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 399,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">3 Beds &middot; 1 Bath &middot; 1,006 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/skudai-baru-3-storey-shoplot-for-sale-renovated-unit-shop-sale-constance-chan-6a6b17db244a227aef134915" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a6b17db244a227aef134915/property1.webp" alt="Shop for sale in Skudai Baru 3 Storey Shoplot, Renovated Unit, Skudai, Johor – RM798,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Skudai, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Skudai Baru 3 Storey Shoplot, Renovated Unit</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 798,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">Commercial &middot; 4,620 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/mewah-view-luxurious-apartments-apartment-sale-constance-chan-6a6afd9d4f60bb68da4c0cc5" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a6afd9d4f60bb68da4c0cc5/property1.webp" alt="3+1-bedroom Apartment for sale in Mewah View Luxurious Apartments, Tampoi, Johor – RM399,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Tampoi, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Mewah View Luxurious Apartments</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 399,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">3+1 Beds &middot; 3 Baths &middot; 1,216 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/desa-tebrau-double-storey-terrace-house-tebrau-ria-2-sty-terracelink-house-sale-constance-chan-6a5f741beea2d530a357eed6" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a5f741beea2d530a357eed6/property1.webp" alt="4-bedroom 2-sty Terrace/Link House for sale in Desa Tebrau Double Storey Terrace House Tebrau Ria, Tebrau, Johor – RM770,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Tebrau, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Desa Tebrau Double Storey Terrace House Tebrau Ria</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 770,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">4 Beds &middot; 4 Baths &middot; 1,400 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/desa-tebrau-clarinet-double-storey-terrace-house-end-lot-2-sty-terracelink-house-sale-constance-chan-6a5f6eceeea2d530a3570823" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a5f6eceeea2d530a3570823/property1.webp" alt="4-bedroom 2-sty Terrace/Link House for sale in Desa Tebrau Clarinet Double Storey Terrace House End Lot, Tebrau, Johor – RM1,100,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Tebrau, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Desa Tebrau Clarinet Double Storey Terrace House End Lot</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 1,100,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">4 Beds &middot; 4 Baths &middot; 2,264 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/austin-duta-2-adjoining-cluster-house-connected-unit-for-sale-corner-intermediate-cluster-house-sale-constance-chan-6a4cfbaafb7abbadb80960fd" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a4cfbaafb7abbadb80960fd/property1.webp" alt="11-bedroom Cluster House for sale in Austin Duta 2 Adjoining Cluster House Connected Unit, (Corner + Intermediate), Tebrau, Johor – RM2,000,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Tebrau, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Austin Duta 2 Adjoining Cluster House Connected Unit, (Corner + Intermediate)</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 2,000,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">11 Beds &middot; 5 Baths &middot; 4,000 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/taman-melodies-jb-town-bungalow-house-gated-guarded-bungalow-sale-constance-chan-6a4cf388fb7abbadb8079a20" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a4cf388fb7abbadb8079a20/property2.webp" alt="8-bedroom Bungalow for sale in Taman Melodies @ JB Town Bungalow House Gated Guarded, Johor Bahru, Johor – RM3,300,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Johor Bahru, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Taman Melodies @ JB Town Bungalow House Gated Guarded</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 3,300,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">8 Beds &middot; 9 Baths &middot; 4,000 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/jp-perdana-jaya-putra-austin-double-storey-terrace-house-18x65-end-lot-full-renovated-gg-2-sty-terracelink-house-sale-constance-chan-69d131db2d67b610741c4002" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/69d131db2d67b610741c4002/property1.webp" alt="4-bedroom 2-sty Terrace/Link House for sale in JP Perdana Jaya Putra @ Austin Double Storey Terrace House 18x65 END LOT, Full Renovated G&amp;G, Tebrau, Johor – RM658,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Tebrau, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">JP Perdana Jaya Putra @ Austin Double Storey Terrace House 18x65 END LOT, Full Renovated G&amp;G</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 658,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">4 Beds &middot; 3 Baths &middot; 1,800 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/taman-austin-duta-double-storey-terrace-house-end-lot-2-sty-terracelink-house-sale-constance-chan-6a22d26bbb0b81e11e83a1a3" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/6a22d26bbb0b81e11e83a1a3/property1.webp" alt="4-bedroom 2-sty Terrace/Link House for sale in Taman Austin Duta Double Storey Terrace House END LOT, Tebrau, Johor – RM800,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Tebrau, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Taman Austin Duta Double Storey Terrace House END LOT</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 800,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">4 Beds &middot; 3 Baths &middot; 1,882 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/taman-gaya-precinct-3a-double-storey-cluster-house-32x80-tebrau-ulu-tiram-cluster-house-sale-constance-chan-69d2901e21ad539eccc533cd" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/69d2901e21ad539eccc533cd/property1.webp" alt="4-bedroom Cluster House for sale in Taman Gaya Precinct 3A Double Storey Cluster House 32x80 @ Tebrau, Ulu Tiram, Tebrau, Johor – RM1,180,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Tebrau, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Taman Gaya Precinct 3A Double Storey Cluster House 32x80 @ Tebrau, Ulu Tiram</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 1,180,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">4 Beds &middot; 4 Baths &middot; 1,500 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/taman-seri-austin-lakeview-double-storey-terrace-house-for-sale-2-sty-terracelink-house-sale-constance-chan-6a2038aba732d47e8c77e53b" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/6a2038aba732d47e8c77e53b/property1.webp" alt="4-bedroom 2-sty Terrace/Link House for sale in Taman Seri Austin LakeView Double Storey Terrace House, Tebrau, Johor – RM850,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Tebrau, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Taman Seri Austin LakeView Double Storey Terrace House</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 850,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">4 Beds &middot; 3 Baths &middot; 1,400 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/ksl-residence-daya-taman-daya-condominium-sale-constance-chan-69b4c85a45459e49b71ae00a" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/69b4c85a45459e49b71ae00a/property1.webp" alt="3+1-bedroom Condominium for sale in KSL Residence @ Daya, Taman Daya, Johor Bahru, Johor – RM510,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Johor Bahru, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">KSL Residence @ Daya, Taman Daya</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 510,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">3+1 Beds &middot; 3 Baths &middot; 1,356 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/taman-larkin-idaman-3-storey-shoplot-corner-lot-for-sale-tenanted-shop-sale-constance-chan-69b56c3345459e49b734da5c" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/69b56c3345459e49b734da5c/property1.webp" alt="Shop for sale in Taman Larkin Idaman 3 Storey Shoplot CORNER LOT, Tenanted, Johor Bahru, Johor – RM2,200,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Johor Bahru, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Taman Larkin Idaman 3 Storey Shoplot CORNER LOT, Tenanted</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 2,200,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">Commercial &middot; 1,859 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/setia-tropika-10-double-storey-cluster-house-32x70-cluster-house-sale-constance-chan-69b812bc45459e49b783d1ce" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/69b812bc45459e49b783d1ce/property1.webp" alt="5+1-bedroom Cluster House for sale in Setia Tropika 10 Double Storey Cluster House 32x70, Setia Tropika, Johor – RM1,250,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Setia Tropika, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Setia Tropika 10 Double Storey Cluster House 32x70</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 1,250,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">5+1 Beds &middot; 4 Baths &middot; 2,240 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/desa-cemerlang-15-storey-semi-d-factory-corner-lot-for-rent-ulu-tiram-semi-d-factory-sale-constance-chan-69b81cd245459e49b7859d11" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/69b81cd245459e49b7859d11/property1.webp" alt="Semi-D Factory for sale in Desa Cemerlang 1.5 Storey Semi D Factory Corner Lot, @ Ulu Tiram, Ulu Tiram, Johor – RM3,880,000, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Sale &middot; Ulu Tiram, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Desa Cemerlang 1.5 Storey Semi D Factory Corner Lot, @ Ulu Tiram</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 3,880,000</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">Commercial &middot; 7,000 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/perindustrian-cemerlang-semi-d-factory-for-rent-ulu-tiram-semi-d-factory-rent-constance-chan-6a6b1923244a227aef136428" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a6b1923244a227aef136428/property1.webp" alt="Semi-D Factory for rent in Perindustrian Cemerlang Semi D Factory, @ Ulu Tiram, Ulu Tiram, Johor – RM22,000 per month, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Rent &middot; Ulu Tiram, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Perindustrian Cemerlang Semi D Factory, @ Ulu Tiram</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 22,000/month</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">Commercial &middot; 8,926 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/taman-perindustrian-cemerlang-semi-d-factory-for-rent-desa-cemerlang-ulu-tiram-semi-d-factory-rent-constance-chan-6a15b79a4eade9dc627ae3e5" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/6a15b79a4eade9dc627ae3e5/property1.webp" alt="Semi-D Factory for rent in Taman Perindustrian Cemerlang Semi D Factory, @ Desa Cemerlang, Ulu Tiram, Ulu Tiram, Johor – RM22,000 per month, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Rent &middot; Ulu Tiram, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Taman Perindustrian Cemerlang Semi D Factory, @ Desa Cemerlang, Ulu Tiram</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 22,000/month</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">Commercial &middot; 8,926 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/ulu-tiram-shop-for-rent-facing-main-road-shop-rent-constance-chan-6a5f6b3beea2d530a356bd84" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a5f6b3beea2d530a356bd84/property1.webp" alt="Shop for rent in Ulu Tiram Shop, Facing Main Road, Ulu Tiram, Johor – RM3,000 per month, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Rent &middot; Ulu Tiram, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Ulu Tiram Shop, Facing Main Road</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 3,000/month</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">Commercial &middot; 1,400 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/austin-duta-cluster-adjoining-unit-corner-intermediate-lot-for-rent-cluster-house-rent-constance-chan-6a5f69b0eea2d530a35689f5" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://store.iproforma.com/properties/6a5f69b0eea2d530a35689f5/property1.webp" alt="11-bedroom Cluster House for rent in Austin Duta Cluster Adjoining Unit (Corner + Intermediate Lot), Johor Bahru, Johor – RM7,000 per month, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Rent &middot; Johor Bahru, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Austin Duta Cluster Adjoining Unit (Corner + Intermediate Lot)</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 7,000/month</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">11 Beds &middot; 5 Baths &middot; 4,200 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/kempas-utama-15-storey-semi-d-factory-for-rent-semi-d-factory-rent-constance-chan-6a22d71fbb0b81e11e842639" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/6a22d71fbb0b81e11e842639/property1.webp" alt="Semi-D Factory for rent in Kempas Utama 1.5 Storey Semi D Factory, Setia Tropika, Johor – RM12,000 per month, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Rent &middot; Setia Tropika, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Kempas Utama 1.5 Storey Semi D Factory</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 12,000/month</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">Commercial &middot; 5,797 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/desa-cemerlang-15-storey-cluster-factory-for-rent-ulu-tiram-factory-rent-constance-chan-69b7a7e345459e49b7728c01" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/69b7a7e345459e49b7728c01/property1.webp" alt="Factory for rent in Desa Cemerlang 1.5 Storey Cluster Factory, @ Ulu Tiram, Ulu Tiram, Johor – RM16,000 per month, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Rent &middot; Ulu Tiram, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Desa Cemerlang 1.5 Storey Cluster Factory, @ Ulu Tiram</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 16,000/month</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">Commercial &middot; 8,047 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/desa-cemerlang-2-storey-terraced-factory-30x100-for-rent-ulu-tiram-link-factory-rent-constance-chan-69c681ce2d67b61074b8b59c" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/69c681ce2d67b61074b8b59c/property1.webp" alt="Link Factory for rent in Desa Cemerlang 2 Storey Terraced Factory 30x100, Ulu Tiram, Johor – RM6,500 per month, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Rent &middot; Ulu Tiram, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Desa Cemerlang 2 Storey Terraced Factory 30x100</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 6,500/month</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">Commercial &middot; 3,000 sqft</p>
+        </div>
+      </a>
+      <a href="https://nextsix.com/property-listing/kulai-sme-city-semi-d-factory-corner-lot-for-rent-fully-extend-semi-d-factory-rent-constance-chan-69c698822d67b61074bbd124" target="_blank" rel="noopener" class="card-testimonial rounded-sm overflow-hidden bg-white/40 block focus-ring group">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://iprofstore.blob.core.windows.net/properties/69c698822d67b61074bbd124/property1.webp" alt="Semi-D Factory for rent in Kulai SME City Semi D Factory Corner Lot, Fully Extend, Kulai, Johor – RM26,000 per month, listed by Constance Chan" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        </div>
+        <div class="p-6">
+          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">For Rent &middot; Kulai, Johor</p>
+          <h3 class="font-display text-lg leading-snug mb-2">Kulai SME City Semi D Factory Corner Lot, Fully Extend</h3>
+          <p class="font-display italic text-xl text-[var(--gold)] mb-3">RM 26,000/month</p>
+          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">Commercial &middot; 26,846 sqft</p>
+        </div>
+      </a>
+      <!-- LISTINGS:MORE:END -->
+    </div>
+
+    <div class="reveal mt-14 flex flex-col md:flex-row md:items-center md:justify-between gap-6 pt-10 border-t border-[var(--ink)]/10">
+      <a href="https://nextsix.com/agent/constance-chan/5e0d9b2841d64f2b2823e6d6" target="_blank" rel="noopener" class="whatsapp-btn inline-flex w-fit items-center gap-2 text-xs uppercase tracking-wide-eyebrow px-6 py-3 rounded-sm focus-ring">
+        View All Listings on NextSix
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="text-xs tracking-wide-eyebrow uppercase text-[var(--ink)]/50 mr-1">Also listed on</span>
+        <a href="https://www.mudah.my/constancechan" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs uppercase tracking-wide-eyebrow px-4 py-2 rounded-sm border border-[var(--ink)]/20 hover:border-[var(--jade)] hover:text-[var(--jade)] transition-colors focus-ring">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+          Mudah
+        </a>
+        <a href="https://www.edgeprop.my/agent/105042/CONSTANCE%20CHAN" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs uppercase tracking-wide-eyebrow px-4 py-2 rounded-sm border border-[var(--ink)]/20 hover:border-[var(--jade)] hover:text-[var(--jade)] transition-colors focus-ring">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+          EdgeProp
+        </a>
+        <a href="https://www.propertyguru.com.my/property-agents/constance-chan-901021668#Agent-RightSideProfile" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs uppercase tracking-wide-eyebrow px-4 py-2 rounded-sm border border-[var(--ink)]/20 hover:border-[var(--jade)] hover:text-[var(--jade)] transition-colors focus-ring">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+          PropertyGuru
+        </a>
+        <a href="https://www.facebook.com/jbproperty.cc" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs uppercase tracking-wide-eyebrow px-4 py-2 rounded-sm border border-[var(--ink)]/20 hover:border-[var(--jade)] hover:text-[var(--jade)] transition-colors focus-ring">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+          Facebook
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-rule max-w-6xl mx-auto"></div>
+
 <!-- TESTIMONIALS -->
 <section id="testimonials" class="py-20 md:py-28 px-6 md:px-10">
   <div class="max-w-6xl mx-auto">
@@ -230,6 +614,16 @@
         <svg width="28" height="20" viewBox="0 0 28 20" fill="none" class="mb-6 text-[var(--gold)]" aria-hidden="true"><path d="M0 20V11.4C0 4.8 3.6 0.8 10.8 0L11.6 3.2C7.6 4 5.6 6 5.2 9.2H10V20H0ZM16.4 20V11.4C16.4 4.8 20 0.8 27.2 0L28 3.2C24 4 22 6 21.6 9.2H26.4V20H16.4Z" fill="currentColor"/></svg>
         <p class="text-[var(--ink)]/80 leading-relaxed mb-6">Constance is hands-down one of the most responsible and dedicated property agents I have ever worked with. From day one, she has consistently gone above and beyond to ensure my property is managed and cared for as if it were her own. Her attention to detail and proactive approach take all the stress out of the process. If you are looking for an agent who is reliable, communicative, and truly puts her clients' interests first, I cannot recommend Constance highly enough. She is a true professional!</p>
         <p class="font-display italic text-lg">Victor Tan</p>
+      </div>
+      <div class="card-testimonial reveal p-8 md:p-10 rounded-sm bg-white/40">
+        <svg width="28" height="20" viewBox="0 0 28 20" fill="none" class="mb-6 text-[var(--gold)]" aria-hidden="true"><path d="M0 20V11.4C0 4.8 3.6 0.8 10.8 0L11.6 3.2C7.6 4 5.6 6 5.2 9.2H10V20H0ZM16.4 20V11.4C16.4 4.8 20 0.8 27.2 0L28 3.2C24 4 22 6 21.6 9.2H26.4V20H16.4Z" fill="currentColor"/></svg>
+        <p class="text-[var(--ink)]/80 leading-relaxed mb-6">Ms Constance is a pleasant girl to deal with. She is always ever willing to help me when I encounter problems with my house buyer and take necessary and immediate action to solve the problems. I will definitely recommend her to anyone who require housing sales and renting of houses.</p>
+        <p class="font-display italic text-lg">Woon Beng Lim</p>
+      </div>
+      <div class="card-testimonial reveal p-8 md:p-10 rounded-sm bg-white/40">
+        <svg width="28" height="20" viewBox="0 0 28 20" fill="none" class="mb-6 text-[var(--gold)]" aria-hidden="true"><path d="M0 20V11.4C0 4.8 3.6 0.8 10.8 0L11.6 3.2C7.6 4 5.6 6 5.2 9.2H10V20H0ZM16.4 20V11.4C16.4 4.8 20 0.8 27.2 0L28 3.2C24 4 22 6 21.6 9.2H26.4V20H16.4Z" fill="currentColor"/></svg>
+        <p class="text-[var(--ink)]/80 leading-relaxed mb-6">Very professional and helpful throughout the whole process. Highly recommended.</p>
+        <p class="font-display italic text-lg">JP Tang</p>
       </div>
     </div>
   </div>
@@ -268,10 +662,6 @@
 <footer class="py-10 px-6 md:px-10 border-t border-black/5">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
     <p class="font-display italic text-base">Constance Chan</p>
-    <a href="https://web.facebook.com/jbproperty.cc" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm text-[var(--ink)]/70 hover:text-[var(--jade)] transition-colors focus-ring">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.86c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
-      facebook.com/jbproperty.cc
-    </a>
     <p class="text-xs text-[var(--ink)]/50">&copy; 2026 Constance Chan &middot; Johor Bahru</p>
   </div>
 </footer>
@@ -290,6 +680,19 @@
     mobileMenu.classList.remove('flex');
     menuBtn.setAttribute('aria-expanded', 'false');
   }));
+
+  const viewMoreBtn = document.getElementById('viewMoreBtn');
+  const moreListings = document.getElementById('moreListings');
+  const viewMoreIcon = document.getElementById('viewMoreIcon');
+  if (viewMoreBtn && moreListings) {
+    viewMoreBtn.addEventListener('click', () => {
+      const isHidden = moreListings.classList.contains('hidden');
+      moreListings.classList.toggle('hidden');
+      viewMoreBtn.firstChild.textContent = isHidden ? 'View Fewer Listings ' : 'View More Listings ';
+      viewMoreIcon.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+      if (isHidden) moreListings.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
 
   const revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
