@@ -167,17 +167,36 @@ function renderCard(l, { reveal }) {
   const statusLabel = l.isRent ? "For Rent" : "For Sale";
   const price = l.isRent ? `RM ${l.priceNum}/month` : `RM ${l.priceNum}`;
   const revealClass = reveal ? " reveal" : "";
-  return `      <a href="https://nextsix.com${l.href}" target="_blank" rel="noopener" class="card-testimonial${revealClass} rounded-sm overflow-hidden bg-white/40 block focus-ring group">
-        <div class="aspect-[4/3] overflow-hidden">
-          <img src="${escapeHtml(l.imgSrc)}" alt="${altText(l)}" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+  return `      <a href="https://nextsix.com${l.href}" target="_blank" rel="noopener" class="listing-card${revealClass} block focus-ring group">
+        <div class="listing-media aspect-[4/3]">
+          <img src="${escapeHtml(l.imgSrc)}" alt="${altText(l)}" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]">
+          <span class="listing-view">View Property<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
         </div>
-        <div class="p-6">
-          <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--jade)] mb-2">${statusLabel} &middot; ${escapeHtml(l.loc)}</p>
-          <h3 class="font-display text-lg leading-snug mb-2">${escapeHtml(l.title)}</h3>
-          <p class="font-display italic text-xl text-[var(--gold)] mb-3">${escapeHtml(price)}</p>
-          <p class="text-xs text-[var(--ink)]/60 uppercase tracking-wide-eyebrow">${metaLine(l)}</p>
+        <div class="pt-5">
+          <p class="text-[11px] tracking-wide-eyebrow uppercase text-[var(--gold-deep)] mb-2">${statusLabel} &middot; ${escapeHtml(l.loc)}</p>
+          <h3 class="font-display text-xl leading-snug mb-2 group-hover:text-[var(--gold-deep)] transition-colors">${escapeHtml(l.title)}</h3>
+          <p class="font-display italic text-lg text-[var(--ink)] mb-2">${escapeHtml(price)}</p>
+          <p class="text-[11px] text-[var(--ink)]/65 uppercase tracking-wide-eyebrow">${metaLine(l)}</p>
         </div>
       </a>`;
+}
+
+function renderHeroCard(l) {
+  const statusLabel = l.isRent ? "For Rent" : "For Sale";
+  const price = l.isRent ? `RM ${l.priceNum}/month` : `RM ${l.priceNum}`;
+  return `    <a href="https://nextsix.com${l.href}" target="_blank" rel="noopener" class="feature-listing reveal group focus-ring">
+      <div class="feature-listing-media">
+        <img src="${escapeHtml(l.imgSrc)}" alt="${altText(l)}" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]">
+        <span class="feature-listing-tag">Featured</span>
+      </div>
+      <div class="feature-listing-body">
+        <p class="text-xs tracking-wide-eyebrow uppercase text-[var(--gold-deep)] mb-3">${statusLabel} &middot; ${escapeHtml(l.loc)}</p>
+        <h3 class="font-display text-3xl md:text-4xl leading-tight mb-4">${escapeHtml(l.title)}</h3>
+        <p class="font-display italic text-2xl text-[var(--ink)] mb-4">${escapeHtml(price)}</p>
+        <p class="text-xs text-[var(--ink)]/65 uppercase tracking-wide-eyebrow mb-8">${metaLine(l)}</p>
+        <span class="listing-view static-view">View Property<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </div>
+    </a>`;
 }
 
 function pickFeatured(listings) {
@@ -199,7 +218,11 @@ function pickFeatured(listings) {
 
   const featuredHrefs = new Set(combined.map((l) => l.href));
   const more = listings.filter((l) => !featuredHrefs.has(l.href));
-  return { featured: combined, more };
+
+  // The first featured listing gets the large "hero" treatment at the top
+  // of the Listings section; the rest sit in the regular grid below it.
+  const [hero, ...featured] = combined;
+  return { hero, featured, more };
 }
 
 function replaceBetweenMarkers(html, startMarker, endMarker, newInner) {
@@ -220,14 +243,21 @@ async function main() {
     );
   }
 
-  const { featured, more } = pickFeatured(listings);
+  const { hero, featured, more } = pickFeatured(listings);
 
+  const heroHtml = renderHeroCard(hero);
   const featuredHtml = featured
     .map((l) => renderCard(l, { reveal: true }))
     .join("\n");
   const moreHtml = more.map((l) => renderCard(l, { reveal: false })).join("\n");
 
   let html = readFileSync(INDEX_HTML_PATH, "utf8");
+  html = replaceBetweenMarkers(
+    html,
+    "<!-- LISTINGS:HERO:START -->",
+    "<!-- LISTINGS:HERO:END -->",
+    heroHtml,
+  );
   html = replaceBetweenMarkers(
     html,
     "<!-- LISTINGS:FEATURED:START -->",
@@ -243,7 +273,7 @@ async function main() {
 
   writeFileSync(INDEX_HTML_PATH, html, "utf8");
   console.log(
-    `Synced ${listings.length} listings (${featured.length} featured, ${more.length} more).`,
+    `Synced ${listings.length} listings (1 hero, ${featured.length} featured, ${more.length} more).`,
   );
 }
 
