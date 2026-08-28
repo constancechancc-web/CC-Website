@@ -5,22 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="facebook-domain-verification" content="pbppaqw617996wpmox0h0405wsexqe" />
 <title>Constance Chan | JB Property Agent</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2232%22%20fill%3D%22%232F4F38%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2243%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2226%22%20font-weight%3D%22800%22%20fill%3D%22%23FFB51B%22%20text-anchor%3D%22middle%22%3ECC%3C%2Ftext%3E%3C%2Fsvg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2232%22%20fill%3D%22%233B2A22%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2243%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2226%22%20font-weight%3D%22800%22%20fill%3D%22%23F4B521%22%20text-anchor%3D%22middle%22%3ECC%3C%2Ftext%3E%3C%2Fsvg%3E">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --color-primary-green: #7D573C;
-    --color-primary-green-dark: #664731;
-    --color-accent-yellow: #F5F5DC;
-    --color-accent-yellow-alt: #F0F0DA;
-    --color-background: #FCFCFA;
-    --color-background-soft: #F3F5F0;
-    --color-text: #222222;
-    --color-text-muted: #666A66;
-    --color-border: #D8DDD7;
-    --color-white: #FFFFFF;
+    --coffee-deep: #3B2A22;
+    --coffee-warm: #634A3C;
+    --mocha-soft: #A88976;
+    --beige-warm: #F2E7D8;
+    --cream-white: #FCF8F2;
+    --yellow-gold: #F4B521;
+    --yellow-soft: #FFD66B;
+    --text-primary: #27211E;
+    --text-secondary: #71665F;
+    --border-beige: #DED0C1;
+    --white: #FFFFFF;
+
+    --color-primary-green: var(--coffee-deep);
+    --color-primary-green-dark: var(--coffee-warm);
+    --color-accent-yellow: var(--yellow-gold);
+    --color-accent-yellow-alt: var(--yellow-soft);
+    --color-background: var(--cream-white);
+    --color-background-soft: var(--beige-warm);
+    --color-text: var(--text-primary);
+    --color-text-muted: var(--text-secondary);
+    --color-border: var(--border-beige);
+    --color-white: var(--white);
+
     --radius-pill: 999px;
     --radius-card: 28px;
     --radius-section: 40px;
@@ -71,11 +84,11 @@
   .btn-primary:hover .arrow-dot{ transform:translateX(3px) rotate(45deg); }
   .btn-secondary{
     display:inline-flex; align-items:center; gap:10px;
-    background:var(--color-white); color:var(--color-text);
-    border:1.5px solid var(--color-text); border-radius:var(--radius-pill); padding:15px 28px;
+    background:var(--color-background); color:var(--color-primary-green);
+    border:1.5px solid var(--color-primary-green); border-radius:var(--radius-pill); padding:15px 28px;
     transition:background .25s ease, color .25s ease;
   }
-  .btn-secondary:hover{ background:var(--color-primary-green); color:var(--color-white); border-color:var(--color-primary-green); }
+  .btn-secondary:hover{ background:var(--color-background-soft); }
   .btn-line-light{
     display:inline-flex; align-items:center; gap:10px;
     background:transparent; color:var(--color-white);
@@ -95,11 +108,11 @@
   #siteHeader.scrolled .nav-pill{ padding-top:6px; padding-bottom:6px; box-shadow:0 14px 34px rgba(35,61,44,0.26); }
   .nav-mono{ width:38px; height:38px; border-radius:50%; background:var(--color-accent-yellow); color:var(--color-primary-green-dark); display:flex; align-items:center; justify-content:center; font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:14px; flex:none; }
   .nav-word{ color:var(--color-white); font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; }
-  .nav-link{ position:relative; color:rgba(255,255,255,0.78); transition:color .25s ease; padding-bottom:4px; }
+  .nav-link{ position:relative; color:var(--color-background-soft); transition:color .25s ease; padding-bottom:4px; }
   .nav-link::after{ content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--color-accent-yellow); transition:width .3s ease; }
   .nav-link:hover, .nav-link.active{ color:var(--color-accent-yellow); }
   .nav-link:hover::after, .nav-link.active::after{ width:100%; }
-  .nav-contact{ background:var(--color-white); color:var(--color-primary-green-dark); border-radius:var(--radius-pill); padding:12px 24px; font-weight:700; transition:background .25s ease; }
+  .nav-contact{ background:var(--color-background); color:var(--color-primary-green); border-radius:var(--radius-pill); padding:12px 24px; font-weight:700; transition:background .25s ease; }
   .nav-contact:hover{ background:var(--color-accent-yellow); }
 
   /* mobile menu */
@@ -160,10 +173,10 @@
   @keyframes scrollDot{ 0%{ transform:translateY(0); opacity:1; } 80%{ opacity:0; } 100%{ transform:translateY(30px); opacity:0; } }
 
   /* ---------- about ---------- */
-  #about{ padding-block:clamp(72px,9vw,120px); }
+  #about{ padding-block:clamp(72px,9vw,120px); background:var(--color-background-soft); }
   .section-num{ color:var(--color-primary-green); font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:13px; letter-spacing:0.12em; }
   .about-media{ position:relative; }
-  .about-media .blob{ position:absolute; inset:-6% -6% auto auto; width:70%; aspect-ratio:1/1; background:var(--color-background-soft); border-radius:50%; z-index:0; }
+  .about-media .blob{ position:absolute; inset:-6% -6% auto auto; width:70%; aspect-ratio:1/1; background:var(--color-background); border-radius:50%; z-index:0; }
   .about-media .frame{ position:relative; z-index:1; border-radius:var(--radius-card); overflow:hidden; aspect-ratio:4/4.6; }
   .about-media .frame img{ width:100%; height:100%; object-fit:cover; }
   .about-pea{ position:absolute; z-index:2; left:-6%; bottom:8%; background:var(--color-white); border:1.5px solid var(--color-border); border-radius:var(--radius-pill); padding:12px 20px; box-shadow:0 12px 28px rgba(35,61,44,0.1); }
@@ -172,13 +185,13 @@
   /* ---------- services ---------- */
   #services{ background:var(--color-primary-green); color:var(--color-white); padding-block:clamp(72px,9vw,120px); border-radius:var(--radius-section); margin-inline:16px; }
   @media (min-width:1300px){ #services{ margin-inline:auto; max-width:1520px; } }
-  .service-panel{ border-top:1px solid rgba(255,255,255,0.16); transition:background .35s ease; border-radius:20px; }
-  .service-panel:last-child{ border-bottom:1px solid rgba(255,255,255,0.16); }
-  .service-panel:hover{ background:rgba(255,255,255,0.05); }
+  .service-panel{ border-top:1px solid var(--color-primary-green-dark); transition:background .35s ease; border-radius:20px; }
+  .service-panel:last-child{ border-bottom:1px solid var(--color-primary-green-dark); }
+  .service-panel:hover{ background:#4D382E; }
   .service-panel-inner{ display:grid; grid-template-columns:60px 1fr auto; align-items:center; gap:18px; padding:26px 20px; }
   @media (min-width:700px){ .service-panel-inner{ grid-template-columns:90px 1fr 1.3fr auto; padding:32px 28px; } }
   .service-panel-num{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:24px; color:var(--color-accent-yellow); }
-  .service-panel-desc{ display:none; color:rgba(255,255,255,0.65); }
+  .service-panel-desc{ display:none; color:var(--color-background-soft); }
   @media (min-width:700px){ .service-panel-desc{ display:block; } }
   .service-panel-arrow{ width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; transition:transform .35s ease, background .35s ease; }
   .service-panel:hover .service-panel-arrow{ transform:translate(4px,-4px); background:var(--color-accent-yellow); color:var(--color-primary-green-dark); }
@@ -191,7 +204,7 @@
   .listing-card{ display:block; }
   .listing-media{ position:relative; border-radius:var(--radius-card); overflow:hidden; aspect-ratio:4/3.2; background:var(--color-background-soft); }
   .listing-badge{
-    position:absolute; top:14px; left:14px; z-index:2; background:var(--color-white); color:var(--color-primary-green-dark);
+    position:absolute; top:14px; left:14px; z-index:2; background:var(--color-background-soft); color:var(--color-primary-green);
     font-size:11px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; padding:7px 13px; border-radius:var(--radius-pill);
   }
   .listing-view{
@@ -207,12 +220,12 @@
   .listing-meta-row{ display:flex; justify-content:space-between; align-items:baseline; margin-top:10px; gap:10px; }
   .listing-price{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; color:var(--color-primary-green); font-size:15px; }
   .listing-specs{ font-size:11px; color:var(--color-text-muted); text-align:right; }
-  .listing-info{ padding-top:16px; }
+  .listing-info{ background:var(--color-white); border:1px solid var(--color-border); border-radius:var(--radius-card); padding:16px 18px 20px; }
 
   /* ---------- testimonials ---------- */
-  #testimonials{ background:var(--color-primary-green); padding-block:clamp(72px,9vw,120px); border-radius:var(--radius-section); margin-inline:16px; color:var(--color-white); }
+  #testimonials{ background:var(--color-primary-green-dark); padding-block:clamp(72px,9vw,120px); border-radius:var(--radius-section); margin-inline:16px; color:var(--color-white); }
   @media (min-width:1300px){ #testimonials{ margin-inline:auto; max-width:1520px; } }
-  .t-card{ background:var(--color-white); border-radius:var(--radius-card); padding:clamp(28px,3.6vw,40px); color:var(--color-text); position:relative; }
+  .t-card{ background:var(--color-background); border-radius:var(--radius-card); padding:clamp(28px,3.6vw,40px); color:var(--color-text); position:relative; }
   .t-mark{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:48px; line-height:0.5; color:var(--color-accent-yellow); }
   .t-quote{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:600; font-size:16px; line-height:1.55; margin-top:14px; }
 
@@ -223,12 +236,12 @@
   .contact-dot{ position:absolute; border-radius:50%; background:var(--color-accent-yellow); opacity:0.9; }
 
   /* ---------- footer ---------- */
-  footer{ background:var(--color-primary-green-dark); color:rgba(255,255,255,0.6); }
+  footer{ background:var(--color-primary-green); color:var(--color-background-soft); }
 
   /* ---------- floating whatsapp ---------- */
   #floatWa{
     position:fixed; right:20px; bottom:20px; z-index:75; width:60px; height:60px; border-radius:50%;
-    background:var(--color-accent-yellow); color:var(--color-primary-green-dark);
+    background:var(--color-accent-yellow); color:var(--color-text);
     display:flex; align-items:center; justify-content:center; box-shadow:0 10px 26px rgba(255,181,27,0.4);
     transition:transform .25s ease, background .25s ease;
   }
@@ -339,7 +352,7 @@
       <div class="md:col-span-7 reveal reveal-d1">
         <p class="section-num">01 / ABOUT</p>
         <h2 class="font-display text-3xl md:text-5xl leading-tight mt-4">A client-first approach to property in Johor Bahru</h2>
-        <p class="mt-6 text-[var(--color-text-muted)] leading-relaxed text-base md:text-lg max-w-xl">
+        <p class="mt-6 text-[var(--color-primary-green-dark)] leading-relaxed text-base md:text-lg max-w-xl">
           Professional real estate agent based in Johor Bahru, specialising in buying, selling, and renting residential and commercial properties. With strong local market knowledge and a client-first approach, I assist homeowners, investors, and tenants in making informed property decisions. Committed to providing honest advice, smooth transactions, and reliable service from start to finish.
         </p>
         <div class="flex flex-wrap gap-3 mt-8">
@@ -920,7 +933,7 @@
       <div class="relative z-10 max-w-2xl">
         <p class="text-xs tracking-label uppercase font-bold text-[var(--color-accent-yellow)] mb-6">Get In Touch</p>
         <h2 class="contact-headline">Let&rsquo;s find your next move in <span class="text-[var(--color-accent-yellow)]">Johor Bahru</span>.</h2>
-        <p class="mt-6 max-w-md text-white/75 leading-relaxed">Reach out for a friendly, no-obligation conversation about buying, selling, renting, or investing.</p>
+        <p class="mt-6 max-w-md text-[var(--color-background-soft)] leading-relaxed">Reach out for a friendly, no-obligation conversation about buying, selling, renting, or investing.</p>
 
         <div class="flex flex-wrap gap-3 mt-8">
           <span class="btn-line-light text-xs font-semibold" style="padding:8px 16px;">Constance Chan</span>
@@ -928,7 +941,7 @@
         </div>
 
         <div class="mt-10 flex flex-col sm:flex-row gap-4">
-          <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="btn-primary text-sm font-bold focus-ring w-fit" style="background:var(--color-accent-yellow); color:var(--color-primary-green-dark);">
+          <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="btn-primary text-sm font-bold focus-ring w-fit" style="background:var(--color-accent-yellow); color:var(--color-text);">
             +60 19-228 8249
             <span class="arrow-dot" style="background:var(--color-primary-green); color:var(--color-white);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
