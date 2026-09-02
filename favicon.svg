@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bg" cx="35%" cy="30%" r="85%">
+      <stop offset="0%" stop-color="#FBF6EC"/>
+      <stop offset="100%" stop-color="#F5EBD8"/>
+    </radialGradient>
+    <linearGradient id="letterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C9A15C"/>
+      <stop offset="100%" stop-color="#9C7B3D"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="512" height="512" rx="140" fill="url(#bg)"/>
+  <text x="256" y="336" font-family="Poppins" font-weight="700"
+        font-size="264" letter-spacing="-14"
+        text-anchor="middle" fill="url(#letterGrad)">CC</text>
+</svg>
