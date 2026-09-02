@@ -184,27 +184,6 @@ function renderCard(l, { reveal }) {
       </a>`;
 }
 
-function renderHeroCard(l) {
-  const statusLabel = l.isRent ? "For Rent" : "For Sale";
-  const price = l.isRent ? `RM ${l.priceNum}/month` : `RM ${l.priceNum}`;
-  return `    <a href="https://nextsix.com${l.href}" target="_blank" rel="noopener" class="feature-prop reveal group focus-ring">
-      <div class="feature-prop-media">
-        <img src="${escapeHtml(l.imgSrc)}" alt="${altText(l)}" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-        <span class="prop-badge">${statusLabel}</span>
-      </div>
-      <div class="feature-prop-body">
-        <span class="feature-prop-kicker">Featured Listing</span>
-        <p class="prop-loc">${escapeHtml(l.loc)}</p>
-        <h3 class="feature-prop-title">${escapeHtml(l.title)}</h3>
-        <div class="prop-meta-row">
-          <span class="prop-price prop-price--lg">${escapeHtml(price)}</span>
-          <span class="prop-specs">${metaLine(l)}</span>
-        </div>
-        <span class="prop-view">View Property<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-      </div>
-    </a>`;
-}
-
 function pickFeatured(listings) {
   const sale = listings.filter((l) => !l.isRent);
   const rent = listings.filter((l) => l.isRent);
@@ -224,11 +203,7 @@ function pickFeatured(listings) {
 
   const featuredHrefs = new Set(combined.map((l) => l.href));
   const more = listings.filter((l) => !featuredHrefs.has(l.href));
-
-  // The first featured listing gets the large "featured" treatment above
-  // the grid; the rest sit in the regular grid below it.
-  const [hero, ...featured] = combined;
-  return { hero, featured, more };
+  return { featured: combined, more };
 }
 
 function replaceBetweenMarkers(html, startMarker, endMarker, newInner) {
@@ -249,21 +224,14 @@ async function main() {
     );
   }
 
-  const { hero, featured, more } = pickFeatured(listings);
+  const { featured, more } = pickFeatured(listings);
 
-  const heroHtml = renderHeroCard(hero);
   const featuredHtml = featured
     .map((l) => renderCard(l, { reveal: true }))
     .join("\n");
   const moreHtml = more.map((l) => renderCard(l, { reveal: false })).join("\n");
 
   let html = readFileSync(INDEX_HTML_PATH, "utf8");
-  html = replaceBetweenMarkers(
-    html,
-    "<!-- LISTINGS:HERO:START -->",
-    "<!-- LISTINGS:HERO:END -->",
-    heroHtml,
-  );
   html = replaceBetweenMarkers(
     html,
     "<!-- LISTINGS:FEATURED:START -->",
@@ -279,7 +247,7 @@ async function main() {
 
   writeFileSync(INDEX_HTML_PATH, html, "utf8");
   console.log(
-    `Synced ${listings.length} listings (1 hero, ${featured.length} featured, ${more.length} more).`,
+    `Synced ${listings.length} listings (${featured.length} featured, ${more.length} more).`,
   );
 }
 
