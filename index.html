@@ -166,6 +166,30 @@
   }
   .group:hover .prop-view{ opacity:1; transform:translateX(0); }
 
+  /* ---------- mortgage calculator ---------- */
+  #calculator{ background:var(--color-beige); padding-block:clamp(80px,10vw,128px); }
+  .calc-grid{ display:grid; grid-template-columns:1fr; gap:32px; }
+  @media (min-width:860px){ .calc-grid{ grid-template-columns:1fr 1fr; gap:48px; align-items:stretch; } }
+  .calc-card{ background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-card); padding:clamp(24px,3vw,36px); }
+  .calc-field + .calc-field{ margin-top:20px; }
+  .calc-field label{ display:flex; justify-content:space-between; align-items:baseline; font-size:12px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:var(--color-text-muted); margin-bottom:8px; }
+  .calc-field label .calc-val{ font-family:'Plus Jakarta Sans', sans-serif; font-size:14px; font-weight:700; color:var(--color-espresso); text-transform:none; letter-spacing:0; }
+  .calc-field input[type="number"]{
+    width:100%; border:1px solid var(--color-border); border-radius:var(--radius-button);
+    padding:12px 14px; font-size:15px; font-family:'Inter', sans-serif; color:var(--color-text);
+    background:var(--color-surface); transition:border-color .2s ease;
+  }
+  .calc-field input[type="number"]:focus{ outline:2px solid var(--color-gold); outline-offset:1px; border-color:var(--color-gold); }
+  .calc-field input[type="range"]{ width:100%; accent-color:var(--color-gold); margin-top:8px; }
+  .calc-result{ background:var(--color-espresso); color:var(--color-surface); border-radius:var(--radius-card); padding:clamp(24px,3vw,36px); display:flex; flex-direction:column; justify-content:center; }
+  .calc-result-label{ font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-beige); }
+  .calc-result-figure{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:clamp(34px,4vw,48px); color:var(--color-gold); margin-top:8px; line-height:1.1; }
+  .calc-result-sub{ font-size:13px; color:var(--color-beige); opacity:0.8; margin-top:6px; }
+  .calc-breakdown{ margin-top:24px; padding-top:20px; border-top:1px solid rgba(250,247,242,0.16); display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .calc-breakdown-item .lbl{ font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--color-beige); opacity:0.75; }
+  .calc-breakdown-item .val{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:17px; color:var(--color-surface); margin-top:4px; }
+  .calc-disclaimer{ font-size:12px; color:var(--color-text-muted); margin-top:16px; line-height:1.5; }
+
   /* ---------- testimonials ---------- */
   #testimonials{ background:var(--color-surface-soft); padding-block:clamp(80px,10vw,128px); }
   .t-mark{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:36px; line-height:0.5; color:var(--color-gold); }
@@ -200,6 +224,7 @@
       <a href="#about" class="nav-link focus-ring" data-nav="about">About</a>
       <a href="#services" class="nav-link focus-ring" data-nav="services">Services</a>
       <a href="#listings" class="nav-link focus-ring" data-nav="listings">Listings</a>
+      <a href="#calculator" class="nav-link focus-ring" data-nav="calculator">Calculator</a>
       <a href="#testimonials" class="nav-link focus-ring" data-nav="testimonials">Testimonials</a>
       <a href="#contact" class="nav-link focus-ring" data-nav="contact">Contact</a>
     </nav>
@@ -217,6 +242,7 @@
     <a href="#about" class="focus-ring py-2">About</a>
     <a href="#services" class="focus-ring py-2">Services</a>
     <a href="#listings" class="focus-ring py-2">Listings</a>
+    <a href="#calculator" class="focus-ring py-2">Calculator</a>
     <a href="#testimonials" class="focus-ring py-2">Testimonials</a>
     <a href="#contact" class="focus-ring py-2">Contact</a>
   </div>
@@ -829,6 +855,65 @@
   </div>
 </section>
 
+<!-- MORTGAGE CALCULATOR -->
+<section id="calculator">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-10">
+    <div class="max-w-xl reveal">
+      <p class="section-label">Plan Ahead</p>
+      <h2 class="font-display text-3xl md:text-5xl leading-tight mt-4" style="color:var(--color-espresso);">Mortgage Calculator</h2>
+      <p class="mt-4 text-[var(--color-text-muted)] leading-relaxed">Get a quick estimate of your monthly repayment for a residential or commercial property in Johor Bahru.</p>
+    </div>
+
+    <div class="calc-grid mt-10 reveal reveal-d1">
+      <div class="calc-card">
+        <div class="calc-field">
+          <label for="calcPrice">Property Price <span class="calc-val" id="calcPriceVal">RM 500,000</span></label>
+          <input type="number" id="calcPrice" min="50000" step="10000" value="500000" inputmode="numeric" aria-describedby="calcPriceVal">
+        </div>
+        <div class="calc-field">
+          <label for="calcDown">Down Payment <span class="calc-val" id="calcDownVal">10%</span></label>
+          <input type="range" id="calcDown" min="0" max="50" step="1" value="10" aria-describedby="calcDownVal">
+        </div>
+        <div class="calc-field">
+          <label for="calcRate">Interest Rate (per year) <span class="calc-val" id="calcRateVal">4.0%</span></label>
+          <input type="range" id="calcRate" min="1" max="8" step="0.1" value="4" aria-describedby="calcRateVal">
+        </div>
+        <div class="calc-field">
+          <label for="calcYears">Loan Tenure <span class="calc-val" id="calcYearsVal">30 years</span></label>
+          <input type="range" id="calcYears" min="5" max="35" step="1" value="30" aria-describedby="calcYearsVal">
+        </div>
+      </div>
+
+      <div class="calc-result">
+        <p class="calc-result-label">Estimated Monthly Repayment</p>
+        <p class="calc-result-figure" id="calcMonthly">RM 0</p>
+        <p class="calc-result-sub">Based on the figures on the left</p>
+        <div class="calc-breakdown">
+          <div class="calc-breakdown-item">
+            <p class="lbl">Loan Amount</p>
+            <p class="val" id="calcPrincipal">RM 0</p>
+          </div>
+          <div class="calc-breakdown-item">
+            <p class="lbl">Down Payment</p>
+            <p class="val" id="calcDownAmount">RM 0</p>
+          </div>
+          <div class="calc-breakdown-item">
+            <p class="lbl">Total Interest</p>
+            <p class="val" id="calcInterest">RM 0</p>
+          </div>
+          <div class="calc-breakdown-item">
+            <p class="lbl">Total Payment</p>
+            <p class="val" id="calcTotal">RM 0</p>
+          </div>
+        </div>
+        <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="btn-gold justify-center text-sm font-semibold focus-ring mt-6">Discuss This With Constance</a>
+      </div>
+    </div>
+
+    <p class="calc-disclaimer reveal reveal-d2">This calculator provides an estimate for reference only and does not constitute financial advice or a loan offer. Actual monthly repayment, eligibility and interest rate depend on the bank's assessment. Speak with Constance or your bank for an accurate quote.</p>
+  </div>
+</section>
+
 <!-- TESTIMONIALS -->
 <section id="testimonials">
   <div class="max-w-[1280px] mx-auto px-6 md:px-10">
@@ -962,6 +1047,62 @@
   } else {
     revealEls.forEach(el => el.classList.add('is-visible'));
   }
+
+  // mortgage calculator
+  (function () {
+    const priceEl = document.getElementById('calcPrice');
+    const downEl = document.getElementById('calcDown');
+    const rateEl = document.getElementById('calcRate');
+    const yearsEl = document.getElementById('calcYears');
+    if (!priceEl || !downEl || !rateEl || !yearsEl) return;
+
+    const priceValEl = document.getElementById('calcPriceVal');
+    const downValEl = document.getElementById('calcDownVal');
+    const rateValEl = document.getElementById('calcRateVal');
+    const yearsValEl = document.getElementById('calcYearsVal');
+    const monthlyEl = document.getElementById('calcMonthly');
+    const principalEl = document.getElementById('calcPrincipal');
+    const downAmountEl = document.getElementById('calcDownAmount');
+    const interestEl = document.getElementById('calcInterest');
+    const totalEl = document.getElementById('calcTotal');
+
+    const fmtRM = (n) => 'RM ' + Math.round(Math.max(n, 0)).toLocaleString('en-MY');
+
+    function calculate() {
+      const price = parseFloat(priceEl.value) || 0;
+      const downPct = parseFloat(downEl.value) || 0;
+      const ratePct = parseFloat(rateEl.value) || 0;
+      const years = parseFloat(yearsEl.value) || 0;
+
+      const downAmount = price * (downPct / 100);
+      const principal = Math.max(price - downAmount, 0);
+      const monthlyRate = (ratePct / 100) / 12;
+      const numPayments = years * 12;
+
+      let monthly = 0;
+      if (principal > 0 && numPayments > 0) {
+        monthly = monthlyRate === 0
+          ? principal / numPayments
+          : (principal * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+      }
+      const totalPayment = monthly * numPayments;
+      const totalInterest = Math.max(totalPayment - principal, 0);
+
+      priceValEl.textContent = fmtRM(price);
+      downValEl.textContent = downPct + '%';
+      rateValEl.textContent = ratePct.toFixed(1) + '%';
+      yearsValEl.textContent = years + (years === 1 ? ' year' : ' years');
+
+      monthlyEl.textContent = fmtRM(monthly);
+      principalEl.textContent = fmtRM(principal);
+      downAmountEl.textContent = fmtRM(downAmount);
+      interestEl.textContent = fmtRM(totalInterest);
+      totalEl.textContent = fmtRM(totalPayment);
+    }
+
+    [priceEl, downEl, rateEl, yearsEl].forEach(el => el.addEventListener('input', calculate));
+    calculate();
+  })();
 </script>
 
 </body>
