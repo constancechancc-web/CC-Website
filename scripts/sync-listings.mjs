@@ -207,8 +207,11 @@ function pickFeatured(listings) {
 }
 
 function replaceBetweenMarkers(html, startMarker, endMarker, newInner) {
+  // \r?\n rather than \n: the repo has picked up CRLF line endings before
+  // (Windows checkouts convert LF -> CRLF), which silently broke this match
+  // since "marker-->\n" no longer immediately followed the marker.
   const pattern = new RegExp(
-    `(${startMarker}\\n)([\\s\\S]*?)(\\n\\s*${endMarker})`,
+    `(${startMarker}\\r?\\n)([\\s\\S]*?)(\\r?\\n\\s*${endMarker})`,
   );
   if (!pattern.test(html)) {
     throw new Error(`Markers not found: ${startMarker} / ${endMarker}`);
