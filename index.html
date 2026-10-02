@@ -175,8 +175,7 @@
   .calc-field-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   .calc-field-row .calc-field{ margin-top:0; }
   .calc-field-row + .calc-field{ margin-top:20px; }
-  .calc-field label{ display:flex; align-items:center; gap:6px; font-size:12px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:var(--color-text-muted); margin-bottom:8px; }
-  .calc-info{ display:inline-flex; align-items:center; justify-content:center; width:15px; height:15px; border-radius:50%; border:1px solid var(--color-text-muted); font-size:10px; font-style:normal; font-weight:700; text-transform:none; letter-spacing:0; color:var(--color-text-muted); cursor:help; flex-shrink:0; }
+  .calc-field label{ display:block; font-size:12px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:var(--color-text-muted); margin-bottom:8px; }
   .calc-input-group{ display:flex; align-items:stretch; border:1px solid var(--color-border); border-radius:var(--radius-button); background:var(--color-surface); overflow:hidden; transition:border-color .2s ease, outline-color .2s ease; }
   .calc-input-group:focus-within{ outline:2px solid var(--color-gold); outline-offset:1px; border-color:var(--color-gold); }
   .calc-prefix{ display:flex; align-items:center; justify-content:center; min-width:46px; padding:0 12px; background:var(--color-surface-soft); color:var(--color-text-muted); font-size:13px; font-weight:700; border-right:1px solid var(--color-border); }
@@ -948,7 +947,7 @@
     <div class="calc-grid mt-10 reveal reveal-d1">
       <div class="calc-card">
         <div class="calc-field">
-          <label for="calcLoan">Loan Amount <span class="calc-info" tabindex="0" title="The total amount you plan to borrow from the bank.">&#9432;</span></label>
+          <label for="calcLoan">Loan Amount</label>
           <div class="calc-input-group">
             <span class="calc-prefix">RM</span>
             <input type="number" id="calcLoan" min="0" step="1000" placeholder="e.g. 450,000" inputmode="numeric">
@@ -956,14 +955,14 @@
         </div>
         <div class="calc-field-row">
           <div class="calc-field">
-            <label for="calcRate">Interest Rate <span class="calc-info" tabindex="0" title="The annual interest rate offered by your bank.">&#9432;</span></label>
+            <label for="calcRate">Interest Rate</label>
             <div class="calc-input-group">
               <span class="calc-prefix">%</span>
               <input type="number" id="calcRate" min="0" step="0.1" placeholder="e.g. 4.0" inputmode="decimal">
             </div>
           </div>
           <div class="calc-field">
-            <label for="calcYears">Loan Tenure <span class="calc-info" tabindex="0" title="The number of years over which you'll repay the loan.">&#9432;</span></label>
+            <label for="calcYears">Loan Tenure</label>
             <div class="calc-input-group">
               <span class="calc-prefix">Yrs</span>
               <input type="number" id="calcYears" min="1" step="1" placeholder="e.g. 30" inputmode="numeric">
