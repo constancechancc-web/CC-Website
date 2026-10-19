@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --color-espresso: #34261F;
@@ -36,10 +36,10 @@
   html{ scroll-behavior:smooth; }
   body{
     background:var(--color-ivory); color:var(--color-text);
-    font-family:'Inter', sans-serif;
+    font-family:'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
     overflow-x:hidden;
   }
-  .font-display{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; }
+  .font-display{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:700; }
   .tracking-label{ letter-spacing:0.08em; }
   ::selection{ background:var(--color-gold); color:var(--color-espresso); }
 
@@ -92,7 +92,13 @@
   /* ---------- nav ---------- */
   #siteHeader{ position:fixed; top:0; left:0; right:0; z-index:80; transition:background-color .35s ease, backdrop-filter .35s ease, border-color .35s ease, padding .35s ease; border-bottom:1px solid transparent; }
   #siteHeader.scrolled{ background:rgba(250,247,242,0.92); backdrop-filter:blur(10px); border-bottom-color:var(--color-border); box-shadow:var(--shadow-subtle); }
-  .nav-word{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; color:var(--color-espresso); }
+  .lang-toggle{ display:inline-flex; align-items:center; border:1px solid var(--color-border); border-radius:999px; padding:3px; background:var(--color-surface); font-size:12px; font-weight:700; line-height:1; cursor:pointer; }
+  .lang-toggle span{ padding:7px 11px; border-radius:999px; color:var(--color-text-muted); transition:background-color .2s ease, color .2s ease; }
+  .lang-toggle span.active{ background:var(--color-espresso); color:var(--color-surface); }
+  .lang-toggle:hover{ border-color:var(--color-gold); }
+  html[lang="zh-Hans"] .hero-headline{ letter-spacing:0; line-height:1.15; }
+  html[lang="zh-Hans"] #mobileMenu a{ font-size:8vw; }
+  .nav-word{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:700; color:var(--color-espresso); }
   .nav-link{ position:relative; color:var(--color-text-muted); transition:color .2s ease; padding-bottom:4px; }
   .nav-link::after{ content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--color-gold); transition:width .3s ease; }
   .nav-link:hover, .nav-link.active{ color:var(--color-espresso); }
@@ -100,14 +106,14 @@
 
   #mobileMenu{ position:fixed; inset:0; z-index:90; background:var(--color-ivory); flex-direction:column; }
   #mobileMenu.open{ display:flex; }
-  #mobileMenu a{ font-family:'Plus Jakarta Sans', sans-serif; color:var(--color-espresso); font-size:9vw; font-weight:700; }
+  #mobileMenu a{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; color:var(--color-espresso); font-size:9vw; font-weight:700; }
   #mobileMenu a:hover, #mobileMenu a.active{ color:var(--color-gold); }
 
   /* ---------- hero ---------- */
   #top{ position:relative; padding-top:clamp(112px,15vw,152px); padding-bottom:clamp(56px,7vw,88px); overflow:hidden; }
   .eyebrow-label{ display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-coffee); }
   .eyebrow-label .dot{ width:6px; height:6px; border-radius:50%; background:var(--color-gold); }
-  .hero-headline{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; line-height:1.05; letter-spacing:-0.01em; font-size:clamp(38px,5.4vw,68px); color:var(--color-espresso); }
+  .hero-headline{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:800; line-height:1.05; letter-spacing:-0.01em; font-size:clamp(38px,5.4vw,68px); color:var(--color-espresso); }
   .hero-credential{ display:inline-flex; align-items:center; gap:10px; }
   .hero-credential .chip{ border:1px solid var(--color-border); border-radius:999px; padding:5px 12px; font-size:12px; font-weight:600; color:var(--color-coffee); background:var(--color-surface); }
 
@@ -128,7 +134,7 @@
     .trust-item + .trust-item{ border-top:0; border-left:1px solid var(--color-border); padding-left:24px; }
   }
   .trust-item .lbl{ font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-text-muted); }
-  .trust-item .val{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:15px; color:var(--color-espresso); }
+  .trust-item .val{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:700; font-size:15px; color:var(--color-espresso); }
 
   /* ---------- about ---------- */
   #about{ background:var(--color-beige); padding-block:clamp(80px,10vw,128px); }
@@ -142,7 +148,7 @@
   .service-card{ border:1px solid var(--color-border); border-radius:var(--radius-card); padding:28px; transition:border-color .25s ease, transform .25s ease; background:var(--color-surface); }
   .service-card:hover{ border-color:var(--color-gold); transform:translateY(-2px); }
   .service-icon{ width:40px; height:40px; border-radius:10px; background:var(--color-surface-soft); display:flex; align-items:center; justify-content:center; color:var(--color-espresso); }
-  .service-num{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:12px; color:var(--color-text-muted); }
+  .service-num{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:700; font-size:12px; color:var(--color-text-muted); }
 
   /* ---------- listings ---------- */
   #listings{ padding-block:clamp(80px,10vw,128px); }
@@ -156,9 +162,9 @@
   .prop-badge{ position:absolute; top:12px; left:12px; z-index:2; background:var(--color-surface); color:var(--color-espresso); font-size:11px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; padding:6px 12px; border-radius:999px; box-shadow:var(--shadow-subtle); }
   .prop-body{ padding:20px; }
   .prop-loc{ font-size:12px; font-weight:600; color:var(--color-text-muted); text-transform:uppercase; letter-spacing:0.03em; }
-  .prop-title{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:17px; margin-top:6px; line-height:1.3; }
+  .prop-title{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:700; font-size:17px; margin-top:6px; line-height:1.3; }
   .prop-meta-row{ display:flex; justify-content:space-between; align-items:baseline; margin-top:10px; gap:10px; }
-  .prop-price{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; color:var(--color-espresso); font-size:15px; }
+  .prop-price{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:700; color:var(--color-espresso); font-size:15px; }
   .prop-specs{ font-size:11px; color:var(--color-text-muted); text-align:right; }
   .prop-view{
     display:inline-flex; align-items:center; gap:6px; margin-top:14px;
@@ -169,11 +175,11 @@
 
   /* ---------- mortgage calculator ---------- */
   #calculator{ background:var(--color-beige); padding-block:clamp(80px,10vw,128px); }
-  .calc-grid{ display:grid; grid-template-columns:1fr; gap:32px; }
-  @media (min-width:860px){ .calc-grid{ grid-template-columns:1fr 1fr; gap:48px; align-items:stretch; } }
+  .calc-grid{ display:grid; grid-template-columns:minmax(0,1fr); gap:32px; }
+  @media (min-width:860px){ .calc-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:48px; align-items:stretch; } }
   .calc-card{ background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-card); padding:clamp(24px,3vw,36px); }
   .calc-field + .calc-field{ margin-top:20px; }
-  .calc-field-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .calc-field-row{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
   .calc-field-row .calc-field{ margin-top:0; }
   .calc-field-row + .calc-field{ margin-top:20px; }
   .calc-field label{ display:block; font-size:12px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:var(--color-text-muted); margin-bottom:8px; }
@@ -181,7 +187,7 @@
   .calc-input-group:focus-within{ outline:2px solid var(--color-gold); outline-offset:1px; border-color:var(--color-gold); }
   .calc-prefix{ display:flex; align-items:center; justify-content:center; min-width:46px; padding:0 12px; background:var(--color-surface-soft); color:var(--color-text-muted); font-size:13px; font-weight:700; border-right:1px solid var(--color-border); }
   .calc-input-group input[type="number"]{
-    flex:1; min-width:0; border:0; padding:12px 14px; font-size:15px; font-family:'Inter', sans-serif;
+    flex:1; min-width:0; width:100%; border:0; padding:12px 14px; font-size:15px; font-family:'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
     color:var(--color-text); background:transparent;
   }
   .calc-input-group input[type="number"]:focus{ outline:none; }
@@ -189,22 +195,22 @@
   .calc-error{ font-size:13px; color:#B3261E; margin-top:12px; }
   .calc-result{ background:var(--color-espresso); color:var(--color-surface); border-radius:var(--radius-card); padding:clamp(24px,3vw,36px); display:flex; flex-direction:column; justify-content:center; }
   .calc-result-label{ font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-beige); }
-  .calc-result-figure{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:clamp(34px,4vw,48px); color:var(--color-gold); margin-top:8px; line-height:1.1; }
+  .calc-result-figure{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:800; font-size:clamp(34px,4vw,48px); color:var(--color-gold); margin-top:8px; line-height:1.1; }
   .calc-result-sub{ font-size:13px; color:var(--color-beige); opacity:0.8; margin-top:6px; }
   .calc-breakdown{ margin-top:24px; padding-top:20px; border-top:1px solid rgba(250,247,242,0.16); display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
   .calc-breakdown-item .lbl{ font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--color-beige); opacity:0.75; }
-  .calc-breakdown-item .val{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:17px; color:var(--color-surface); margin-top:4px; }
+  .calc-breakdown-item .val{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:700; font-size:17px; color:var(--color-surface); margin-top:4px; }
   .calc-disclaimer{ font-size:12px; color:var(--color-text-muted); margin-top:16px; line-height:1.5; }
 
   /* ---------- testimonials ---------- */
   #testimonials{ background:var(--color-surface-soft); padding-block:clamp(80px,10vw,128px); }
-  .t-mark{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:36px; line-height:0.5; color:var(--color-gold); }
-  .t-quote{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:600; font-size:15px; line-height:1.5; margin-top:10px; color:var(--color-espresso); }
+  .t-mark{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:800; font-size:36px; line-height:0.5; color:var(--color-gold); }
+  .t-quote{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:600; font-size:15px; line-height:1.5; margin-top:10px; color:var(--color-espresso); }
   .t-card{ background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-card); padding:28px; }
 
   /* ---------- contact ---------- */
   #contact{ background:var(--color-espresso); color:var(--color-surface); padding-block:clamp(80px,10vw,128px); }
-  .contact-headline{ font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:clamp(32px,4.2vw,52px); line-height:1.1; }
+  .contact-headline{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:800; font-size:clamp(32px,4.2vw,52px); line-height:1.1; }
   .info-chip{ border:1px solid rgba(250,247,242,0.25); border-radius:999px; padding:8px 16px; font-size:12px; font-weight:600; color:var(--color-beige); }
 
   /* ---------- footer ---------- */
@@ -234,16 +240,20 @@
       <a href="#testimonials" class="nav-link focus-ring" data-nav="testimonials">Testimonials</a>
       <a href="#contact" class="nav-link focus-ring" data-nav="contact">Contact</a>
     </nav>
-    <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="btn-primary hidden md:inline-flex text-sm font-semibold focus-ring" style="padding:11px 20px;">WhatsApp</a>
-    <button id="menuBtn" aria-label="Open menu" class="md:hidden focus-ring text-[var(--color-espresso)] p-2" aria-expanded="false" aria-controls="mobileMenu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
+    <div class="flex items-center gap-3">
+      <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="btn-primary hidden md:inline-flex text-sm font-semibold focus-ring" style="padding:11px 20px;">WhatsApp</a>
+      <button type="button" class="lang-toggle focus-ring" aria-label="Switch language / 切换语言"><span data-lang="en">EN</span><span data-lang="zh">中文</span></button>
+      <button id="menuBtn" aria-label="Open menu" class="md:hidden focus-ring text-[var(--color-espresso)] p-2" aria-expanded="false" aria-controls="mobileMenu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 <div id="mobileMenu" class="hidden">
   <button id="menuCloseBtn" aria-label="Close menu" class="focus-ring text-[var(--color-espresso)] absolute top-6 right-6">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
+  <button type="button" class="lang-toggle focus-ring absolute top-6 left-8" aria-label="Switch language / 切换语言"><span data-lang="en">EN</span><span data-lang="zh">中文</span></button>
   <div class="flex-1 flex flex-col justify-center gap-2 px-8">
     <a href="#about" class="focus-ring py-2">About</a>
     <a href="#services" class="focus-ring py-2">Services</a>
@@ -1158,7 +1168,7 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="max-w-[1280px] mx-auto px-6 md:px-10">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       <div class="reveal">
         <p class="text-xs tracking-label uppercase font-bold" style="color:var(--color-gold);">Get In Touch</p>
         <h2 class="contact-headline mt-4">Let's find your next move in Johor Bahru</h2>
@@ -1179,7 +1189,7 @@
         <a href="mailto:constancechan.theroof@gmail.com" class="btn-line-light justify-between text-sm font-semibold focus-ring w-full" style="padding:20px 26px;">
           <span>
             <span class="block text-xs uppercase tracking-label opacity-70 mb-1">Email</span>
-            <span class="font-display text-lg">constancechan.theroof@gmail.com</span>
+            <span class="font-display text-lg [overflow-wrap:anywhere]">constancechan.theroof@gmail.com</span>
           </span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
@@ -1223,6 +1233,7 @@
       const isHidden = moreListings.classList.contains('hidden');
       moreListings.classList.toggle('hidden');
       viewMoreBtn.firstChild.textContent = isHidden ? 'View Fewer Listings ' : 'View More Listings ';
+      if (window.i18nApply) window.i18nApply(viewMoreBtn);
       viewMoreIcon.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
       if (isHidden) moreListings.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
@@ -1293,6 +1304,7 @@
       const totalInterest = Math.max(totalPayment - principal, 0);
 
       subEl.textContent = 'Based on the figures you entered';
+      if (window.i18nApply) window.i18nApply(subEl);
       monthlyEl.textContent = fmtRM(monthly);
       principalEl.textContent = fmtRM(principal);
       interestEl.textContent = fmtRM(totalInterest);
@@ -1303,6 +1315,130 @@
     [loanEl, rateEl, yearsEl].forEach(el => el.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') { e.preventDefault(); calculate(); }
     }));
+  })();
+
+  // language switch (English <-> Simplified Chinese)
+  (function () {
+    // Keys are the exact English text; anything without an entry (names, PEA3963,
+    // listing titles/locations, client testimonials) deliberately stays as-is.
+    const ZH = {
+      'About': '关于我', 'Services': '服务', 'Listings': '房源', 'Calculator': '房贷计算器',
+      'Testimonials': '客户评价', 'Contact': '联系我',
+      'Chat on WhatsApp': '通过 WhatsApp 联系我',
+      'Open menu': '打开菜单', 'Close menu': '关闭菜单',
+      'Chat with Constance Chan on WhatsApp': '通过 WhatsApp 联系 Constance Chan',
+      'Johor Bahru · Residential & Commercial': '新山 · 住宅与商业地产',
+      'JB Property': '新山房产', 'Agent': '经纪',
+      "Helping homeowners, investors, and tenants navigate Johor Bahru's property market with honesty and care.": '以诚信与用心，协助屋主、投资者和租户在新山房产市场中找到方向。',
+      'View Listings': '查看房源',
+      'Registration No.': '注册编号', 'Market Focus': '主要市场', 'Johor Bahru': '新山',
+      'Property Type': '物业类型', 'Residential': '住宅', 'Commercial': '商业',
+      'About Constance': '关于 Constance',
+      'A client-first approach to property in Johor Bahru': '以客户为先的新山房产服务',
+      'Professional real estate agent based in Johor Bahru, specialising in buying, selling, and renting residential and commercial properties. With strong local market knowledge and a client-first approach, I assist homeowners, investors, and tenants in making informed property decisions. Committed to providing honest advice, smooth transactions, and reliable service from start to finish.':
+        '我是一名常驻新山的专业房地产经纪，专注于住宅及商业物业的买卖与租赁。凭借深厚的本地市场知识和以客户为先的服务理念，我协助屋主、投资者和租户做出明智的房产决定。我致力于提供诚实的建议、顺畅的交易流程，以及从头到尾可靠的服务。',
+      'Residential & Commercial': '住宅与商业',
+      'What I Do': '我的服务',
+      'Services tailored to every stage of your property journey': '为您房产旅程的每个阶段量身打造的服务',
+      'Sales': '销售', 'Leasing': '租赁', 'Buying': '购买', 'Investment': '投资',
+      'Guiding sellers through pricing, presentation, and negotiation for a smooth sale.': '协助卖家完成定价、展示与议价，让交易顺利成交。',
+      'Matching tenants and landlords with properties and agreements that fit.': '为租户和房东配对合适的物业与租约。',
+      'Helping buyers find the right home or unit, with honest guidance throughout.': '全程以诚实的指导，协助买家找到合适的住家或单位。',
+      "Advising investors on opportunities across JB's residential and commercial market.": '为投资者分析新山住宅及商业市场的投资机会。',
+      'Current Inventory': '现有房源', 'Featured Listings': '精选房源',
+      'View All on NextSix': '在 NextSix 查看全部',
+      'For Sale': '出售', 'For Rent': '出租', 'View Property': '查看房源',
+      'View More Listings': '查看更多房源', 'View Fewer Listings': '收起房源',
+      'View All Listings on NextSix': '在 NextSix 查看全部房源',
+      'Also listed on': '同时刊登于',
+      'Plan Ahead': '提前规划', 'Mortgage Calculator': '房贷计算器',
+      'Get a quick estimate of your monthly repayment for a residential or commercial property in Johor Bahru.': '快速估算您在新山购买住宅或商业物业的每月还款额。',
+      'Loan Amount': '贷款金额', 'Interest Rate': '利率', 'Loan Tenure': '贷款年限', 'Yrs': '年',
+      'Calculate Monthly Mortgage': '计算每月房贷',
+      'Please enter a valid loan amount, interest rate and loan tenure.': '请输入有效的贷款金额、利率和贷款年限。',
+      'Estimated Monthly Repayment': '预计每月还款额',
+      'Fill in the fields and press Calculate': '请填写各栏并点击“计算”',
+      'Based on the figures you entered': '根据您输入的数字计算',
+      'Total Interest': '总利息', 'Total Payment': '还款总额',
+      'Discuss This With Constance': '与 Constance 讨论此方案',
+      "This calculator provides an estimate for reference only and does not constitute financial advice or a loan offer. Actual monthly repayment, eligibility and interest rate depend on the bank's assessment. Speak with Constance or your bank for an accurate quote.":
+        '本计算器仅提供估算，仅供参考，不构成财务建议或贷款承诺。实际每月还款额、贷款资格及利率须视银行评估而定。如需准确报价，请联系 Constance 或您的银行。',
+      'e.g. 450,000': '例如 450,000', 'e.g. 4.0': '例如 4.0', 'e.g. 30': '例如 30',
+      'Kind Words': '客户心声', 'What clients say': '客户怎么说',
+      'Read More Reviews on Google': '在 Google 查看更多评价',
+      'Get In Touch': '联系我',
+      "Let's find your next move in Johor Bahru": '让我们一起规划您在新山的下一步',
+      'Reach out for a friendly, no-obligation conversation about buying, selling, renting, or investing.': '欢迎联系我，轻松聊聊买房、卖房、租房或投资，无需任何承诺。',
+      'Email': '电邮',
+      '© 2026 Constance Chan · Johor Bahru': '© 2026 Constance Chan · 新山',
+      'Switch language / 切换语言': '切换语言 / Switch language'
+    };
+    const TITLE = { en: document.title, zh: 'Constance Chan | 新山房产经纪' };
+    const PATTERNS = [
+      [/^RM (.+)\/month$/, (m) => 'RM ' + m[1] + '/月'],
+      [/^Studio · (\d+) Baths? · (.*?) ?sqft$/, (m) => '套房 · ' + m[1] + ' 浴室' + (m[2] ? ' · ' + m[2] + ' 平方尺' : '')],
+      [/^(.+?) Beds? · (\d+) Baths? · (.*?) ?sqft$/, (m) => m[1] + ' 卧室 · ' + m[2] + ' 浴室' + (m[3] ? ' · ' + m[3] + ' 平方尺' : '')],
+      [/^Commercial · (.*?) ?sqft$/, (m) => '商业' + (m[1] ? ' · ' + m[1] + ' 平方尺' : '')]
+    ];
+    const norm = (s) => s.replace(/\s+/g, ' ').trim().replace(/[‘’]/g, "'");
+    function translate(s) {
+      const k = norm(s);
+      if (!k) return null;
+      if (Object.prototype.hasOwnProperty.call(ZH, k)) return ZH[k];
+      for (const [re, fn] of PATTERNS) { const m = k.match(re); if (m) return fn(m); }
+      return null;
+    }
+
+    const store = new WeakMap();
+    const ATTRS = ['aria-label', 'placeholder', 'title'];
+    let lang = 'en';
+
+    function applyText(node) {
+      let entry = store.get(node);
+      if (entry && node.nodeValue !== entry.applied) entry = null;
+      const orig = entry ? entry.orig : node.nodeValue;
+      const out = lang === 'zh' ? translate(orig) : null;
+      const next = out === null ? orig : out;
+      store.set(node, { orig, applied: next });
+      if (node.nodeValue !== next) node.nodeValue = next;
+    }
+    function applyAttr(el, attr) {
+      const key = 'data-i18n-' + attr;
+      if (!el.hasAttribute(key)) el.setAttribute(key, el.getAttribute(attr));
+      const orig = el.getAttribute(key);
+      const out = lang === 'zh' ? translate(orig) : null;
+      el.setAttribute(attr, out === null ? orig : out);
+    }
+    function apply(root) {
+      root = root || document.body;
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode: (n) => /^(SCRIPT|STYLE|NOSCRIPT)$/.test(n.parentNode.nodeName) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT
+      });
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(applyText);
+      const scope = root.nodeType === 1 ? [root, ...root.querySelectorAll('*')] : [];
+      scope.forEach((el) => ATTRS.forEach((a) => { if (el.hasAttribute(a) || el.hasAttribute('data-i18n-' + a)) applyAttr(el, a); }));
+    }
+    window.i18nApply = apply;
+
+    function setLang(next, persist) {
+      lang = next === 'zh' ? 'zh' : 'en';
+      document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : 'en';
+      document.title = TITLE[lang];
+      apply(document.body);
+      document.querySelectorAll('.lang-toggle span').forEach((s) => s.classList.toggle('active', s.dataset.lang === lang));
+      if (persist) { try { localStorage.setItem('cc-lang', lang); } catch (e) {} }
+    }
+
+    document.querySelectorAll('.lang-toggle').forEach((btn) => btn.addEventListener('click', () => setLang(lang === 'zh' ? 'en' : 'zh', true)));
+
+    let initial = 'en';
+    try {
+      const q = new URLSearchParams(location.search).get('lang');
+      initial = q === 'zh' || q === 'en' ? q : (localStorage.getItem('cc-lang') || 'en');
+    } catch (e) {}
+    setLang(initial, false);
   })();
 </script>
 
