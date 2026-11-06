@@ -6,6 +6,10 @@
 <meta name="facebook-domain-verification" content="pbppaqw617996wpmox0h0405wsexqe" />
 <meta name="google-site-verification" content="1bYdHQtM1ToVB7K6M19a-ERN8P1BwYe4I6L85gzzuXM" />
 <title>Constance Chan | JB Property Agent</title>
+<link rel="canonical" href="https://constancechan.my/">
+<link rel="alternate" hreflang="en" href="https://constancechan.my/">
+<link rel="alternate" hreflang="zh-Hans" href="https://constancechan.my/zh/">
+<link rel="alternate" hreflang="x-default" href="https://constancechan.my/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -93,12 +97,15 @@
   #siteHeader{ position:fixed; top:0; left:0; right:0; z-index:80; transition:background-color .35s ease, backdrop-filter .35s ease, border-color .35s ease, padding .35s ease; border-bottom:1px solid transparent; }
   #siteHeader.scrolled{ background:rgba(250,247,242,0.92); backdrop-filter:blur(10px); border-bottom-color:var(--color-border); box-shadow:var(--shadow-subtle); }
   .lang-toggle{ display:inline-flex; align-items:center; border:1px solid var(--color-border); border-radius:999px; padding:3px; background:var(--color-surface); font-size:12px; font-weight:700; line-height:1; cursor:pointer; }
-  .lang-toggle span{ padding:7px 11px; border-radius:999px; color:var(--color-text-muted); transition:background-color .2s ease, color .2s ease; }
-  .lang-toggle span.active{ background:var(--color-espresso); color:var(--color-surface); }
+  .lang-toggle a{ padding:7px 11px; border-radius:999px; color:var(--color-text-muted); text-decoration:none; transition:background-color .2s ease, color .2s ease; }
+  .lang-toggle a:hover{ color:var(--color-espresso); }
+  .lang-toggle a.active, .lang-toggle a.active:hover{ background:var(--color-espresso); color:var(--color-surface); }
+  #mobileMenu .lang-toggle a{ font-family:'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-size:12px; font-weight:700; color:var(--color-text-muted); }
+  #mobileMenu .lang-toggle a.active, #mobileMenu .lang-toggle a.active:hover{ color:var(--color-surface); }
   .lang-toggle:hover{ border-color:var(--color-gold); }
   html[lang="zh-Hans"] .hero-headline{ letter-spacing:0; line-height:1.15; }
   html[lang="zh-Hans"] #mobileMenu a{ font-size:8vw; }
-  .nav-word, .lang-toggle span{ white-space:nowrap; }
+  .nav-word, .lang-toggle a{ white-space:nowrap; }
   .nav-word{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:700; color:var(--color-espresso); }
   .nav-link{ position:relative; color:var(--color-text-muted); transition:color .2s ease; padding-bottom:4px; }
   .nav-link::after{ content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--color-gold); transition:width .3s ease; }
@@ -298,7 +305,7 @@
     </nav>
     <div class="flex items-center gap-3">
       <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="btn-primary hidden lg:inline-flex text-sm font-semibold focus-ring" style="padding:11px 20px;">WhatsApp</a>
-      <button type="button" class="lang-toggle focus-ring" aria-label="Switch language / 切换语言"><span data-lang="en">EN</span><span data-lang="zh">中文</span></button>
+      <div class="lang-toggle" role="group" aria-label="Language / 语言"><a href="/" hreflang="en" lang="en" class="active" aria-current="page">EN</a><a href="/zh/" hreflang="zh-Hans" lang="zh-Hans">中文</a></div>
       <button id="menuBtn" aria-label="Open menu" class="lg:hidden focus-ring text-[var(--color-espresso)] p-2" aria-expanded="false" aria-controls="mobileMenu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
@@ -309,7 +316,7 @@
   <button id="menuCloseBtn" aria-label="Close menu" class="focus-ring text-[var(--color-espresso)] absolute top-6 right-6">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
-  <button type="button" class="lang-toggle focus-ring absolute top-6 left-8" aria-label="Switch language / 切换语言"><span data-lang="en">EN</span><span data-lang="zh">中文</span></button>
+  <div class="lang-toggle absolute top-6 left-8" role="group" aria-label="Language / 语言"><a href="/" hreflang="en" lang="en" class="active" aria-current="page">EN</a><a href="/zh/" hreflang="zh-Hans" lang="zh-Hans">中文</a></div>
   <div class="flex-1 flex flex-col justify-center gap-2 px-8">
     <a href="#about" class="focus-ring py-2">About</a>
     <a href="#services" class="focus-ring py-2">Services</a>
@@ -1451,6 +1458,11 @@
 </a>
 
 <script>
+  // The /zh/ page is generated from this file by scripts/build-zh.mjs, which fills in CC_T.
+  const CC_T = /*CC_T*/{};
+  const t = (s) => CC_T[s] || s;
+  if (new URLSearchParams(location.search).get('lang') === 'zh') location.replace('/zh/' + location.hash);
+
   const header = document.getElementById('siteHeader');
   const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
   onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
@@ -1500,9 +1512,8 @@
       const total = current === 'featured' ? all.length : hits.length;
       const base = current === 'featured' ? hits.length : Math.min(hits.length, LIMIT);
       moreWrap.hidden = total <= base;
-      moreBtn.firstChild.textContent = expanded ? 'View Fewer Listings ' : 'View More Listings ';
+      moreBtn.firstChild.textContent = t(expanded ? 'View Fewer Listings' : 'View More Listings') + ' ';
       moreIcon.style.transform = expanded ? 'rotate(180deg)' : 'rotate(0deg)';
-      if (window.i18nApply) window.i18nApply(moreBtn);
     }
 
     function select(filter) {
@@ -1594,8 +1605,7 @@
       const totalPayment = monthly * numPayments;
       const totalInterest = Math.max(totalPayment - principal, 0);
 
-      subEl.textContent = 'Based on the figures you entered';
-      if (window.i18nApply) window.i18nApply(subEl);
+      subEl.textContent = t('Based on the figures you entered');
       monthlyEl.textContent = fmtRM(monthly);
       principalEl.textContent = fmtRM(principal);
       interestEl.textContent = fmtRM(totalInterest);
@@ -1653,143 +1663,6 @@
     });
   })();
 
-  // language switch (English <-> Simplified Chinese)
-  (function () {
-    // Keys are the exact English text; anything without an entry (names, PEA3963,
-    // listing titles/locations, client testimonials) deliberately stays as-is.
-    const ZH = {
-      'About': '关于我', 'Services': '服务', 'Listings': '房源', 'Calculator': '房贷计算器',
-      'Testimonials': '客户评价', 'Contact': '联系我',
-      'Chat on WhatsApp': '通过 WhatsApp 联系我',
-      'Open menu': '打开菜单', 'Close menu': '关闭菜单',
-      'Chat with Constance Chan on WhatsApp': '通过 WhatsApp 联系 Constance Chan',
-      'Johor Bahru · Residential & Commercial': '新山 · 住宅与商业地产',
-      'JB Property': '新山房产', 'Agent': '经纪',
-      "Helping homeowners, investors, and tenants navigate Johor Bahru's property market with honesty and care.": '以诚信与用心，协助屋主、投资者和租户在新山房产市场中找到方向。',
-      'View Listings': '查看房源',
-      'Registration No.': '注册编号', 'Market Focus': '主要市场', 'Johor Bahru': '新山',
-      'Property Type': '物业类型', 'Residential': '住宅', 'Commercial': '商业',
-      'About Constance': '关于 Constance',
-      'A client-first approach to property in Johor Bahru': '以客户为先的新山房产服务',
-      'Professional real estate agent based in Johor Bahru, specialising in buying, selling, and renting residential and commercial properties. With strong local market knowledge and a client-first approach, I assist homeowners, investors, and tenants in making informed property decisions. Committed to providing honest advice, smooth transactions, and reliable service from start to finish.':
-        '我是一名常驻新山的专业房地产经纪，专注于住宅及商业物业的买卖与租赁。凭借深厚的本地市场知识和以客户为先的服务理念，我协助屋主、投资者和租户做出明智的房产决定。我致力于提供诚实的建议、顺畅的交易流程，以及从头到尾可靠的服务。',
-      'Residential & Commercial': '住宅与商业',
-      'Practising Since': '执业始于', 'Google Rating': 'Google 评分', 'Property in Johor Bahru': '新山房产',
-      'What I Do': '我的服务',
-      'Services tailored to every stage of your property journey': '为您房产旅程的每个阶段量身打造的服务',
-      'Sales': '销售', 'Leasing': '租赁', 'Buying': '购买', 'Investment': '投资',
-      'Guiding sellers through pricing, presentation, and negotiation for a smooth sale.': '协助卖家完成定价、展示与议价，让交易顺利成交。',
-      'Matching tenants and landlords with properties and agreements that fit.': '为租户和房东配对合适的物业与租约。',
-      'Helping buyers find the right home or unit, with honest guidance throughout.': '全程以诚实的指导，协助买家找到合适的住家或单位。',
-      "Advising investors on opportunities across JB's residential and commercial market.": '为投资者分析新山住宅及商业市场的投资机会。',
-      'Current Inventory': '现有房源', 'Featured Listings': '精选房源',
-      'View All on NextSix': '在 NextSix 查看全部',
-      'Featured': '精选', 'Buy': '买房', 'Rent': '租房', 'Industrial': '工业',
-      'For Sale': '出售', 'For Rent': '出租', 'View Property': '查看房源',
-      'View More Listings': '查看更多房源', 'View Fewer Listings': '收起房源',
-      'Also listed on': '同时刊登于',
-      'Recent Deals': '近期成交', 'Sold & Rented': '已售与已租', 'Sold': '已售', 'Rented': '已租',
-      'Type': '类型', 'Area / Taman': '区域 / 花园', 'Property': '物业', 'Month': '月份',
-      "Let's Talk": '聊一聊', 'How can I help you?': '我能如何帮到您？',
-      'Selling or renting out?': '要出售或出租物业？', 'Get a free price estimate': '免费估价',
-      'Looking to buy or rent?': '想买房或租房？', 'Tell me what you need': '告诉我您的需求',
-      'I want to': '我想', 'Sell': '出售', 'Rent out': '出租', 'Size': '面积', 'Budget': '预算',
-      'Select type': '请选择类型', 'Apartment / Condo': '公寓 / 共管公寓', 'Terrace House': '排屋',
-      'Semi-D / Bungalow': '半独立式 / 独立式洋房', 'Shop / Office': '店屋 / 办公室',
-      'Factory / Warehouse': '工厂 / 仓库', 'Land': '土地', 'Other': '其他',
-      'e.g. Taman Molek': '例如 Taman Molek', 'e.g. 1,200': '例如 1,200', 'e.g. 800,000': '例如 800,000',
-      'Request Free Estimate': '索取免费估价', 'Send My Requirements': '发送我的需求',
-      'Opens WhatsApp with your details filled in. Nothing is sent until you press Send.': '将打开 WhatsApp 并自动填入您的资料，按“发送”后才会发出。',
-      'Plan Ahead': '提前规划', 'Mortgage Calculator': '房贷计算器',
-      'Get a quick estimate of your monthly repayment for a residential or commercial property in Johor Bahru.': '快速估算您在新山购买住宅或商业物业的每月还款额。',
-      'Loan Amount': '贷款金额', 'Interest Rate': '利率', 'Loan Tenure': '贷款年限', 'Yrs': '年',
-      'Calculate Monthly Mortgage': '计算每月房贷',
-      'Please enter a valid loan amount, interest rate and loan tenure.': '请输入有效的贷款金额、利率和贷款年限。',
-      'Estimated Monthly Repayment': '预计每月还款额',
-      'Fill in the fields and press Calculate': '请填写各栏并点击“计算”',
-      'Based on the figures you entered': '根据您输入的数字计算',
-      'Total Interest': '总利息', 'Total Payment': '还款总额',
-      'Discuss This With Constance': '与 Constance 讨论此方案',
-      "This calculator provides an estimate for reference only and does not constitute financial advice or a loan offer. Actual monthly repayment, eligibility and interest rate depend on the bank's assessment. Speak with Constance or your bank for an accurate quote.":
-        '本计算器仅提供估算，仅供参考，不构成财务建议或贷款承诺。实际每月还款额、贷款资格及利率须视银行评估而定。如需准确报价，请联系 Constance 或您的银行。',
-      'e.g. 450,000': '例如 450,000', 'e.g. 4.0': '例如 4.0', 'e.g. 30': '例如 30',
-      'Kind Words': '客户心声', 'What clients say': '客户怎么说',
-      'Read More Reviews on Google': '在 Google 查看更多评价',
-      'Get In Touch': '联系我',
-      "Let's find your next move in Johor Bahru": '让我们一起规划您在新山的下一步',
-      'Reach out for a friendly, no-obligation conversation about buying, selling, renting, or investing.': '欢迎联系我，轻松聊聊买房、卖房、租房或投资，无需任何承诺。',
-      'Email': '电邮',
-      '© 2026 Constance Chan · Johor Bahru': '© 2026 Constance Chan · 新山',
-      'Switch language / 切换语言': '切换语言 / Switch language'
-    };
-    const TITLE = { en: document.title, zh: 'Constance Chan | 新山房产经纪' };
-    const PATTERNS = [
-      [/^RM (.+)\/month$/, (m) => 'RM ' + m[1] + '/月'],
-      [/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4})$/, (m) => m[2] + '年' + (['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(m[1]) + 1) + '月'],
-      [/^Studio · (\d+) Baths? · (.*?) ?sqft$/, (m) => '套房 · ' + m[1] + ' 浴室' + (m[2] ? ' · ' + m[2] + ' 平方尺' : '')],
-      [/^(.+?) Beds? · (\d+) Baths? · (.*?) ?sqft$/, (m) => m[1] + ' 卧室 · ' + m[2] + ' 浴室' + (m[3] ? ' · ' + m[3] + ' 平方尺' : '')],
-      [/^(Commercial|Industrial|Land) · (.*?) ?sqft$/, (m) => ({ Commercial: '商业', Industrial: '工业', Land: '土地' })[m[1]] + (m[2] ? ' · ' + m[2] + ' 平方尺' : '')]
-    ];
-    const norm = (s) => s.replace(/\s+/g, ' ').trim().replace(/[‘’]/g, "'");
-    function translate(s) {
-      const k = norm(s);
-      if (!k) return null;
-      if (Object.prototype.hasOwnProperty.call(ZH, k)) return ZH[k];
-      for (const [re, fn] of PATTERNS) { const m = k.match(re); if (m) return fn(m); }
-      return null;
-    }
-
-    const store = new WeakMap();
-    const ATTRS = ['aria-label', 'placeholder', 'title'];
-    let lang = 'en';
-
-    function applyText(node) {
-      let entry = store.get(node);
-      if (entry && node.nodeValue !== entry.applied) entry = null;
-      const orig = entry ? entry.orig : node.nodeValue;
-      const out = lang === 'zh' ? translate(orig) : null;
-      const next = out === null ? orig : out;
-      store.set(node, { orig, applied: next });
-      if (node.nodeValue !== next) node.nodeValue = next;
-    }
-    function applyAttr(el, attr) {
-      const key = 'data-i18n-' + attr;
-      if (!el.hasAttribute(key)) el.setAttribute(key, el.getAttribute(attr));
-      const orig = el.getAttribute(key);
-      const out = lang === 'zh' ? translate(orig) : null;
-      el.setAttribute(attr, out === null ? orig : out);
-    }
-    function apply(root) {
-      root = root || document.body;
-      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-        acceptNode: (n) => /^(SCRIPT|STYLE|NOSCRIPT)$/.test(n.parentNode.nodeName) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT
-      });
-      const nodes = [];
-      while (walker.nextNode()) nodes.push(walker.currentNode);
-      nodes.forEach(applyText);
-      const scope = root.nodeType === 1 ? [root, ...root.querySelectorAll('*')] : [];
-      scope.forEach((el) => ATTRS.forEach((a) => { if (el.hasAttribute(a) || el.hasAttribute('data-i18n-' + a)) applyAttr(el, a); }));
-    }
-    window.i18nApply = apply;
-
-    function setLang(next, persist) {
-      lang = next === 'zh' ? 'zh' : 'en';
-      document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : 'en';
-      document.title = TITLE[lang];
-      apply(document.body);
-      document.querySelectorAll('.lang-toggle span').forEach((s) => s.classList.toggle('active', s.dataset.lang === lang));
-      if (persist) { try { localStorage.setItem('cc-lang', lang); } catch (e) {} }
-    }
-
-    document.querySelectorAll('.lang-toggle').forEach((btn) => btn.addEventListener('click', () => setLang(lang === 'zh' ? 'en' : 'zh', true)));
-
-    let initial = 'en';
-    try {
-      const q = new URLSearchParams(location.search).get('lang');
-      initial = q === 'zh' || q === 'en' ? q : (localStorage.getItem('cc-lang') || 'en');
-    } catch (e) {}
-    setLang(initial, false);
-  })();
 </script>
 
 </body>
