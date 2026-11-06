@@ -114,6 +114,13 @@
   .eyebrow-label{ display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-coffee); }
   .eyebrow-label .dot{ width:6px; height:6px; border-radius:50%; background:var(--color-gold); }
   .hero-headline{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:800; line-height:1.05; letter-spacing:-0.01em; font-size:clamp(38px,5.4vw,68px); color:var(--color-espresso); }
+  .hero-stats{ display:grid; grid-template-columns:auto auto minmax(0,1fr); align-items:start; margin-top:28px; max-width:520px; }
+  .hero-stat{ padding:0 24px; border-left:1px solid var(--color-border); }
+  .hero-stat:first-child{ padding-left:0; border-left:0; }
+  .hero-stat .val{ display:flex; align-items:center; gap:6px; font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:800; font-size:22px; line-height:1.2; color:var(--color-espresso); }
+  .hero-stat:last-child .val{ font-size:16px; line-height:1.3; align-items:flex-start; }
+  .hero-stat .lbl{ margin-top:4px; font-size:12px; font-weight:500; color:var(--color-text-muted); }
+  @media (max-width:520px){ .hero-stats{ grid-template-columns:auto 1fr; } .hero-stat{ padding:0 20px; } .hero-stat:last-child{ grid-column:1 / -1; padding:14px 0 0; margin-top:14px; border-left:0; border-top:1px solid var(--color-border); } }
   .hero-credential{ display:inline-flex; align-items:center; gap:10px; }
   .hero-credential .chip{ border:1px solid var(--color-border); border-radius:999px; padding:5px 12px; font-size:12px; font-weight:600; color:var(--color-coffee); background:var(--color-surface); }
 
@@ -272,6 +279,11 @@
       <div>
         <p class="reveal eyebrow-label"><span class="dot"></span>Johor Bahru &middot; Residential &amp; Commercial</p>
         <h1 class="hero-headline reveal reveal-d1 mt-6">JB Property <span class="hl">Agent</span></h1>
+        <div class="hero-stats reveal reveal-d1">
+          <div class="hero-stat"><p class="val">2020</p><p class="lbl">Practising Since</p></div>
+          <div class="hero-stat"><p class="val"><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--color-gold)" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.2 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg>5.0</p><p class="lbl">Google Rating</p></div>
+          <div class="hero-stat"><p class="val">Residential &amp; Commercial</p><p class="lbl">Property in Johor Bahru</p></div>
+        </div>
         <div class="reveal reveal-d1 mt-6 flex items-center gap-3 flex-wrap">
           <p class="font-display text-lg text-[var(--color-espresso)]">Constance Chan</p>
           <span class="hero-credential"><span class="chip">PEA3963</span></span>
@@ -1367,6 +1379,7 @@
       'Professional real estate agent based in Johor Bahru, specialising in buying, selling, and renting residential and commercial properties. With strong local market knowledge and a client-first approach, I assist homeowners, investors, and tenants in making informed property decisions. Committed to providing honest advice, smooth transactions, and reliable service from start to finish.':
         '我是一名常驻新山的专业房地产经纪，专注于住宅及商业物业的买卖与租赁。凭借深厚的本地市场知识和以客户为先的服务理念，我协助屋主、投资者和租户做出明智的房产决定。我致力于提供诚实的建议、顺畅的交易流程，以及从头到尾可靠的服务。',
       'Residential & Commercial': '住宅与商业',
+      'Practising Since': '执业始于', 'Google Rating': 'Google 评分', 'Property in Johor Bahru': '新山房产',
       'What I Do': '我的服务',
       'Services tailored to every stage of your property journey': '为您房产旅程的每个阶段量身打造的服务',
       'Sales': '销售', 'Leasing': '租赁', 'Buying': '购买', 'Investment': '投资',
