@@ -32,7 +32,7 @@ const escapeText = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace
 const escapeAttr = (s) => escapeText(s).replace(/"/g, "&quot;");
 
 const TOKEN = /(<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>|<!--[\s\S]*?-->|<[^>]+>)|([^<]+)/g;
-const ATTR = /\b(aria-label|placeholder|title)="([^"]*)"/g;
+const ATTR = /\b(aria-label|placeholder|title|content)="([^"]*)"/g;
 
 const left = new Set();
 
@@ -71,6 +71,10 @@ html = translateHtml(html);
 html = swap(html, '<html lang="en">', '<html lang="zh-Hans">');
 html = html.replace(/<title>[^<]*<\/title>/, `<title>${escapeText(TITLE_ZH)}</title>`);
 html = swap(html, '<link rel="canonical" href="https://constancechan.my/">', '<link rel="canonical" href="https://constancechan.my/zh/">');
+// Page-specific tags: URL and locale of the social-share card.
+html = swap(html, '<meta property="og:url" content="https://constancechan.my/">', '<meta property="og:url" content="https://constancechan.my/zh/">');
+html = swap(html, '<meta property="og:locale" content="en_MY">', '<meta property="og:locale" content="zh_CN">');
+html = swap(html, '<meta property="og:locale:alternate" content="zh_CN">', '<meta property="og:locale:alternate" content="en_MY">');
 html = swap(html, 'lang="en" class="active" aria-current="page">EN</a>', 'lang="en">EN</a>');
 html = swap(html, 'hreflang="zh-Hans" lang="zh-Hans">', 'hreflang="zh-Hans" lang="zh-Hans" class="active" aria-current="page">');
 

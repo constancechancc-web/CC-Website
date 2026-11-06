@@ -69,6 +69,11 @@ export const ZH = {
   'Switch language / 切换语言': '切换语言 / Switch language'
 };
 
+// Page title and meta description (also used for the social-share tags).
+ZH["Constance Chan | JB Property Agent"] = TITLE_ZH;
+ZH["Constance Chan (PEA3963), Johor Bahru property agent at The Roof Realty. Buy, sell or rent residential and commercial property with honest, client-first advice."] =
+  "Constance Chan（PEA3963），The Roof Realty 新山房产经纪。以诚实、以客户为先的服务，协助您买卖及租赁新山住宅与商业物业。";
+
 export const PATTERNS = [
   [/^RM (.+)\/month$/, (m) => 'RM ' + m[1] + '/月'],
   [/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4})$/, (m) => m[2] + '年' + (['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(m[1]) + 1) + '月'],
