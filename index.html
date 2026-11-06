@@ -189,7 +189,7 @@
   /* ---------- recent deals ---------- */
   #deals{ background:var(--color-surface); padding-block:clamp(80px,10vw,128px); }
   .deal-table{ border:1px solid var(--color-border); border-radius:var(--radius-card); background:var(--color-ivory); overflow:hidden; }
-  .deal-head, .deal-row{ display:grid; grid-template-columns:120px 1.2fr 1.5fr 130px; gap:16px; align-items:center; padding:20px 28px; }
+  .deal-head, .deal-row{ display:grid; grid-template-columns:120px 1.6fr 1.3fr 130px; gap:16px; align-items:center; padding:20px 28px; }
   .deal-head{ background:var(--color-surface-soft); border-bottom:1px solid var(--color-border); font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-text-muted); padding-block:14px; }
   .deal-row{ list-style:none; border-top:1px solid var(--color-border); }
   .deal-row:first-child{ border-top:0; }
@@ -199,7 +199,7 @@
   .deal-area{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:700; font-size:17px; color:var(--color-espresso); }
   .deal-prop{ font-size:15px; color:var(--color-text); }
   .deal-month{ font-size:14px; font-weight:500; color:var(--color-text-muted); }
-  @media (max-width:767px){
+  @media (max-width:1023px){
     .deal-head{ display:none; }
     .deal-row{ grid-template-columns:auto 1fr; grid-template-areas:"type month" "area area" "prop prop"; gap:10px 12px; padding:18px 20px; }
     .deal-type{ grid-area:type; }
@@ -1176,31 +1176,31 @@
       <ul>
         <li class="deal-row">
           <span class="deal-type rented">Rented</span>
-          <span class="deal-area">Taman Universiti</span>
+          <span class="deal-area">Taman Universiti, Skudai</span>
           <span class="deal-prop">Single Storey Terrace House</span>
           <span class="deal-month">Nov 2026</span>
         </li>
         <li class="deal-row">
           <span class="deal-type sold">Sold</span>
-          <span class="deal-area">Taman Megah Ria</span>
+          <span class="deal-area">Taman Megah Ria, Masai</span>
           <span class="deal-prop">Low Cost House</span>
           <span class="deal-month">Oct 2026</span>
         </li>
         <li class="deal-row">
           <span class="deal-type rented">Rented</span>
-          <span class="deal-area">Taman Johor Jaya</span>
+          <span class="deal-area">Taman Johor Jaya, Johor Bahru</span>
           <span class="deal-prop">2 Storey Shoplot</span>
           <span class="deal-month">Aug 2026</span>
         </li>
         <li class="deal-row">
           <span class="deal-type rented">Rented</span>
-          <span class="deal-area">Taman Mount Austin</span>
+          <span class="deal-area">Taman Mount Austin, Johor Bahru</span>
           <span class="deal-prop">1.5 Storey Terrace Factory</span>
           <span class="deal-month">Aug 2026</span>
         </li>
         <li class="deal-row">
           <span class="deal-type sold">Sold</span>
-          <span class="deal-area">Taman Impian Emas</span>
+          <span class="deal-area">Taman Impian Emas, Skudai</span>
           <span class="deal-prop">1.5 Storey Semi D Factory</span>
           <span class="deal-month">May 2026</span>
         </li>
