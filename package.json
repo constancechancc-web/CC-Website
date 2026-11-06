@@ -4,9 +4,14 @@
   "type": "module",
   "scripts": {
     "sync-listings": "node scripts/sync-listings.mjs",
-    "build-zh": "node scripts/build-zh.mjs"
+    "build-zh": "node scripts/build-zh.mjs",
+    "build-css": "node scripts/build-css.mjs",
+    "build": "node scripts/build-css.mjs && node scripts/build-zh.mjs"
   },
   "dependencies": {
     "cheerio": "^1.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
   }
 }
