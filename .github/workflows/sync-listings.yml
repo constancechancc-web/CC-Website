@@ -28,14 +28,17 @@ jobs:
       - name: Sync listings from NextSix
         run: npm run sync-listings
 
+      - name: Rebuild the Chinese page
+        run: npm run build-zh
+
       - name: Commit and push if changed
         run: |
-          if git diff --quiet -- index.html; then
+          if git diff --quiet -- index.html zh/index.html; then
             echo "No listing changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html
+          git add index.html zh/index.html
           git commit -m "Auto-sync Featured Listings from NextSix"
           git push
