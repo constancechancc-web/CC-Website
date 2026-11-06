@@ -446,6 +446,7 @@
       <button type="button" role="tab" class="list-tab focus-ring" data-filter="featured" aria-selected="true">Featured</button>
       <button type="button" role="tab" class="list-tab focus-ring" data-filter="buy" aria-selected="false">Buy</button>
       <button type="button" role="tab" class="list-tab focus-ring" data-filter="rent" aria-selected="false">Rent</button>
+      <button type="button" role="tab" class="list-tab focus-ring" data-filter="residential" aria-selected="false">Residential</button>
       <button type="button" role="tab" class="list-tab focus-ring" data-filter="commercial" aria-selected="false">Commercial</button>
       <button type="button" role="tab" class="list-tab focus-ring" data-filter="industrial" aria-selected="false">Industrial</button>
     </div>
@@ -1358,6 +1359,7 @@
       featured: (c) => c.hasAttribute('data-featured'),
       buy: (c) => c.dataset.deal === 'sale',
       rent: (c) => c.dataset.deal === 'rent',
+      residential: (c) => c.dataset.type === 'residential',
       commercial: (c) => c.dataset.type === 'commercial',
       industrial: (c) => c.dataset.type === 'industrial'
     };
