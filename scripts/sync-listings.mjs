@@ -119,6 +119,7 @@ async function fetchListings() {
     const typeLabel = typeMatch ? typeMatch[1].trim() : "Property";
 
     const isRent = tag.toLowerCase() === "rent";
+    const category = categorize(typeLabel, beds);
     const priceNum = priceText.replace(/^RM\s*/i, "").replace(/\/month$/i, "");
 
     listings.push({
@@ -128,6 +129,7 @@ async function fetchListings() {
       priceText,
       priceNum,
       isRent,
+      category,
       beds,
       baths,
       sqft,
@@ -139,13 +141,23 @@ async function fetchListings() {
   return listings;
 }
 
+// Drives the filter tabs on the site: Commercial / Industrial. Land that is
+// neither (e.g. agricultural) gets no type tab but still appears under Buy/Rent.
+function categorize(typeLabel, beds) {
+  if (beds) return "residential";
+  if (/factory|warehouse|industrial/i.test(typeLabel)) return "industrial";
+  if (/land/i.test(typeLabel)) return "land";
+  return "commercial";
+}
+
 function metaLine(l) {
   if (l.beds) {
     const bathWord = l.baths === "1" ? "Bath" : "Baths";
     const bedsLabel = l.beds.toLowerCase() === "studio" ? "Studio" : `${l.beds} Beds`;
     return `${bedsLabel} &middot; ${l.baths || "0"} ${bathWord} &middot; ${l.sqft} sqft`;
   }
-  return `Commercial &middot; ${l.sqft} sqft`;
+  const label = { industrial: "Industrial", land: "Land" }[l.category] || "Commercial";
+  return `${label} &middot; ${l.sqft} sqft`;
 }
 
 function altText(l) {
@@ -163,11 +175,12 @@ function altText(l) {
   );
 }
 
-function renderCard(l, { reveal }) {
+function renderCard(l, { reveal, featured }) {
   const statusLabel = l.isRent ? "For Rent" : "For Sale";
   const price = l.isRent ? `RM ${l.priceNum}/month` : `RM ${l.priceNum}`;
   const revealClass = reveal ? " reveal" : "";
-  return `      <a href="https://nextsix.com${l.href}" target="_blank" rel="noopener" class="prop-card${revealClass} block focus-ring group">
+  const featuredAttr = featured ? " data-featured" : "";
+  return `      <a href="https://nextsix.com${l.href}" target="_blank" rel="noopener" class="prop-card${revealClass} block focus-ring group" data-deal="${l.isRent ? "rent" : "sale"}" data-type="${l.category}"${featuredAttr}>
         <div class="prop-media">
           <img src="${escapeHtml(l.imgSrc)}" alt="${altText(l)}" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]">
           <span class="prop-badge">${statusLabel}</span>
@@ -230,9 +243,9 @@ async function main() {
   const { featured, more } = pickFeatured(listings);
 
   const featuredHtml = featured
-    .map((l) => renderCard(l, { reveal: true }))
+    .map((l) => renderCard(l, { reveal: true, featured: true }))
     .join("\n");
-  const moreHtml = more.map((l) => renderCard(l, { reveal: false })).join("\n");
+  const moreHtml = more.map((l) => renderCard(l, { reveal: false, featured: false })).join("\n");
 
   let html = readFileSync(INDEX_HTML_PATH, "utf8");
   html = replaceBetweenMarkers(
