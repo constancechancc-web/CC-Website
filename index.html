@@ -179,7 +179,25 @@
   #mobileMenu a:hover, #mobileMenu a.active{ color:var(--color-gold); }
 
   /* ---------- hero ---------- */
-  #top{ position:relative; padding-top:clamp(112px,15vw,152px); padding-bottom:clamp(56px,7vw,88px); overflow:hidden; }
+  #top{
+    position:relative; padding-top:clamp(112px,15vw,152px); padding-bottom:clamp(56px,7vw,88px); overflow:hidden;
+    background-color:var(--color-ivory);
+    background-image:
+      linear-gradient(180deg, rgba(250,247,242,0) 80%, var(--color-ivory) 100%),
+      linear-gradient(90deg, rgba(250,247,242,0.9) 0%, rgba(250,247,242,0.9) 40%, rgba(250,247,242,0.5) 100%),
+      url("/images/hero-bg.webp");
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+  @media (max-width:767px){
+    #top{
+      background-image:
+        linear-gradient(180deg, rgba(250,247,242,0.9) 0, rgba(250,247,242,0.88) 300px, var(--color-ivory) 680px),
+        url("/images/hero-bg.webp");
+      background-size:100% 100%, auto 680px;
+      background-position:0 0, 85% 0;
+    }
+  }
+  #top .hero-sub{ color:var(--color-coffee); }
   .eyebrow-label{ display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-coffee); }
   .eyebrow-label .dot{ width:6px; height:6px; border-radius:50%; background:var(--color-gold); }
   .hero-headline{ font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:800; line-height:1.05; letter-spacing:-0.01em; font-size:clamp(38px,5.4vw,68px); color:var(--color-espresso); }
@@ -188,13 +206,13 @@
   .hero-stat:first-child{ padding-left:0; border-left:0; }
   .hero-stat .val{ display:flex; align-items:center; gap:6px; font-family:'Plus Jakarta Sans', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight:800; font-size:22px; line-height:1.2; color:var(--color-espresso); }
   .hero-stat:last-child .val{ font-size:16px; line-height:1.3; align-items:flex-start; }
-  .hero-stat .lbl{ margin-top:4px; font-size:12px; font-weight:500; color:var(--color-text-muted); }
+  .hero-stat .lbl{ margin-top:4px; font-size:12px; font-weight:500; color:var(--color-coffee); }
   @media (max-width:520px){ .hero-stats{ grid-template-columns:auto 1fr; } .hero-stat{ padding:0 20px; } .hero-stat:last-child{ grid-column:1 / -1; padding:14px 0 0; margin-top:14px; border-left:0; border-top:1px solid var(--color-border); } }
   .hero-credential{ display:inline-flex; align-items:center; gap:10px; }
   .hero-credential .chip{ border:1px solid var(--color-border); border-radius:999px; padding:5px 12px; font-size:12px; font-weight:600; color:var(--color-coffee); background:var(--color-surface); }
 
   .hero-visual{ position:relative; }
-  .hero-shape{ position:absolute; top:4%; right:0; width:88%; height:92%; background:var(--color-beige); border-radius:var(--radius-image); z-index:0; }
+  .hero-shape{ position:absolute; top:4%; right:0; width:88%; height:92%; background:rgba(237,227,215,0.6); backdrop-filter:blur(6px); border-radius:var(--radius-image); z-index:0; }
   .hero-portrait{ position:relative; z-index:1; margin-left:6%; aspect-ratio:4/4.9; border-radius:var(--radius-image); overflow:hidden; box-shadow:var(--shadow-subtle); }
   .hero-portrait img{ width:100%; height:100%; object-fit:cover; object-position:50% 12%; }
   .hero-credlabel{
@@ -407,7 +425,7 @@
           <p class="font-display text-lg text-[var(--color-espresso)]">Constance Chan</p>
           <span class="hero-credential"><span class="chip">PEA3963</span></span>
         </div>
-        <p class="reveal reveal-d2 mt-5 max-w-md text-[var(--color-text-muted)] text-base leading-relaxed">
+        <p class="hero-sub reveal reveal-d2 mt-5 max-w-md text-[var(--color-text-muted)] text-base leading-relaxed">
           Helping homeowners, investors, and tenants navigate Johor Bahru's property market with honesty and care.
         </p>
         <div class="reveal reveal-d3 mt-9 flex flex-wrap items-center gap-4">
