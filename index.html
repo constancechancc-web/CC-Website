@@ -264,7 +264,7 @@
   .list-status[hidden]{ display:none !important; }
   .list-status strong{ color:var(--color-espresso); }
   .list-status button, .list-status a{ color:var(--color-espresso); font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; background:none; border:0; padding:0; font:inherit; font-weight:600; }
-  .list-tabs{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:32px; }
+  .list-tabs{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:24px; }
   .list-tab{ display:inline-flex; align-items:center; gap:10px; border:1px solid var(--color-border); background:var(--color-surface); color:var(--color-espresso); font-size:16px; font-weight:600; padding:10px 20px; border-radius:999px; cursor:pointer; transition:background-color .2s ease, color .2s ease, border-color .2s ease; }
   .list-tab-count{ display:inline-flex; align-items:center; justify-content:center; min-width:28px; height:28px; padding:0 9px; border-radius:999px; background:var(--color-beige); color:var(--color-coffee); font-size:14px; font-weight:700; line-height:1; }
   .list-tab[aria-selected="true"] .list-tab-count{ background:rgba(250,247,242,0.2); color:var(--color-surface); }
@@ -586,12 +586,6 @@
       </div>
     </div>
 
-    <form id="listingSearch" class="list-search reveal" role="search" aria-label="Search listings">
-      <input type="search" id="listingQuery" class="list-search-input" placeholder="e.g. Tebrau, Austin, condo, rent" aria-label="Search listings" autocomplete="off" maxlength="60">
-      <button type="submit" class="btn-primary list-search-btn text-sm font-semibold focus-ring">Search properties</button>
-    </form>
-    <p id="listingStatus" class="list-status" role="status" aria-live="polite" hidden></p>
-
     <div class="list-tabs reveal" role="tablist" aria-label="Filter listings">
       <button type="button" role="tab" class="list-tab focus-ring" data-filter="all" aria-selected="true">All</button>
       <button type="button" role="tab" class="list-tab focus-ring" data-filter="buy" aria-selected="false">Buy</button>
@@ -600,6 +594,12 @@
       <button type="button" role="tab" class="list-tab focus-ring" data-filter="commercial" aria-selected="false">Commercial</button>
       <button type="button" role="tab" class="list-tab focus-ring" data-filter="industrial" aria-selected="false">Industrial</button>
     </div>
+
+    <form id="listingSearch" class="list-search reveal" role="search" aria-label="Search listings">
+      <input type="search" id="listingQuery" class="list-search-input" placeholder="e.g. Tebrau, Austin, condo, rent" aria-label="Search listings" autocomplete="off" maxlength="60">
+      <button type="submit" class="btn-primary list-search-btn text-sm font-semibold focus-ring">Search properties</button>
+    </form>
+    <p id="listingStatus" class="list-status" role="status" aria-live="polite" hidden></p>
 
     <div id="propGrid" class="prop-grid mt-8" role="tabpanel">
       <!-- LISTINGS:FEATURED:START -->
