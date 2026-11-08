@@ -82,6 +82,7 @@ html = swap(html, 'hreflang="zh-Hans" lang="zh-Hans">', 'hreflang="zh-Hans" lang
 const runtime = {};
 for (const k of [
   "View More Listings", "View Fewer Listings", "Based on the figures you entered",
+  "Link copied", "Previous", "Next", "Showing {a}–{b} of {n} listings · Page {p} of {t}", "Go to page {n}",
   "properties found", "property found", "Clear search", "No properties found for",
   "Try another area or property type, or", "ask me on WhatsApp", ".",
 ]) {

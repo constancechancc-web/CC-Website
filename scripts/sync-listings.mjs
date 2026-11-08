@@ -182,21 +182,30 @@ function renderCard(l, { reveal, featured }) {
   const typeSuffix =
     l.typeLabel && l.typeLabel !== "Property" ? ` &middot; ${escapeHtml(l.typeLabel)}` : "";
   const featuredAttr = featured ? " data-featured" : "";
-  return `      <a href="https://nextsix.com${l.href}" target="_blank" rel="noopener" class="prop-card${revealClass} block focus-ring group" data-deal="${l.isRent ? "rent" : "sale"}" data-type="${l.category}"${featuredAttr}>
-        <div class="prop-media">
-          <img src="${escapeHtml(l.imgSrc)}" alt="${altText(l)}" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]">
-          <span class="prop-badge">${statusLabel}${typeSuffix}</span>
-        </div>
-        <div class="prop-body">
-          <p class="prop-loc">${escapeHtml(l.loc)}</p>
-          <h3 class="prop-title">${escapeHtml(l.title)}</h3>
-          <div class="prop-meta-row">
-            <span class="prop-price">${escapeHtml(price)}</span>
-            <span class="prop-specs">${metaLine(l)}</span>
+  const url = `https://nextsix.com${l.href}`;
+  // The photo/text link and the Share / WhatsApp buttons are siblings (a link
+  // can't contain buttons). The page script fills in the WhatsApp message.
+  return `      <article class="prop-card${revealClass} group" data-deal="${l.isRent ? "rent" : "sale"}" data-type="${l.category}"${featuredAttr} data-url="${escapeHtml(url)}" data-title="${escapeHtml(l.title)}" data-loc="${escapeHtml(l.loc)}" data-price="${escapeHtml(price)}">
+        <a href="${escapeHtml(url)}" target="_blank" rel="noopener" class="prop-link focus-ring">
+          <div class="prop-media">
+            <img src="${escapeHtml(l.imgSrc)}" alt="${altText(l)}" loading="lazy" onerror="this.closest('.prop-card').remove()" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]">
+            <span class="prop-badge">${statusLabel}${typeSuffix}</span>
           </div>
-          <span class="prop-view">View Property<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          <div class="prop-body">
+            <p class="prop-loc">${escapeHtml(l.loc)}</p>
+            <h3 class="prop-title">${escapeHtml(l.title)}</h3>
+            <div class="prop-meta-row">
+              <span class="prop-price">${escapeHtml(price)}</span>
+              <span class="prop-specs">${metaLine(l)}</span>
+            </div>
+            <span class="prop-view">View Property<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </div>
+        </a>
+        <div class="prop-actions">
+          <button type="button" class="prop-act prop-share focus-ring" aria-label="Share this property"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8 15.8 6.2M8.2 13.2l7.6 4.6"/></svg><span class="prop-share-label">Share</span></button>
+          <a href="https://wa.me/60192288249" target="_blank" rel="noopener" class="prop-act prop-wa focus-ring" aria-label="Enquire about this property on WhatsApp"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.4 1.33-1.93 1.4-.5.08-1.09.11-1.76-.11-.4-.13-.92-.3-1.58-.6-2.79-1.2-4.6-4.02-4.74-4.2-.14-.19-1.14-1.51-1.14-2.88 0-1.37.72-2.04.98-2.32.26-.28.56-.35.75-.35h.54c.17 0 .4-.03.63.48.24.55.8 1.9.87 2.04.07.14.11.3.02.49-.09.19-.14.3-.27.46-.14.16-.29.36-.41.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.6.75 1.87.89.28.14.46.21.53.32.07.12.07.66-.17 1.34z"/></svg>WhatsApp</a>
         </div>
-      </a>`;
+      </article>`;
 }
 
 function pickFeatured(listings) {
