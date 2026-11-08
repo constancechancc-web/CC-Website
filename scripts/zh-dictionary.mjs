@@ -12,7 +12,7 @@ export const ZH = {
   'Link copied': '已复制链接', 'Previous': '上一页', 'Next': '下一页', 'Listings pages': '房源分页',
   'Showing {a}–{b} of {n} listings · Page {p} of {t}': '显示第 {a}–{b} 个，共 {n} 个房源 · 第 {p} 页，共 {t} 页',
   'Go to page {n}': '前往第 {n} 页',
-  'Search properties': '搜索房源', 'Search listings': '搜索房源', 'e.g. Tebrau, Austin, condo, rent': '例如 Tebrau、Austin、condo、rent',
+  'Search listings': '搜索房源', 'Search e.g. Tebrau, Austin, condo, rent': '搜索 例如 Tebrau、Austin、condo、rent',
   'properties found': '个房源符合', 'property found': '个房源符合', 'Clear search': '清除搜索', 'No properties found for': '没有找到相符的房源：',
   'Try another area or property type, or': '请试试其他区域或物业类型，或', 'ask me on WhatsApp': '通过 WhatsApp 问我', '.': '。',
   'Filter listings': '筛选房源', 'Open menu': '打开菜单', 'Close menu': '关闭菜单',

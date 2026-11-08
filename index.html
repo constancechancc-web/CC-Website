@@ -255,18 +255,18 @@
   /* ---------- listings ---------- */
   #listings{ padding-block:clamp(80px,10vw,128px); }
 
-  .list-search{ display:flex; flex-wrap:wrap; gap:12px; max-width:680px; margin-bottom:24px; }
-  .list-search-input{ flex:1 1 260px; min-width:0; padding:14px 24px; border:1px solid var(--color-border); border-radius:999px; background:var(--color-surface); font-size:17px; font-family:'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; color:var(--color-text); transition:border-color .2s ease; }
+  .list-controls{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:24px; }
+  .list-search{ flex:1 1 260px; min-width:0; margin:0; }
+  .list-search-input{ display:block; width:100%; padding:11px 22px 11px 48px; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%236F6862' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><path d='m20 20-3.5-3.5'/></svg>");background-repeat:no-repeat;background-position:18px center; border:1px solid var(--color-border); border-radius:999px; background:var(--color-surface); font-size:17px; font-family:'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; color:var(--color-text); transition:border-color .2s ease; }
   .list-search-input::placeholder{ color:var(--color-text-muted); opacity:1; }
   .list-search-input:focus{ outline:2px solid var(--color-gold); outline-offset:1px; border-color:var(--color-gold); }
-  .list-search-btn{ border-radius:999px; padding:14px 28px; justify-content:center; }
   .list-status{ margin:-8px 0 24px; font-size:16px; color:var(--color-text-muted); line-height:1.6; }
   .list-status[hidden]{ display:none !important; }
   .list-status strong{ color:var(--color-espresso); }
   .list-status button, .list-status a{ color:var(--color-espresso); font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; background:none; border:0; padding:0; font:inherit; font-weight:600; }
-  .list-tabs{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:24px; }
-  .list-tab{ display:inline-flex; align-items:center; gap:10px; border:1px solid var(--color-border); background:var(--color-surface); color:var(--color-espresso); font-size:16px; font-weight:600; padding:10px 20px; border-radius:999px; cursor:pointer; transition:background-color .2s ease, color .2s ease, border-color .2s ease; }
-  .list-tab-count{ display:inline-flex; align-items:center; justify-content:center; min-width:28px; height:28px; padding:0 9px; border-radius:999px; background:var(--color-beige); color:var(--color-coffee); font-size:14px; font-weight:700; line-height:1; }
+  .list-tabs{ display:flex; flex-wrap:wrap; gap:8px; }
+  .list-tab{ display:inline-flex; align-items:center; gap:8px; border:1px solid var(--color-border); background:var(--color-surface); color:var(--color-espresso); font-size:15px; font-weight:600; padding:8px 14px 8px 16px; border-radius:999px; cursor:pointer; transition:background-color .2s ease, color .2s ease, border-color .2s ease; }
+  .list-tab-count{ display:inline-flex; align-items:center; justify-content:center; min-width:26px; height:26px; padding:0 8px; border-radius:999px; background:var(--color-beige); color:var(--color-coffee); font-size:13px; font-weight:700; line-height:1; }
   .list-tab[aria-selected="true"] .list-tab-count{ background:rgba(250,247,242,0.2); color:var(--color-surface); }
   .list-tab:hover{ border-color:var(--color-espresso); }
   .list-tab[aria-selected="true"]{ background:var(--color-espresso); color:var(--color-surface); border-color:var(--color-espresso); }
@@ -586,19 +586,19 @@
       </div>
     </div>
 
-    <div class="list-tabs reveal" role="tablist" aria-label="Filter listings">
-      <button type="button" role="tab" class="list-tab focus-ring" data-filter="all" aria-selected="true">All</button>
-      <button type="button" role="tab" class="list-tab focus-ring" data-filter="buy" aria-selected="false">Buy</button>
-      <button type="button" role="tab" class="list-tab focus-ring" data-filter="rent" aria-selected="false">Rent</button>
-      <button type="button" role="tab" class="list-tab focus-ring" data-filter="residential" aria-selected="false">Residential</button>
-      <button type="button" role="tab" class="list-tab focus-ring" data-filter="commercial" aria-selected="false">Commercial</button>
-      <button type="button" role="tab" class="list-tab focus-ring" data-filter="industrial" aria-selected="false">Industrial</button>
+    <div class="list-controls">
+      <div class="list-tabs reveal" role="tablist" aria-label="Filter listings">
+        <button type="button" role="tab" class="list-tab focus-ring" data-filter="all" aria-selected="true">All</button>
+        <button type="button" role="tab" class="list-tab focus-ring" data-filter="buy" aria-selected="false">Buy</button>
+        <button type="button" role="tab" class="list-tab focus-ring" data-filter="rent" aria-selected="false">Rent</button>
+        <button type="button" role="tab" class="list-tab focus-ring" data-filter="residential" aria-selected="false">Residential</button>
+        <button type="button" role="tab" class="list-tab focus-ring" data-filter="commercial" aria-selected="false">Commercial</button>
+        <button type="button" role="tab" class="list-tab focus-ring" data-filter="industrial" aria-selected="false">Industrial</button>
+      </div>
+      <form id="listingSearch" class="list-search reveal" role="search" aria-label="Search listings">
+        <input type="search" id="listingQuery" class="list-search-input" placeholder="Search e.g. Tebrau, Austin, condo, rent" aria-label="Search listings" autocomplete="off" maxlength="60">
+      </form>
     </div>
-
-    <form id="listingSearch" class="list-search reveal" role="search" aria-label="Search listings">
-      <input type="search" id="listingQuery" class="list-search-input" placeholder="e.g. Tebrau, Austin, condo, rent" aria-label="Search listings" autocomplete="off" maxlength="60">
-      <button type="submit" class="btn-primary list-search-btn text-sm font-semibold focus-ring">Search properties</button>
-    </form>
     <p id="listingStatus" class="list-status" role="status" aria-live="polite" hidden></p>
 
     <div id="propGrid" class="prop-grid mt-8" role="tabpanel">
