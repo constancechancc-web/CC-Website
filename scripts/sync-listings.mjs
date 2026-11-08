@@ -179,11 +179,13 @@ function renderCard(l, { reveal, featured }) {
   const statusLabel = l.isRent ? "For Rent" : "For Sale";
   const price = l.isRent ? `RM ${l.priceNum}/month` : `RM ${l.priceNum}`;
   const revealClass = reveal ? " reveal" : "";
+  const typeSuffix =
+    l.typeLabel && l.typeLabel !== "Property" ? ` &middot; ${escapeHtml(l.typeLabel)}` : "";
   const featuredAttr = featured ? " data-featured" : "";
   return `      <a href="https://nextsix.com${l.href}" target="_blank" rel="noopener" class="prop-card${revealClass} block focus-ring group" data-deal="${l.isRent ? "rent" : "sale"}" data-type="${l.category}"${featuredAttr}>
         <div class="prop-media">
           <img src="${escapeHtml(l.imgSrc)}" alt="${altText(l)}" loading="lazy" onerror="this.closest('a').remove()" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]">
-          <span class="prop-badge">${statusLabel}</span>
+          <span class="prop-badge">${statusLabel}${typeSuffix}</span>
         </div>
         <div class="prop-body">
           <p class="prop-loc">${escapeHtml(l.loc)}</p>

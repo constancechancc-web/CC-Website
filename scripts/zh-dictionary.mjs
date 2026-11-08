@@ -77,7 +77,22 @@ ZH["Constance Chan | JB Property Agent"] = TITLE_ZH;
 ZH["Constance Chan (PEA3963), Johor Bahru property agent at The Roof Realty. Buy, sell or rent residential and commercial property with honest, client-first advice."] =
   "Constance Chan（PEA3963），The Roof Realty 新山房产经纪。以诚实、以客户为先的服务，协助您买卖及租赁新山住宅与商业物业。";
 
+// Property types as labelled by NextSix; unknown ones stay in English.
+const TYPES = {
+  'Apartment': '公寓', 'Condominium': '共管公寓', 'Flat': '组屋', 'Serviced Residence': '服务式公寓',
+  'Bungalow': '独立式洋房', 'Semi-detached House': '半独立式洋房', 'Cluster House': '群集屋', 'Townhouse': '联排屋',
+  'Shop': '店屋', 'Shop Office': '店屋办公室', 'Office': '办公室', 'Retail Space': '零售空间',
+  'Factory': '工厂', 'Link Factory': '连排工厂', 'Semi-D Factory': '半独立式工厂', 'Warehouse': '仓库',
+  'Industrial Land': '工业用地', 'Agricultural Land': '农业用地', 'Land': '土地',
+};
+const typeZh = (t) => {
+  const m = t.match(/^(\d+(?:\.\d+)?)-sty Terrace\/Link House$/i);
+  if (m) return m[1] + '层排屋';
+  return TYPES[t] || t;
+};
+
 export const PATTERNS = [
+  [/^For (Sale|Rent) · (.+)$/, (m) => (m[1] === 'Sale' ? '出售' : '出租') + ' · ' + typeZh(m[2])],
   [/^RM (.+)\/month$/, (m) => 'RM ' + m[1] + '/月'],
   [/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4})$/, (m) => m[2] + '年' + (['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(m[1]) + 1) + '月'],
   [/^Studio · (\d+) Baths? · (.*?) ?sqft$/, (m) => '套房 · ' + m[1] + ' 浴室' + (m[2] ? ' · ' + m[2] + ' 平方尺' : '')],
