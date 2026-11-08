@@ -80,7 +80,11 @@ html = swap(html, 'hreflang="zh-Hans" lang="zh-Hans">', 'hreflang="zh-Hans" lang
 
 // Runtime strings the page script sets after load (calculator note, View More button).
 const runtime = {};
-for (const k of ["View More Listings", "View Fewer Listings", "Based on the figures you entered"]) {
+for (const k of [
+  "View More Listings", "View Fewer Listings", "Based on the figures you entered",
+  "properties found", "property found", "Clear search", "No properties found for",
+  "Try another area or property type, or", "ask me on WhatsApp", ".",
+]) {
   runtime[k] = translate(k);
 }
 html = swap(html, "/*CC_T*/{}", JSON.stringify(runtime));

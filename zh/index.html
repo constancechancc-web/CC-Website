@@ -247,6 +247,15 @@
   /* ---------- listings ---------- */
   #listings{ padding-block:clamp(80px,10vw,128px); }
 
+  .list-search{ display:flex; flex-wrap:wrap; gap:12px; max-width:680px; margin-bottom:24px; }
+  .list-search-input{ flex:1 1 260px; min-width:0; padding:14px 24px; border:1px solid var(--color-border); border-radius:999px; background:var(--color-surface); font-size:15px; font-family:'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif; color:var(--color-text); transition:border-color .2s ease; }
+  .list-search-input::placeholder{ color:var(--color-text-muted); opacity:1; }
+  .list-search-input:focus{ outline:2px solid var(--color-gold); outline-offset:1px; border-color:var(--color-gold); }
+  .list-search-btn{ border-radius:999px; padding:14px 28px; justify-content:center; }
+  .list-status{ margin:-8px 0 24px; font-size:14px; color:var(--color-text-muted); line-height:1.6; }
+  .list-status[hidden]{ display:none !important; }
+  .list-status strong{ color:var(--color-espresso); }
+  .list-status button, .list-status a{ color:var(--color-espresso); font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; background:none; border:0; padding:0; font:inherit; font-weight:600; }
   .list-tabs{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:32px; }
   .list-tab{ border:1px solid var(--color-border); background:var(--color-surface); color:var(--color-espresso); font-size:14px; font-weight:600; padding:10px 20px; border-radius:999px; cursor:pointer; transition:background-color .2s ease, color .2s ease, border-color .2s ease; }
   .list-tab:hover{ border-color:var(--color-espresso); }
@@ -545,6 +554,12 @@
         <h2 class="font-display text-3xl md:text-5xl leading-tight mt-4" style="color:var(--color-espresso);">精选房源</h2>
       </div>
     </div>
+
+    <form id="listingSearch" class="list-search reveal" role="search" aria-label="搜索房源">
+      <input type="search" id="listingQuery" class="list-search-input" placeholder="例如 Tebrau、Austin、condo、rent" aria-label="搜索房源" autocomplete="off" maxlength="60">
+      <button type="submit" class="btn-primary list-search-btn text-sm font-semibold focus-ring">搜索房源</button>
+    </form>
+    <p id="listingStatus" class="list-status" role="status" aria-live="polite" hidden></p>
 
     <div class="list-tabs reveal" role="tablist" aria-label="筛选房源">
       <button type="button" role="tab" class="list-tab focus-ring" data-filter="featured" aria-selected="true">精选</button>
@@ -1517,7 +1532,7 @@
 
 <script>
   // The /zh/ page is generated from this file by scripts/build-zh.mjs, which fills in CC_T.
-  const CC_T = {"View More Listings":"查看更多房源","View Fewer Listings":"收起房源","Based on the figures you entered":"根据您输入的数字计算"};
+  const CC_T = {"View More Listings":"查看更多房源","View Fewer Listings":"收起房源","Based on the figures you entered":"根据您输入的数字计算","properties found":"个房源符合","property found":"个房源符合","Clear search":"清除搜索","No properties found for":"没有找到相符的房源：","Try another area or property type, or":"请试试其他区域或物业类型，或","ask me on WhatsApp":"通过 WhatsApp 问我",".":"。"};
   const t = (s) => CC_T[s] || s;
   if (new URLSearchParams(location.search).get('lang') === 'zh') location.replace('/zh/' + location.hash);
 
@@ -1534,14 +1549,17 @@
   menuCloseBtn.addEventListener('click', closeMenu);
   mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
-  // listing filter tabs: 6 per tab, View More reveals the rest of that tab
+  // listing tabs + search: 6 per view, View More reveals the rest
   (function () {
     const grid = document.getElementById('propGrid');
     const moreBtn = document.getElementById('viewMoreBtn');
     const moreWrap = document.getElementById('viewMoreWrap');
     const moreIcon = document.getElementById('viewMoreIcon');
     const tabs = Array.from(document.querySelectorAll('.list-tab'));
-    if (!grid || !moreBtn || !moreWrap || !tabs.length) return;
+    const form = document.getElementById('listingSearch');
+    const input = document.getElementById('listingQuery');
+    const status = document.getElementById('listingStatus');
+    if (!grid || !moreBtn || !moreWrap || !tabs.length || !form || !input || !status) return;
     const LIMIT = 6;
     const match = {
       featured: (c) => c.hasAttribute('data-featured'),
@@ -1552,14 +1570,76 @@
       industrial: (c) => c.dataset.type === 'industrial'
     };
     let current = 'featured';
+    let query = '';
     let expanded = false;
     const cards = () => Array.from(grid.querySelectorAll('.prop-card'));
 
+    // Search text per card: what is on the card plus photo description, deal and
+    // type, with common synonyms (English and Chinese) so "condo" or "公寓" both work.
+    const SYN = [
+      [/condo|serviced|apartment|flat/, 'condo apartment 公寓 共管公寓 服务式公寓'],
+      [/terrace|link house/, 'terrace link house 排屋'],
+      [/semi-d|semi-detached/, 'semi-d semi detached 半独立式'],
+      [/bungalow|villa/, 'bungalow villa 独立式 洋房'],
+      [/cluster/, 'cluster 群集屋'],
+      [/townhouse/, 'townhouse 联排'],
+      [/shop|retail/, 'shop shoplot retail 店屋 商店'],
+      [/office/, 'office 办公室'],
+      [/factory|warehouse|industrial/, 'factory warehouse industrial 工厂 仓库 工业'],
+      [/land/, 'land 土地']
+    ];
+    const TYPE_WORDS = { residential: 'residential 住宅', commercial: 'commercial 商业', industrial: 'industrial 工业', land: 'land 土地' };
+    const hays = new WeakMap();
+    function haystack(c) {
+      if (!hays.has(c)) {
+        const img = c.querySelector('img');
+        const base = (c.textContent + ' ' + (img ? img.alt : '') + ' ' + c.dataset.deal + ' ' + c.dataset.type).toLowerCase();
+        const extra = SYN.filter(([re]) => re.test(base)).map(([, words]) => words);
+        extra.push(c.dataset.deal === 'rent' ? 'rent rental lease 出租 租房' : 'sale buy 出售 买房');
+        extra.push(TYPE_WORDS[c.dataset.type] || '');
+        hays.set(c, (base + ' ' + extra.join(' ')).replace(/\s+/g, ' '));
+      }
+      return hays.get(c);
+    }
+    const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    function searchTokens(q) {
+      return q.toLowerCase().split(/[\s,，、]+/).filter(Boolean).map((tok) => ({
+        tok,
+        re: /^[\x00-\x7f]+$/.test(tok) ? new RegExp('(^|[^a-z0-9])' + esc(tok)) : null
+      }));
+    }
+
+    function showStatus(count, q) {
+      status.textContent = '';
+      status.hidden = false;
+      const clear = document.createElement('button');
+      clear.type = 'button';
+      clear.textContent = t('Clear search');
+      clear.addEventListener('click', () => { input.value = ''; query = ''; expanded = false; render(true); input.focus(); });
+      if (count) {
+        const n = document.createElement('strong');
+        n.textContent = count;
+        status.append(n, ' ' + t(count === 1 ? 'property found' : 'properties found') + ' · ', clear);
+      } else {
+        const wa = document.createElement('a');
+        wa.href = 'https://wa.me/60192288249';
+        wa.target = '_blank';
+        wa.rel = 'noopener';
+        wa.textContent = t('ask me on WhatsApp');
+        status.append(t('No properties found for') + ' “' + q + '”' + t('.') + ' ' + t('Try another area or property type, or') + ' ', wa, t('.') + ' · ', clear);
+      }
+    }
+
     function render(animate) {
       const all = cards();
-      const hits = all.filter(match[current]);
+      const searching = query !== '';
+      const toks = searching ? searchTokens(query) : null;
+      const hits = searching
+        ? all.filter((c) => { const hay = haystack(c); return toks.every(({ tok, re }) => (re ? re.test(hay) : hay.includes(tok))); })
+        : all.filter(match[current]);
+      const featuredMode = !searching && current === 'featured';
       // On the Featured tab, View More opens up every listing.
-      const pool = (current === 'featured' && expanded) ? all : hits;
+      const pool = (featuredMode && expanded) ? all : hits;
       const limit = expanded ? pool.length : LIMIT;
       all.forEach((c) => {
         const i = pool.indexOf(c);
@@ -1567,24 +1647,29 @@
         c.hidden = !show;
         if (show && animate) c.classList.add('is-visible');
       });
-      const total = current === 'featured' ? all.length : hits.length;
-      const base = current === 'featured' ? hits.length : Math.min(hits.length, LIMIT);
+      const total = featuredMode ? all.length : hits.length;
+      const base = featuredMode ? hits.length : Math.min(hits.length, LIMIT);
       moreWrap.hidden = total <= base;
       moreBtn.firstChild.textContent = t(expanded ? 'View Fewer Listings' : 'View More Listings') + ' ';
       moreIcon.style.transform = expanded ? 'rotate(180deg)' : 'rotate(0deg)';
+      tabs.forEach((tab) => tab.setAttribute('aria-selected', String(!searching && tab.dataset.filter === current)));
+      if (searching) showStatus(hits.length, query); else status.hidden = true;
     }
 
     function select(filter) {
       current = filter;
+      query = '';
+      input.value = '';
       expanded = false;
-      tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.filter === filter)));
       render(true);
     }
 
-    tabs.forEach((t) => {
-      if (t.dataset.filter !== 'featured' && !cards().some(match[t.dataset.filter])) t.hidden = true;
-      t.addEventListener('click', () => select(t.dataset.filter));
+    tabs.forEach((tab) => {
+      if (tab.dataset.filter !== 'featured' && !cards().some(match[tab.dataset.filter])) tab.hidden = true;
+      tab.addEventListener('click', () => select(tab.dataset.filter));
     });
+    input.addEventListener('input', () => { query = input.value.trim(); expanded = false; render(true); });
+    form.addEventListener('submit', (e) => { e.preventDefault(); query = input.value.trim(); expanded = false; render(true); });
     moreBtn.addEventListener('click', () => {
       expanded = !expanded;
       render(true);
