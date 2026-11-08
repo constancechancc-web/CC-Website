@@ -259,7 +259,9 @@
   .list-status strong{ color:var(--color-espresso); }
   .list-status button, .list-status a{ color:var(--color-espresso); font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; background:none; border:0; padding:0; font:inherit; font-weight:600; }
   .list-tabs{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:32px; }
-  .list-tab{ border:1px solid var(--color-border); background:var(--color-surface); color:var(--color-espresso); font-size:16px; font-weight:600; padding:10px 20px; border-radius:999px; cursor:pointer; transition:background-color .2s ease, color .2s ease, border-color .2s ease; }
+  .list-tab{ display:inline-flex; align-items:center; gap:10px; border:1px solid var(--color-border); background:var(--color-surface); color:var(--color-espresso); font-size:16px; font-weight:600; padding:10px 20px; border-radius:999px; cursor:pointer; transition:background-color .2s ease, color .2s ease, border-color .2s ease; }
+  .list-tab-count{ display:inline-flex; align-items:center; justify-content:center; min-width:28px; height:28px; padding:0 9px; border-radius:999px; background:var(--color-beige); color:var(--color-coffee); font-size:14px; font-weight:700; line-height:1; }
+  .list-tab[aria-selected="true"] .list-tab-count{ background:rgba(250,247,242,0.2); color:var(--color-surface); }
   .list-tab:hover{ border-color:var(--color-espresso); }
   .list-tab[aria-selected="true"]{ background:var(--color-espresso); color:var(--color-surface); border-color:var(--color-espresso); }
   .prop-card[hidden], .list-pager[hidden], .list-tab[hidden]{ display:none !important; }
@@ -1955,6 +1957,16 @@
       pagerButtons.append(btn(t('Next'), page + 1, { disabled: page === pages }));
     }
 
+    // Number of listings behind each tab; a tab with none is hidden.
+    function updateCounts() {
+      const all = cards();
+      tabs.forEach((tab) => {
+        const n = all.filter(match[tab.dataset.filter]).length;
+        tab.querySelector('.list-tab-count').textContent = n;
+        tab.hidden = n === 0 && tab.dataset.filter !== 'all';
+      });
+    }
+
     function render(animate) {
       const all = cards();
       const searching = query !== '';
@@ -1973,6 +1985,7 @@
       });
       renderPager(hits.length, pages, first, slice.length);
       tabs.forEach((tab) => tab.setAttribute('aria-selected', String(!searching && tab.dataset.filter === current)));
+      updateCounts();
       if (searching) showStatus(hits.length, query); else status.hidden = true;
     }
 
@@ -1992,7 +2005,9 @@
     }
 
     tabs.forEach((tab) => {
-      if (tab.dataset.filter !== 'all' && !cards().some(match[tab.dataset.filter])) tab.hidden = true;
+      const count = document.createElement('span');
+      count.className = 'list-tab-count';
+      tab.append(count);
       tab.addEventListener('click', () => select(tab.dataset.filter));
     });
     input.addEventListener('input', () => { query = input.value.trim(); page = 1; render(true); });
