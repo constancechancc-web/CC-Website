@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>CC Photo Editor</title>
+<meta name="description" content="A friendly photo editor that runs in your browser. Your photos never leave your device.">
+<meta name="theme-color" content="#f9cadb">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@400;700&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700&family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,400;0,700;1,400;1,700&family=Urbanist:wght@400;600;700;800&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<div id="app" class="empty">
+
+  <header id="topbar">
+    <div class="brand"><img src="assets/icons/logo.png" alt=""><b>CC Photo Editor</b></div>
+    <div class="bar-group">
+      <button id="btnOpen" class="pill" title="Open photos"><i data-icon="open"></i><span>Open</span></button>
+      <button id="btnUndo" class="pill" title="Undo (Ctrl+Z)" aria-label="Undo" disabled><i data-icon="undo"></i><span>Undo</span></button>
+      <button id="btnRedo" class="pill" title="Redo (Ctrl+Y)" aria-label="Redo" disabled><i data-icon="redo"></i><span>Redo</span></button>
+    </div>
+    <div class="bar-group zoom-group desk">
+      <button id="btnZoomOut" class="pill round" aria-label="Zoom out" title="Smaller">−</button>
+      <span id="zoomLabel" class="zoom-label">100%</span>
+      <button id="btnZoomIn" class="pill round" aria-label="Zoom in" title="Bigger">+</button>
+      <button id="btnFit" class="pill" title="Fit the photo to the screen">Fit</button>
+    </div>
+    <div class="bar-group right">
+      <button id="btnSave" class="pill primary" title="Save (Ctrl+S)" disabled><i data-icon="save"></i><span>Save</span></button>
+      <button id="btnSaveAs" class="pill desk" title="Save a copy with a new name" disabled>Save as</button>
+      <button id="btnMore" class="pill round phone" aria-label="More">⋯</button>
+    </div>
+    <div id="moreMenu" class="card" hidden>
+      <button class="pill" data-more="saveas">Save as</button>
+      <div class="more-zoom">
+        <button class="pill round" data-more="zoomout" aria-label="Zoom out">−</button>
+        <button class="pill" data-more="fit">Fit</button>
+        <button class="pill round" data-more="zoomin" aria-label="Zoom in">+</button>
+      </div>
+    </div>
+  </header>
+
+  <nav id="rail" aria-label="Tools">
+    <button data-tool="crop"><i data-icon="crop"></i><span>Crop</span></button>
+    <button data-tool="adjust"><i data-icon="sun"></i><span>Brightness</span></button>
+    <button data-tool="text"><i data-icon="text"></i><span>Text</span></button>
+    <button data-tool="picture"><i data-icon="picture"></i><span>Add picture</span></button>
+    <button data-tool="removebg"><i data-icon="wand"></i><span>Remove BG</span></button>
+    <button data-tool="blur"><i data-icon="drop"></i><span>Blur</span></button>
+    <button data-tool="shapes"><i data-icon="shapes"></i><span>Shapes</span></button>
+  </nav>
+
+  <section id="centre">
+    <div id="tabs" role="tablist"></div>
+    <main id="stage">
+      <div id="welcome">
+        <div class="card welcome-card">
+          <img class="welcome-logo" src="assets/icons/logo.png" alt="">
+          <h1>Let's make your photos look great</h1>
+          <p>Your photos stay on this device. Nothing is uploaded.</p>
+          <button id="btnWelcomeOpen" class="pill primary big"><i data-icon="open"></i><span>Open photos</span></button>
+          <p class="soft">or drag photos here, or paste with Ctrl+V</p>
+          <div class="presets">
+            <p>Or start with a blank canvas</p>
+            <div class="preset-row">
+              <button class="preset" data-w="1080" data-h="1080"><i style="aspect-ratio:1/1"></i><b>Square 1:1</b><small>1080 × 1080</small></button>
+              <button class="preset" data-w="1080" data-h="1350"><i style="aspect-ratio:4/5"></i><b>Portrait 4:5</b><small>1080 × 1350</small></button>
+              <button class="preset" data-w="1080" data-h="1920"><i style="aspect-ratio:9/16"></i><b>Story 9:16</b><small>1080 × 1920</small></button>
+              <button class="preset" data-w="1920" data-h="1080"><i style="aspect-ratio:16/9"></i><b>Wide 16:9</b><small>1920 × 1080</small></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="docs"></div>
+      <div id="dropHint" hidden>Drop your photos here</div>
+    </main>
+  </section>
+
+  <aside id="panel">
+    <div id="selCard" class="card" hidden>
+      <h3><i class="d c"></i> Selected item</h3>
+      <div class="btn-grid five">
+        <button class="mini" data-sel="forward">Forward</button>
+        <button class="mini" data-sel="backward">Backward</button>
+        <button class="mini" data-sel="duplicate">Duplicate</button>
+        <button class="mini" data-sel="flip">Flip</button>
+        <button class="mini danger" data-sel="delete">Delete</button>
+      </div>
+      <label class="slider"><span>See-through</span><input id="selOpacity" type="range" min="0" max="90" value="0"></label>
+    </div>
+
+    <div class="card tool-panel" data-panel="crop">
+      <h3>Crop</h3>
+      <p class="hint">Drag the frame to choose what to keep, then tap Apply crop.</p>
+      <div id="ratioRow" class="chips"></div>
+      <div class="btn-grid two">
+        <button id="btnApplyCrop" class="pill primary">Apply crop</button>
+        <button id="btnResetCrop" class="pill">Reset frame</button>
+      </div>
+      <h4>Turn and flip the whole photo</h4>
+      <div class="btn-grid two">
+        <button class="pill" data-rot="left">↺ Turn left</button>
+        <button class="pill" data-rot="right">↻ Turn right</button>
+        <button class="pill" data-rot="fliph">⇄ Flip sideways</button>
+        <button class="pill" data-rot="flipv">⇅ Flip upside down</button>
+      </div>
+    </div>
+
+    <div class="card tool-panel" data-panel="adjust" hidden>
+      <h3>Brightness and colour</h3>
+      <p class="hint">Tap a look, or move the sliders.</p>
+      <p class="target">Changing: <b data-target></b></p>
+      <div id="looks" class="looks"></div>
+      <div id="adjSliders"></div>
+      <button id="btnAdjReset" class="pill">Reset all</button>
+    </div>
+
+    <div class="card tool-panel" data-panel="text" hidden>
+      <h3>Text</h3>
+      <p class="hint">Add text, then type your words below. Drag it on the photo to move it.</p>
+      <button id="btnAddText" class="pill primary wide">+ Add text</button>
+      <textarea id="txtContent" rows="2" placeholder="Type your words here" aria-label="Text"></textarea>
+      <label class="field"><span>Font</span><select id="txtFont"></select></label>
+      <div class="seg-row">
+        <button id="txtBold" class="mini toggle" aria-label="Bold"><b>B</b></button>
+        <button id="txtItalic" class="mini toggle" aria-label="Italic"><i>I</i></button>
+        <span class="gap"></span>
+        <button class="mini toggle" data-align="left" aria-label="Align left">⇤</button>
+        <button class="mini toggle" data-align="center" aria-label="Align centre">↔</button>
+        <button class="mini toggle" data-align="right" aria-label="Align right">⇥</button>
+      </div>
+      <label class="slider"><span>Size</span><input id="txtSize" type="range" min="15" max="400" value="80"></label>
+      <h4>Colour</h4>
+      <div class="swatches" id="txtColors"></div>
+      <div class="seg-row">
+        <button id="txtShadow" class="mini toggle">Shadow</button>
+        <button id="txtHighlight" class="mini toggle">Highlight box</button>
+        <input id="txtHlColor" type="color" value="#f6d24d" aria-label="Highlight colour">
+      </div>
+      <label class="slider"><span>Outline</span><input id="txtStroke" type="range" min="0" max="20" value="0"></label>
+      <label class="field inline"><span>Outline colour</span><input id="txtStrokeColor" type="color" value="#1c2b45"></label>
+    </div>
+
+    <div class="card tool-panel" data-panel="picture" hidden>
+      <h3>Add picture</h3>
+      <p class="hint">Put another picture on top of your photo. You can also paste one with Ctrl+V.</p>
+      <button id="btnAddPicture" class="pill primary wide">+ Add pictures</button>
+      <div id="picActions" hidden>
+        <h4>For the selected picture</h4>
+        <div class="btn-grid two">
+          <button id="btnPicRemoveBg" class="pill">Remove background</button>
+          <button id="btnPicBright" class="pill">Brightness</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card tool-panel" data-panel="removebg" hidden>
+      <h3>Remove background</h3>
+      <p class="hint">One tap keeps the main subject and clears the rest.</p>
+      <p class="target">Changing: <b data-target></b></p>
+      <button id="btnAutoBg" class="pill primary wide">✨ Remove background</button>
+      <h4>Do it by hand</h4>
+      <div class="btn-grid three">
+        <button class="mini toggle" data-paint="pick">Click a colour</button>
+        <button class="mini toggle" data-paint="erase">Eraser</button>
+        <button class="mini toggle" data-paint="restore">Put back</button>
+      </div>
+      <label class="slider"><span>Colour range</span><input id="bgTol" type="range" min="2" max="100" value="22"></label>
+      <label class="slider"><span>Brush size</span><input id="bgBrush" type="range" min="6" max="160" value="40"></label>
+      <h4>Colour behind the photo</h4>
+      <div class="swatches" id="bgColors"></div>
+    </div>
+
+    <div class="card tool-panel" data-panel="blur" hidden>
+      <h3>Blur</h3>
+      <p class="hint">Hide a car plate, a face or a house number: turn on the brush and paint over it.</p>
+      <p class="target">Changing: <b data-target></b></p>
+      <button class="pill primary wide toggle" data-paint="blur">Blur brush</button>
+      <label class="slider"><span>Brush size</span><input id="blurBrush" type="range" min="6" max="200" value="50"></label>
+      <label class="slider"><span>Blur strength</span><input id="blurStrength" type="range" min="10" max="100" value="60"></label>
+      <h4>Or blur everything behind the subject</h4>
+      <button id="btnBlurBg" class="pill wide">✨ Blur background</button>
+    </div>
+
+    <div class="card tool-panel" data-panel="shapes" hidden>
+      <h3>Shapes and drawing</h3>
+      <p class="hint">Tap a shape to add it, then drag it into place.</p>
+      <div class="btn-grid three">
+        <button class="mini" data-shape="rect">Box</button>
+        <button class="mini" data-shape="round">Rounded box</button>
+        <button class="mini" data-shape="circle">Circle</button>
+        <button class="mini" data-shape="line">Line</button>
+        <button class="mini" data-shape="arrow">Arrow</button>
+        <button id="btnPen" class="mini toggle">Free pen</button>
+      </div>
+      <h4>Colour</h4>
+      <div class="swatches" id="shapeColors"></div>
+      <div class="seg-row">
+        <button class="mini toggle" data-fill="1">Filled</button>
+        <button class="mini toggle on" data-fill="0">Outline only</button>
+      </div>
+      <label class="slider"><span>Line thickness</span><input id="shapeThick" type="range" min="1" max="40" value="8"></label>
+    </div>
+
+    <p id="panelEmpty" class="soft">Open a photo to start editing.</p>
+  </aside>
+</div>
+
+<div id="cropLayer" hidden>
+  <div id="cropFrame">
+    <i class="g v1"></i><i class="g v2"></i><i class="g h1"></i><i class="g h2"></i>
+    <b data-h="nw"></b><b data-h="n"></b><b data-h="ne"></b><b data-h="e"></b>
+    <b data-h="se"></b><b data-h="s"></b><b data-h="sw"></b><b data-h="w"></b>
+  </div>
+</div>
+<div id="paintLayer" hidden><div id="brushCursor"></div></div>
+
+<input id="fileOpen" type="file" accept="image/*" multiple hidden>
+<input id="filePicture" type="file" accept="image/*" multiple hidden>
+<div id="toasts" aria-live="polite"></div>
+<div id="busy" hidden><div class="card"><span class="spinner"></span><span id="busyText">Working…</span></div></div>
+
+<script src="assets/vendor/fabric.min.js"></script>
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
