@@ -1,7 +1,7 @@
 // Chinese (Simplified) dictionary for the /zh/ page. Keys are the exact English
 // text from index.html; anything without an entry (names, PEA3963, listing
 // titles/locations, client testimonials) deliberately stays as written.
-export const TITLE_ZH = "Constance Chan | 新山房产经纪";
+export const TITLE_ZH = "新山房产经纪 | Constance Chan (PEA3963)";
 
 export const ZH = {
   'About': '关于我', 'Services': '服务', 'Listings': '房源', 'Calculator': '房贷计算器',
@@ -78,7 +78,11 @@ export const ZH = {
 };
 
 // Page title and meta description (also used for the social-share tags).
-ZH["Constance Chan | JB Property Agent"] = TITLE_ZH;
+ZH["Johor Bahru Property Agent | Constance Chan (PEA3963)"] = TITLE_ZH;
+ZH["Johor Bahru Properties for Sale & Rent"] = "新山出售与出租房源";
+ZH["Recently Sold & Rented in Johor Bahru"] = "新山近期已售与已租";
+ZH["Browse by area"] = "按区域浏览";
+ZH["Areas I cover in Johor Bahru"] = "我服务的新山区域";
 ZH["Constance Chan (PEA3963), Johor Bahru property agent at The Roof Realty. Buy, sell or rent residential and commercial property with honest, client-first advice."] =
   "Constance Chan（PEA3963），The Roof Realty 新山房产经纪。以诚实、以客户为先的服务，协助您买卖及租赁新山住宅与商业物业。";
 
@@ -97,6 +101,7 @@ const typeZh = (t) => {
 };
 
 export const PATTERNS = [
+  [/^Listings updated (\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4})$/, (m) => '房源更新于 ' + m[3] + '年' + (['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(m[2]) + 1) + '月' + Number(m[1]) + '日'],
   [/^For (Sale|Rent) · (.+)$/, (m) => (m[1] === 'Sale' ? '出售' : '出租') + ' · ' + typeZh(m[2])],
   [/^RM (.+)\/month$/, (m) => 'RM ' + m[1] + '/月'],
   [/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4})$/, (m) => m[2] + '年' + (['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(m[1]) + 1) + '月'],

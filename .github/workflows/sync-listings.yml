@@ -33,12 +33,12 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          if git diff --quiet -- index.html zh/index.html; then
+          if git diff --quiet -- index.html zh/index.html sitemap.xml; then
             echo "No listing changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html zh/index.html
+          git add index.html zh/index.html sitemap.xml
           git commit -m "Auto-sync Featured Listings from NextSix"
           git push

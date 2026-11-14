@@ -8,13 +8,14 @@
 // fixed marker comments. If a listing disappears from NextSix it simply
 // stops appearing here; nothing else in the file is touched.
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import * as cheerio from "cheerio";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const INDEX_HTML_PATH = join(__dirname, "..", "index.html");
+const SITEMAP_PATH = join(__dirname, "..", "sitemap.xml");
 const NEXTSIX_URL =
   "https://nextsix.com/agent/constance-chan/5e0d9b2841d64f2b2823e6d6";
 const AGENT_SLUG = "-constance-chan-";
@@ -175,6 +176,62 @@ function altText(l) {
   );
 }
 
+// "Skudai, Johor" -> "Skudai"; used for the area chips and filter.
+function areaOf(loc) {
+  return (loc.split(",")[0] || loc).trim();
+}
+
+function renderAreaChips(listings) {
+  const counts = new Map();
+  for (const l of listings) {
+    const a = areaOf(l.loc);
+    counts.set(a, (counts.get(a) || 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0]))
+    .map(
+      ([a, n]) =>
+        `        <button type="button" class="area-chip focus-ring" data-area="${escapeHtml(a)}">${escapeHtml(a)}<span class="area-count">${n}</span></button>`,
+    )
+    .join("\n");
+}
+
+// schema.org ItemList of every listing, so search and AI engines can read the
+// inventory as structured data.
+function renderListingsLd(listings) {
+  const priceOf = (l) => Number(String(l.priceNum).replace(/[^0-9.]/g, ""));
+  const items = listings.map((l, i) => {
+    const price = priceOf(l);
+    const offer = l.isRent
+      ? { "@type": "Offer", priceCurrency: "MYR", priceSpecification: { "@type": "UnitPriceSpecification", price, priceCurrency: "MYR", unitText: "MONTH" } }
+      : { "@type": "Offer", priceCurrency: "MYR", price };
+    return {
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "RealEstateListing",
+        name: l.title,
+        url: `https://nextsix.com${l.href}`,
+        image: l.imgSrc,
+        description: `${l.typeLabel} for ${l.isRent ? "rent" : "sale"} in ${l.loc}`,
+        offers: offer,
+      },
+    };
+  });
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Property listings by Constance Chan, Johor Bahru",
+    numberOfItems: items.length,
+    itemListElement: items,
+  };
+  return `<script type="application/ld+json" id="listings-ld">\n${JSON.stringify(ld).replace(/</g, "\\u003c")}\n</script>`;
+}
+
+function malaysiaDate(d = new Date()) {
+  return new Date(d.getTime() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+}
+
 function renderCard(l, { reveal, featured }) {
   const statusLabel = l.isRent ? "For Rent" : "For Sale";
   const price = l.isRent ? `RM ${l.priceNum}/month` : `RM ${l.priceNum}`;
@@ -185,10 +242,10 @@ function renderCard(l, { reveal, featured }) {
   const url = `https://nextsix.com${l.href}`;
   // The photo/text link and the Share / WhatsApp buttons are siblings (a link
   // can't contain buttons). The page script fills in the WhatsApp message.
-  return `      <article class="prop-card${revealClass} group" data-deal="${l.isRent ? "rent" : "sale"}" data-type="${l.category}"${featuredAttr} data-url="${escapeHtml(url)}" data-title="${escapeHtml(l.title)}" data-loc="${escapeHtml(l.loc)}" data-price="${escapeHtml(price)}">
+  return `      <article class="prop-card${revealClass} group" data-deal="${l.isRent ? "rent" : "sale"}" data-type="${l.category}" data-area="${escapeHtml(areaOf(l.loc))}"${featuredAttr} data-url="${escapeHtml(url)}" data-title="${escapeHtml(l.title)}" data-loc="${escapeHtml(l.loc)}" data-price="${escapeHtml(price)}">
         <a href="${escapeHtml(url)}" target="_blank" rel="noopener" class="prop-link focus-ring">
           <div class="prop-media">
-            <img src="${escapeHtml(l.imgSrc)}" alt="${altText(l)}" loading="lazy" onerror="this.closest('.prop-card').remove()" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]">
+            <img src="${escapeHtml(l.imgSrc)}" alt="${altText(l)}" width="800" height="600" loading="lazy" onerror="this.closest('.prop-card').remove()" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]">
             <span class="prop-badge">${statusLabel}${typeSuffix}</span>
           </div>
           <div class="prop-body">
@@ -258,7 +315,8 @@ async function main() {
     .join("\n");
   const moreHtml = more.map((l) => renderCard(l, { reveal: false, featured: false })).join("\n");
 
-  let html = readFileSync(INDEX_HTML_PATH, "utf8");
+  const original = readFileSync(INDEX_HTML_PATH, "utf8");
+  let html = original;
   html = replaceBetweenMarkers(
     html,
     "<!-- LISTINGS:FEATURED:START -->",
@@ -271,6 +329,39 @@ async function main() {
     "<!-- LISTINGS:MORE:END -->",
     moreHtml,
   );
+
+  html = replaceBetweenMarkers(
+    html,
+    "<!-- LISTINGS:AREAS:START -->",
+    "<!-- LISTINGS:AREAS:END -->",
+    renderAreaChips(listings),
+  );
+  html = replaceBetweenMarkers(
+    html,
+    "<!-- LISTINGS:LD:START -->",
+    "<!-- LISTINGS:LD:END -->",
+    renderListingsLd(listings),
+  );
+
+  // Only bump the "updated" date when the listings really changed, so the daily
+  // run doesn't create a commit on days with no new or removed listings.
+  if (html !== original) {
+    const today = malaysiaDate();
+    const [y, m, d] = today.split("-").map(Number);
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    html = replaceBetweenMarkers(
+      html,
+      "<!-- LISTINGS:UPDATED:START -->",
+      "<!-- LISTINGS:UPDATED:END -->",
+      `      Listings updated ${d} ${months[m - 1]} ${y}`,
+    );
+    html = html.replace(/("dateModified": ")[0-9-]+(")/, `$1${today}$2`);
+    if (existsSync(SITEMAP_PATH)) {
+      const sm = readFileSync(SITEMAP_PATH, "utf8");
+      const next = sm.replace(/<lastmod>[^<]*<\/lastmod>/g, "").replace(/(<loc>[^<]*<\/loc>)/g, `$1<lastmod>${today}</lastmod>`);
+      if (next !== sm) writeFileSync(SITEMAP_PATH, next, "utf8");
+    }
+  }
 
   writeFileSync(INDEX_HTML_PATH, html, "utf8");
   console.log(

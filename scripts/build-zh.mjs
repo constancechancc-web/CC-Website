@@ -12,6 +12,7 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { translate, TITLE_ZH } from "./zh-dictionary.mjs";
+import { applyFaq } from "./faq-data.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = join(root, "index.html");
@@ -70,6 +71,14 @@ let html = readFileSync(SRC, "utf8");
 html = translateHtml(html);
 html = swap(html, '<html lang="en">', '<html lang="zh-Hans">');
 html = html.replace(/<title>[^<]*<\/title>/, `<title>${escapeText(TITLE_ZH)}</title>`);
+
+// The FAQ section and its FAQPage data are generated per language, not word-swapped.
+html = applyFaq(html, "zh");
+// The WebPage structured data describes this page, so it points at /zh/.
+html = html.replace(
+  /("@id": "https:\/\/constancechan\.my\/)#webpage(",\s*"url": ")https:\/\/constancechan\.my\/(",\s*"name": ")[^"]*(",\s*"inLanguage": ")en"/,
+  (_, a, b, c, d) => `${a}#webpage-zh${b}https://constancechan.my/zh/${c}${TITLE_ZH}${d}zh-Hans"`,
+);
 html = swap(html, '<link rel="canonical" href="https://constancechan.my/">', '<link rel="canonical" href="https://constancechan.my/zh/">');
 // Page-specific tags: URL and locale of the social-share card.
 html = swap(html, '<meta property="og:url" content="https://constancechan.my/">', '<meta property="og:url" content="https://constancechan.my/zh/">');

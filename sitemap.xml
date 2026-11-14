@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://constancechan.my/</loc>
+    <loc>https://constancechan.my/</loc><lastmod>2026-11-14</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://constancechan.my/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://constancechan.my/zh/"/>
   </url>
   <url>
-    <loc>https://constancechan.my/zh/</loc>
+    <loc>https://constancechan.my/zh/</loc><lastmod>2026-11-14</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://constancechan.my/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://constancechan.my/zh/"/>
   </url>
