@@ -12,26 +12,92 @@ export function cloneCanvas(src) {
   return c;
 }
 
-export const zeroAdj = () => ({ brightness: 0, contrast: 0, saturation: 0, warmth: 0, blur: 0 });
-export const isIdentity = a => !a.brightness && !a.contrast && !a.saturation && !a.warmth && !a.blur;
+export const ADJ_KEYS = ['brightness', 'contrast', 'highlights', 'shadows', 'saturation', 'warmth', 'tint', 'sharpen', 'vignette', 'blur'];
+export const zeroAdj = () => Object.fromEntries(ADJ_KEYS.map(k => [k, 0]));
+export const isIdentity = a => ADJ_KEYS.every(k => !a[k]);
+const PIXEL_KEYS = ['brightness', 'contrast', 'highlights', 'shadows', 'saturation', 'warmth', 'tint', 'vignette'];
 
-// Brightness / contrast / colour strength / warmth on raw RGBA data (in place).
-export function applyAdjust(d, a) {
-  if (!a.brightness && !a.contrast && !a.saturation && !a.warmth) return;
-  const b = a.brightness * 1.1, c = a.contrast * 0.9;
-  const cf = (259 * (c + 255)) / (255 * (259 - c));
-  const s = 1 + a.saturation / 100, w = a.warmth * 0.45;
-  for (let i = 0; i < d.length; i += 4) {
+// All per-pixel changes on raw RGBA data (in place).
+// geo = { x0, y0, w, W, H } says where this data sits in the whole picture (for dark corners).
+export function applyAdjust(d, a, geo = null) {
+  if (PIXEL_KEYS.every(k => !a[k])) return;
+  // Brightness lifts or lowers the mid-tones (whites stay white), then contrast.
+  const gamma = Math.pow(2, -(a.brightness || 0) / 60), c = (a.contrast || 0) * 0.9;
+  const cf = (259 * (c + 255)) / (255 * (259 - c)), lut = new Float32Array(256);
+  for (let v = 0; v < 256; v++) lut[v] = (255 * Math.pow(v / 255, gamma) - 128) * cf + 128;
+  const s = 1 + (a.saturation || 0) / 100, w = (a.warmth || 0) * 0.45, t = (a.tint || 0) * 0.35;
+  const sh = (a.shadows || 0) / 100, hi = (a.highlights || 0) / 100, vg = (a.vignette || 0) / 100;
+  const doVig = vg && geo;
+  for (let i = 0, p = 0; i < d.length; i += 4, p++) {
     if (d[i + 3] === 0) continue;
-    let r = (d[i] - 128) * cf + 128 + b + w;
-    let g = (d[i + 1] - 128) * cf + 128 + b;
-    let bl = (d[i + 2] - 128) * cf + 128 + b - w;
+    // Colour balance first (like fixing the light source), then the tone curve.
+    let r = lut[Math.max(0, Math.min(255, (d[i] + w + t) | 0))];
+    let g = lut[Math.max(0, Math.min(255, (d[i + 1] - t) | 0))];
+    let bl = lut[Math.max(0, Math.min(255, (d[i + 2] - w + t) | 0))];
+    if (sh || hi) {
+      const L = Math.max(1, 0.299 * r + 0.587 * g + 0.114 * bl) / 255;
+      let nL = L;
+      if (sh) { const ws = Math.max(0, 1 - L / 0.6) ** 2; nL += sh * ws * (sh > 0 ? 0.35 : 0.25 * L / 0.6 + 0.05); }
+      if (hi) { const wh = Math.max(0, (L - 0.4) / 0.6) ** 2; nL += hi * 0.4 * wh; }
+      const k = Math.max(0, nL) / L;
+      r *= k; g *= k; bl *= k;
+    }
     if (s !== 1) {
       const gr = 0.299 * r + 0.587 * g + 0.114 * bl;
       r = gr + (r - gr) * s; g = gr + (g - gr) * s; bl = gr + (bl - gr) * s;
     }
+    if (doVig) {
+      const x = geo.x0 + (p % geo.w), y = geo.y0 + ((p / geo.w) | 0);
+      const dx = (x - geo.W / 2) / (geo.W / 2), dy = (y - geo.H / 2) / (geo.H / 2);
+      const dist = Math.sqrt(dx * dx + dy * dy) / 1.4142;
+      const e = Math.min(1, Math.max(0, (dist - 0.35) / 0.65));
+      const f = 1 - vg * 0.75 * e * e * (3 - 2 * e);
+      r *= f; g *= f; bl *= f;
+    }
     d[i] = r; d[i + 1] = g; d[i + 2] = bl;
   }
+}
+
+// Sharpness: unsharp mask on a canvas (in place).
+export function sharpenCanvas(canvas, amount) {
+  const w = canvas.width, h = canvas.height, ctx = canvas.getContext('2d', { willReadFrequently: true });
+  const soft = blurCanvas(canvas, Math.max(1.2, Math.max(w, h) * 0.0012)).getContext('2d').getImageData(0, 0, w, h).data;
+  const id = ctx.getImageData(0, 0, w, h), d = id.data, k = amount / 100 * 1.6;
+  for (let i = 0; i < d.length; i += 4) {
+    d[i] += (d[i] - soft[i]) * k; d[i + 1] += (d[i + 1] - soft[i + 1]) * k; d[i + 2] += (d[i + 2] - soft[i + 2]) * k;
+  }
+  ctx.putImageData(id, 0, 0);
+}
+
+// "Auto fix": look at the picture and suggest slider values.
+export function autoAdjust(src) {
+  const m = Math.max(src.width, src.height), f = Math.min(1, 256 / m);
+  const c = makeCanvas(src.width * f, src.height * f), x = c.getContext('2d', { willReadFrequently: true });
+  x.drawImage(src, 0, 0, c.width, c.height);
+  const d = x.getImageData(0, 0, c.width, c.height).data, hist = new Uint32Array(256);
+  let n = 0, sr = 0, sg = 0, sb = 0, sl = 0, dark = 0, bright = 0;
+  for (let i = 0; i < d.length; i += 4) {
+    if (d[i + 3] < 128) continue;
+    const L = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+    hist[L | 0]++; n++; sr += d[i]; sg += d[i + 1]; sb += d[i + 2]; sl += L;
+    if (L < 50) dark++; if (L > 235) bright++;
+  }
+  const out = zeroAdj();
+  if (!n) return out;
+  const pct = q => { let acc = 0; for (let v = 0; v < 256; v++) { acc += hist[v]; if (acc >= n * q) return v; } return 255; };
+  const lo = pct(0.01), hiV = pct(0.99), mean = sl / n / 255;
+  const cl = (v, a, b) => Math.round(Math.min(b, Math.max(a, v)));
+  // Lift or lower the mid-tones towards a pleasant average.
+  const gamma = Math.log(0.5) / Math.log(Math.min(0.95, Math.max(0.05, mean)));
+  out.brightness = cl(-60 * Math.log2(gamma) * 0.7, -35, 55);
+  out.contrast = cl((0.85 - (hiV - lo) / 255) * 60, -10, 25);
+  out.shadows = dark / n > 0.12 ? cl(dark / n * 120, 10, 45) : 0;
+  out.highlights = bright / n > 0.06 ? -cl(bright / n * 200, 10, 45) : 0;
+  // Neutral colour balance (gently: only part of the way).
+  out.warmth = cl(-(sr - sb) / n / 0.9 * 0.5, -35, 35);
+  out.tint = cl(-((sg - (sr + sb) / 2) / n) / 0.35 * 0.35, -30, 30);
+  out.saturation = 12; out.sharpen = 20;
+  return out;
 }
 
 function blurPass(s, d, w, h, r, horiz) {

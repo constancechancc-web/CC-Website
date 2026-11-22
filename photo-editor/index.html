@@ -112,8 +112,13 @@
 
     <div class="card tool-panel" data-panel="adjust" hidden>
       <h3>Brightness and colour</h3>
-      <p class="hint">Tap a look, or move the sliders.</p>
+      <p class="hint">Tap Auto fix or a look, then fine-tune with the sliders.</p>
       <p class="target">Changing: <b data-target></b></p>
+      <div class="btn-grid two">
+        <button id="btnAutoFix" class="pill primary">✨ Auto fix</button>
+        <button id="btnCompare" class="pill compare" title="Press and hold to see the original">Hold to compare</button>
+      </div>
+      <h4>Looks</h4>
       <div id="looks" class="looks"></div>
       <div id="adjSliders"></div>
       <button id="btnAdjReset" class="pill">Reset all</button>

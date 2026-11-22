@@ -1,6 +1,6 @@
 /* CC Photo Editor — main logic. Everything runs in the browser. */
 import { $, $$, initIcons, toast, dialog, busy, done, nextFrame } from './ui.js';
-import { makeCanvas, cloneCanvas, zeroAdj, isIdentity, applyAdjust, blurCanvas, floodErase, subjectMask } from './pixels.js';
+import { makeCanvas, cloneCanvas, zeroAdj, isIdentity, applyAdjust, sharpenCanvas, autoAdjust, blurCanvas, floodErase, subjectMask } from './pixels.js';
 
 const fabric = window.fabric;
 const MAX_SIDE = 3000, MAX_TABS = 15, MAX_HIST = 30;
@@ -9,9 +9,21 @@ const FONTS = ['Noto Sans SC', 'Noto Serif SC', 'ZCOOL KuaiLe', 'Ma Shan Zheng',
 const LOOKS = [
   ['Original', {}], ['Brighter', { brightness: 18, contrast: 6 }], ['Vivid', { contrast: 14, saturation: 40 }],
   ['Warm', { warmth: 30, saturation: 8 }], ['Cool', { warmth: -30 }], ['Soft', { brightness: 8, contrast: -12, blur: 6 }],
-  ['B&W', { saturation: -100, contrast: 10 }], ['Vintage', { saturation: -35, warmth: 28, contrast: -8, brightness: 6 }],
+  ['B&W', { saturation: -100, contrast: 10 }], ['Vintage', { saturation: -35, warmth: 28, contrast: -8, brightness: 6, vignette: 25 }],
+  ['Bright room', { brightness: 22, shadows: 40, highlights: -30, contrast: 6, saturation: 10, warmth: 6, sharpen: 20 }],
+  ['Sunny', { brightness: 10, warmth: 22, saturation: 20, highlights: -15 }],
+  ['Crisp', { contrast: 14, saturation: 10, sharpen: 45, highlights: -10 }],
+  ['Dramatic', { contrast: 28, highlights: -35, shadows: 12, saturation: -10, vignette: 45 }],
 ];
-const ADJ = [['brightness', 'Brightness', -100], ['contrast', 'Contrast', -100], ['saturation', 'Colour strength', -100], ['warmth', 'Warmth', -100], ['blur', 'Blur', 0]];
+// [key, label, min, group, hint]
+const ADJ = [
+  ['brightness', 'Brightness', -100, 'Light'], ['contrast', 'Contrast', -100, 'Light'],
+  ['shadows', 'Dark areas', -100, 'Light', 'Brighten dark corners of a room'],
+  ['highlights', 'Bright areas', -100, 'Light', 'Bring back a too-bright sky or window'],
+  ['saturation', 'Colour strength', -100, 'Colour'], ['warmth', 'Warmth', -100, 'Colour', 'Blue ↔ yellow'],
+  ['tint', 'Tint', -100, 'Colour', 'Green ↔ pink'],
+  ['sharpen', 'Sharpness', 0, 'Detail'], ['vignette', 'Dark corners', 0, 'Detail'], ['blur', 'Blur', 0, 'Detail'],
+];
 
 const docs = [];
 let cur = null, tool = 'crop', uidN = 0, verN = 0;
@@ -55,7 +67,8 @@ function refreshImage(o, preview = false) {
     const ctx = el.getContext('2d', { willReadFrequently: true });
     ctx.clearRect(0, 0, el.width, el.height); ctx.drawImage(from, 0, 0);
     const id = ctx.getImageData(0, 0, el.width, el.height);
-    applyAdjust(id.data, adj); ctx.putImageData(id, 0, 0);
+    applyAdjust(id.data, adj, { x0: 0, y0: 0, w: el.width, W: el.width, H: el.height }); ctx.putImageData(id, 0, 0);
+    if (adj.sharpen > 0) sharpenCanvas(el, adj.sharpen);
     if (adj.blur > 0) {
       const b = blurCanvas(el, adj.blur / 100 * Math.max(el.width, el.height) * 0.02);
       ctx.clearRect(0, 0, el.width, el.height); ctx.drawImage(b, 0, 0);
@@ -77,7 +90,8 @@ function refreshRect(o, x, y, w, h) {
     if (w > 0 && h > 0) {
       const ctx = o.outCanvas.getContext('2d', { willReadFrequently: true });
       ctx.clearRect(x, y, w, h); ctx.drawImage(o.srcCanvas, x, y, w, h, x, y, w, h);
-      const id = ctx.getImageData(x, y, w, h); applyAdjust(id.data, o.adj); ctx.putImageData(id, x, y);
+      const id = ctx.getImageData(x, y, w, h);
+      applyAdjust(id.data, o.adj, { x0: x, y0: y, w, W: o.srcCanvas.width, H: o.srcCanvas.height }); ctx.putImageData(id, x, y);
     }
   }
   o.dirty = true; o.canvas && o.canvas.requestRenderAll();
@@ -552,9 +566,15 @@ $('#btnResetCrop').onclick = resetCrop;
 $$('[data-rot]').forEach(b => { b.onclick = () => rotateDoc(b.dataset.rot); });
 
 /* ------------------------------------------------------------ brightness and colour */
-ADJ.forEach(([k, label, min]) => {
+const adjGroups = {};
+ADJ.forEach(([k, label, min, group, hint]) => {
+  if (!adjGroups[group]) {
+    const g = document.createElement('details'); g.className = 'adj-group'; g.open = true;
+    g.innerHTML = `<summary>${group}</summary><div class="adj-body"></div>`;
+    $('#adjSliders').append(g); adjGroups[group] = $('.adj-body', g);
+  }
   const l = document.createElement('label'); l.className = 'slider';
-  l.innerHTML = `<span class="top"><span>${label}</span><button class="rs" type="button">Reset</button></span><input type="range" min="${min}" max="100" value="0" data-adj="${k}">`;
+  l.innerHTML = `<span class="top"><span>${label}${hint ? ` <small>${hint}</small>` : ''}</span><button class="rs" type="button">Reset</button></span><input type="range" min="${min}" max="100" value="0" data-adj="${k}" aria-label="${label}">`;
   const inp = $('input', l);
   let raf = 0;
   inp.oninput = () => {
@@ -564,8 +584,35 @@ ADJ.forEach(([k, label, min]) => {
   };
   inp.onchange = () => { cancelAnimationFrame(raf); raf = 0; const t = pixelTarget(); if (t) { t.adj[k] = +inp.value; refreshImage(t); commit(); } };
   $('.rs', l).onclick = e => { e.preventDefault(); inp.value = 0; inp.onchange(); };
-  $('#adjSliders').append(l);
+  adjGroups[group].append(l);
 });
+$('#btnAutoFix').onclick = async () => {
+  const t = pixelTarget(); if (!t) return;
+  busy('Fixing the light and colour…'); await nextFrame();
+  try { t.adj = { ...autoAdjust(t.srcCanvas), blur: t.adj.blur, vignette: t.adj.vignette }; refreshImage(t); commit(); syncAdjust(false); }
+  finally { done(); }
+  toast('Auto fix done. Move the sliders if you want to change it.');
+};
+// Hold to see the picture without any brightness or colour changes.
+const cmp = $('#btnCompare');
+let comparing = null;
+const cmpOn = e => {
+  const t = pixelTarget(); if (!t || comparing || isIdentity(t.adj)) return;
+  e && e.preventDefault();
+  comparing = t; t._cmpEl = t.getElement(); t._cmpS = { x: t.scaleX, y: t.scaleY };
+  t.setElement(t.srcCanvas); t.set({ scaleX: t._ts ? t._ts.x : t.scaleX, scaleY: t._ts ? t._ts.y : t.scaleY });
+  t.dirty = true; t.canvas.requestRenderAll(); cmp.classList.add('on'); cmp.textContent = 'Showing the original';
+};
+const cmpOff = () => {
+  const t = comparing; if (!t) return;
+  comparing = null; t.setElement(t._cmpEl); t.set({ scaleX: t._cmpS.x, scaleY: t._cmpS.y });
+  t.dirty = true; t.canvas && t.canvas.requestRenderAll(); cmp.classList.remove('on'); cmp.textContent = 'Hold to compare';
+};
+cmp.addEventListener('pointerdown', cmpOn);
+['pointerup', 'pointerleave', 'pointercancel', 'blur'].forEach(n => cmp.addEventListener(n, cmpOff));
+cmp.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) cmpOn(e); });
+cmp.addEventListener('keyup', cmpOff);
+cmp.addEventListener('contextmenu', e => e.preventDefault());
 LOOKS.forEach(([name, vals]) => {
   const b = document.createElement('button');
   const c = Object.assign(document.createElement('canvas'), { width: 64, height: 64 });
@@ -581,7 +628,7 @@ function syncAdjust(thumbs = true) {
   LOOKS.forEach(([name, vals]) => {
     const c = $(`[data-look="${name}"] canvas`), x = c.getContext('2d', { willReadFrequently: true });
     x.clearRect(0, 0, 64, 64); x.drawImage(s, (s.width - m) / 2, (s.height - m) / 2, m, m, 0, 0, 64, 64);
-    const id = x.getImageData(0, 0, 64, 64); applyAdjust(id.data, { ...zeroAdj(), ...vals }); x.putImageData(id, 0, 0);
+    const id = x.getImageData(0, 0, 64, 64); applyAdjust(id.data, { ...zeroAdj(), ...vals }, { x0: 0, y0: 0, w: 64, W: 64, H: 64 }); x.putImageData(id, 0, 0);
     if (vals.blur) { const bl = blurCanvas(c, 1.2); x.clearRect(0, 0, 64, 64); x.drawImage(bl, 0, 0); }
   });
 }
@@ -719,7 +766,7 @@ function endStroke() {
   const { ctx, o } = stroke; stroke = null;
   ctx.restore();
   o.ver = newVersion(cur, o.srcCanvas);
-  if (o.adj.blur > 0) refreshImage(o);
+  if (o.adj.blur > 0 || o.adj.sharpen > 0) refreshImage(o);
   commit();
 }
 paintLayer.addEventListener('pointerdown', e => {
