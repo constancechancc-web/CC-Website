@@ -452,7 +452,7 @@
   .areas-map figcaption{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 16px; padding:14px 18px; font-size:15px; color:var(--color-coffee); }
   .areas-map figcaption a{ color:var(--color-espresso); font-weight:600; text-decoration:underline; text-underline-offset:3px; }
   .area-chips{ display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
-  .area-chip{ display:inline-flex; align-items:center; gap:8px; padding:9px 14px 9px 18px; border:1px solid var(--color-border); border-radius:999px; background:var(--color-surface); color:var(--color-espresso); font-size:15px; font-weight:600; cursor:pointer; transition:border-color .2s ease, background-color .2s ease; }
+  .area-chip{ text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:9px 14px 9px 18px; border:1px solid var(--color-border); border-radius:999px; background:var(--color-surface); color:var(--color-espresso); font-size:15px; font-weight:600; cursor:pointer; transition:border-color .2s ease, background-color .2s ease; }
   .area-chip:hover{ border-color:var(--color-espresso); }
   .area-count{ display:inline-flex; align-items:center; justify-content:center; min-width:24px; height:24px; padding:0 7px; border-radius:999px; background:var(--color-beige); color:var(--color-coffee); font-size:13px; font-weight:700; line-height:1; }
   #faq{ padding-block:clamp(80px,10vw,128px); background:var(--color-surface); }
@@ -1879,21 +1879,21 @@
       <p class="areas-intro">My service area is centred on Tebrau and covers Johor Bahru and the surrounding areas.</p>
       <div class="area-chips">
         <!-- LISTINGS:AREAS:START -->
-        <button type="button" class="area-chip focus-ring" data-area="Johor Bahru">Johor Bahru<span class="area-count">13</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Masai">Masai<span class="area-count">6</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Skudai">Skudai<span class="area-count">6</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Ulu Tiram">Ulu Tiram<span class="area-count">6</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Tebrau">Tebrau<span class="area-count">4</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Iskandar Puteri (Nusajaya)">Iskandar Puteri (Nusajaya)<span class="area-count">3</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Permas Jaya">Permas Jaya<span class="area-count">3</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Pasir Gudang">Pasir Gudang<span class="area-count">2</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Tampoi">Tampoi<span class="area-count">2</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Kota Tinggi">Kota Tinggi<span class="area-count">1</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Kulai">Kulai<span class="area-count">1</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Pontian">Pontian<span class="area-count">1</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Senai">Senai<span class="area-count">1</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Setia Indah">Setia Indah<span class="area-count">1</span></button>
-        <button type="button" class="area-chip focus-ring" data-area="Tangkak">Tangkak<span class="area-count">1</span></button>
+        <a href="/areas/johor-bahru/" class="area-chip focus-ring" data-area="Johor Bahru">Johor Bahru<span class="area-count">13</span></a>
+        <a href="/areas/masai/" class="area-chip focus-ring" data-area="Masai">Masai<span class="area-count">6</span></a>
+        <a href="/areas/skudai/" class="area-chip focus-ring" data-area="Skudai">Skudai<span class="area-count">6</span></a>
+        <a href="/areas/ulu-tiram/" class="area-chip focus-ring" data-area="Ulu Tiram">Ulu Tiram<span class="area-count">6</span></a>
+        <a href="/areas/tebrau/" class="area-chip focus-ring" data-area="Tebrau">Tebrau<span class="area-count">4</span></a>
+        <a href="/areas/iskandar-puteri-nusajaya/" class="area-chip focus-ring" data-area="Iskandar Puteri (Nusajaya)">Iskandar Puteri (Nusajaya)<span class="area-count">3</span></a>
+        <a href="/areas/permas-jaya/" class="area-chip focus-ring" data-area="Permas Jaya">Permas Jaya<span class="area-count">3</span></a>
+        <a href="/areas/pasir-gudang/" class="area-chip focus-ring" data-area="Pasir Gudang">Pasir Gudang<span class="area-count">2</span></a>
+        <a href="/areas/tampoi/" class="area-chip focus-ring" data-area="Tampoi">Tampoi<span class="area-count">2</span></a>
+        <a href="/areas/kota-tinggi/" class="area-chip focus-ring" data-area="Kota Tinggi">Kota Tinggi<span class="area-count">1</span></a>
+        <a href="/areas/kulai/" class="area-chip focus-ring" data-area="Kulai">Kulai<span class="area-count">1</span></a>
+        <a href="/areas/pontian/" class="area-chip focus-ring" data-area="Pontian">Pontian<span class="area-count">1</span></a>
+        <a href="/areas/senai/" class="area-chip focus-ring" data-area="Senai">Senai<span class="area-count">1</span></a>
+        <a href="/areas/setia-indah/" class="area-chip focus-ring" data-area="Setia Indah">Setia Indah<span class="area-count">1</span></a>
+        <a href="/areas/tangkak/" class="area-chip focus-ring" data-area="Tangkak">Tangkak<span class="area-count">1</span></a>
         <!-- LISTINGS:AREAS:END -->
       </div>
       </div>
@@ -2331,6 +2331,7 @@
     let current = 'all';
     let query = '';
     let area = '';
+    let areaHref = '';
     let page = 1;
     const cards = () => Array.from(grid.querySelectorAll('.prop-card'));
     const fill = (tpl, vars) => tpl.replace(/\{(\w+)\}/g, (_, k) => vars[k]);
@@ -2381,7 +2382,14 @@
       if (count) {
         const n = document.createElement('strong');
         n.textContent = count;
-        status.append(n, ' ' + t(count === 1 ? 'property found' : 'properties found') + ' \u00b7 ' + (label ? label + ' \u00b7 ' : ''), clear);
+        status.append(n, ' ' + t(count === 1 ? 'property found' : 'properties found') + ' \u00b7 ' + (label ? label + ' \u00b7 ' : ''));
+        if (label && areaHref) {
+          const link = document.createElement('a');
+          link.href = areaHref;
+          link.textContent = t('Open area page');
+          status.append(link, ' \u00b7 ');
+        }
+        status.append(clear);
       } else {
         const wa = document.createElement('a');
         wa.href = 'https://wa.me/60192288249';
@@ -2492,8 +2500,11 @@
     form.addEventListener('submit', (e) => { e.preventDefault(); query = input.value.trim(); area = ''; page = 1; render(true); });
     document.addEventListener('click', (e) => {
       const chip = e.target.closest && e.target.closest('.area-chip');
-      if (!chip) return;
+      if (!chip || !chip.closest('#listings')) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      e.preventDefault();
       area = chip.dataset.area;
+      areaHref = chip.getAttribute('href') || '';
       query = '';
       input.value = '';
       page = 1;

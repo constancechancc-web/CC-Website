@@ -31,14 +31,17 @@ jobs:
       - name: Rebuild the Chinese page
         run: npm run build-zh
 
+      - name: Rebuild the area pages
+        run: npm run build-areas
+
       - name: Commit and push if changed
         run: |
-          if git diff --quiet -- index.html zh/index.html sitemap.xml; then
+          if test -z "$(git status --porcelain -- index.html zh areas sitemap.xml llms.txt)"; then
             echo "No listing changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html zh/index.html sitemap.xml
+          git add index.html zh areas sitemap.xml llms.txt
           git commit -m "Auto-sync Featured Listings from NextSix"
           git push

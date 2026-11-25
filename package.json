@@ -6,7 +6,8 @@
     "sync-listings": "node scripts/sync-listings.mjs",
     "build-zh": "node scripts/build-zh.mjs",
     "build-css": "node scripts/build-css.mjs",
-    "build": "node scripts/build-seo.mjs && node scripts/build-css.mjs && node scripts/build-zh.mjs"
+    "build": "node scripts/build-seo.mjs && node scripts/build-css.mjs && node scripts/build-zh.mjs && node scripts/build-areas.mjs",
+    "build-areas": "node scripts/build-areas.mjs"
   },
   "dependencies": {
     "cheerio": "^1.0.0"

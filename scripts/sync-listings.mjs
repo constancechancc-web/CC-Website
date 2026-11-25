@@ -191,7 +191,7 @@ function renderAreaChips(listings) {
     .sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0]))
     .map(
       ([a, n]) =>
-        `        <button type="button" class="area-chip focus-ring" data-area="${escapeHtml(a)}">${escapeHtml(a)}<span class="area-count">${n}</span></button>`,
+        `        <a href="/areas/${a.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/" class="area-chip focus-ring" data-area="${escapeHtml(a)}">${escapeHtml(a)}<span class="area-count">${n}</span></a>`,
     )
     .join("\n");
 }

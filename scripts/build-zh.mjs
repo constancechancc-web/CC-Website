@@ -72,6 +72,9 @@ html = translateHtml(html);
 html = swap(html, '<html lang="en">', '<html lang="zh-Hans">');
 html = html.replace(/<title>[^<]*<\/title>/, `<title>${escapeText(TITLE_ZH)}</title>`);
 
+// Area chips link to the Chinese area pages.
+html = html.split('<a href="/areas/').join('<a href="/zh/areas/');
+
 // Google map labels in Chinese on the Chinese page.
 html = swap(html, "&amp;hl=en&amp;output=embed", "&amp;hl=zh-CN&amp;output=embed");
 
@@ -96,7 +99,7 @@ for (const k of [
   "View More Listings", "View Fewer Listings", "Based on the figures you entered",
   "Link copied", "Previous", "Next", "Showing {a}–{b} of {n} listings · Page {p} of {t}", "Go to page {n}",
   "properties found", "property found", "Clear search", "No properties found for",
-  "Try another area or property type, or", "ask me on WhatsApp", ".",
+  "Try another area or property type, or", "ask me on WhatsApp", ".", "Open area page",
 ]) {
   runtime[k] = translate(k);
 }
