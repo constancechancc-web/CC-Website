@@ -72,6 +72,9 @@ html = translateHtml(html);
 html = swap(html, '<html lang="en">', '<html lang="zh-Hans">');
 html = html.replace(/<title>[^<]*<\/title>/, `<title>${escapeText(TITLE_ZH)}</title>`);
 
+// Google map labels in Chinese on the Chinese page.
+html = swap(html, "&amp;hl=en&amp;output=embed", "&amp;hl=zh-CN&amp;output=embed");
+
 // The FAQ section and its FAQPage data are generated per language, not word-swapped.
 html = applyFaq(html, "zh");
 // The WebPage structured data describes this page, so it points at /zh/.

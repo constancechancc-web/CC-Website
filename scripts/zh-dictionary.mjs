@@ -83,6 +83,10 @@ ZH["Johor Bahru Properties for Sale & Rent"] = "新山出售与出租房源";
 ZH["Recently Sold & Rented in Johor Bahru"] = "新山近期已售与已租";
 ZH["Browse by area"] = "按区域浏览";
 ZH["Areas I cover in Johor Bahru"] = "我服务的新山区域";
+ZH["My service area is centred on Tebrau and covers Johor Bahru and the surrounding areas."] = "我的服务区域以地不佬（Tebrau）为中心，涵盖新山及周边地区。";
+ZH["Service area: Tebrau & greater Johor Bahru"] = "服务区域：地不佬（Tebrau）及大新山地区";
+ZH["See me on Google Maps"] = "在 Google 地图上查看";
+ZH["Service area map: Tebrau, Johor Bahru"] = "服务区域地图：新山地不佬（Tebrau）";
 ZH["Constance Chan (PEA3963), Johor Bahru property agent at The Roof Realty. Buy, sell or rent residential and commercial property with honest, client-first advice."] =
   "Constance Chan（PEA3963），The Roof Realty 新山房产经纪。以诚实、以客户为先的服务，协助您买卖及租赁新山住宅与商业物业。";
 
