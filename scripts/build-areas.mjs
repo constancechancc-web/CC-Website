@@ -22,6 +22,7 @@ const ZH_AREA = {
   Senai: "士乃", Kulai: "古来", Tampoi: "淡杯", "Pasir Gudang": "巴西古当",
   "Iskandar Puteri (Nusajaya)": "依斯干达公主城", "Iskandar Puteri": "依斯干达公主城",
   "Kota Tinggi": "哥打丁宜", Pontian: "笨珍", Tangkak: "东甲",
+  "Permas Jaya": "百万镇", "Setia Indah": "实达英达",
 };
 const zhArea = (a) => (ZH_AREA[a] ? `${ZH_AREA[a]} ${a}` : a);
 const slugOf = (a) => a.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

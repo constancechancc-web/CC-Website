@@ -32,7 +32,7 @@ export const FAQ = [
     q: "Which areas of Johor Bahru do you cover?",
     a: "Johor Bahru and the surrounding areas, including Skudai, Tebrau, Ulu Tiram, Masai, Senai, Kulai, Tampoi, Permas Jaya, Pasir Gudang and Iskandar Puteri. You can browse the current listings by area in the Listings section of this page.",
     qZh: "你服务新山哪些区域？",
-    aZh: "新山及周边地区，包括士古来 Skudai、地不佬 Tebrau、乌鲁地南 Ulu Tiram、马赛 Masai、士乃 Senai、古来 Kulai、淡杯 Tampoi、Permas Jaya、巴西古当 Pasir Gudang 和依斯干达公主城 Iskandar Puteri。您可以在本页的“房源”部分按区域浏览现有房源。",
+    aZh: "新山及周边地区，包括士古来 Skudai、地不佬 Tebrau、乌鲁地南 Ulu Tiram、马赛 Masai、士乃 Senai、古来 Kulai、淡杯 Tampoi、百万镇 Permas Jaya、巴西古当 Pasir Gudang 和依斯干达公主城 Iskandar Puteri。您可以在本页的“房源”部分按区域浏览现有房源。",
   },
   {
     q: "Can foreigners or Singaporeans buy property in Johor Bahru?",
