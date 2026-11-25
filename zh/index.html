@@ -2296,7 +2296,7 @@
   menuCloseBtn.addEventListener('click', closeMenu);
   mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
-  // listing tabs + search + pagination (6 per page)
+  // listing tabs + search + pagination (9 per page)
   (function () {
     const grid = document.getElementById('propGrid');
     const pager = document.getElementById('listingPager');
@@ -2307,7 +2307,7 @@
     const input = document.getElementById('listingQuery');
     const status = document.getElementById('listingStatus');
     if (!grid || !pager || !tabs.length || !form || !input || !status) return;
-    const PER_PAGE = 6;
+    const PER_PAGE = 9;
     const match = {
       all: () => true,
       buy: (c) => c.dataset.deal === 'sale',
