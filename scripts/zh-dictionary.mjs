@@ -28,7 +28,7 @@ export const ZH = {
   'Professional real estate agent based in Johor Bahru, specialising in buying, selling, and renting residential and commercial properties. With strong local market knowledge and a client-first approach, I assist homeowners, investors, and tenants in making informed property decisions. Committed to providing honest advice, smooth transactions, and reliable service from start to finish.':
     '我是一名常驻新山的专业房地产经纪，专注于住宅及商业物业的买卖与租赁。凭借深厚的本地市场知识和以客户为先的服务理念，我协助屋主、投资者和租户做出明智的房产决定。我致力于提供诚实的建议、顺畅的交易流程，以及从头到尾可靠的服务。',
   'Residential & Commercial': '住宅与商业',
-  'Practising Since': '执业始于', 'Google Rating': 'Google 评分', 'Property in Johor Bahru': '新山房产',
+  'Years Experience': '年经验', 'Property in Johor Bahru': '新山房产',
   'What I Do': '我的服务',
   'Services tailored to every stage of your property journey': '为您房产旅程的每个阶段量身打造的服务',
   'Sales': '销售', 'Leasing': '租赁', 'Buying': '购买', 'Investment': '投资',
@@ -105,6 +105,8 @@ const typeZh = (t) => {
 };
 
 export const PATTERNS = [
+  [/^(\d+) Google reviews$/, (m) => m[1] + ' 条 Google 评价'],
+  [/^Rated 5\.0 from (\d+) Google reviews \(opens Google Maps\)$/, (m) => 'Google 评分 5.0，共 ' + m[1] + ' 条评价（打开 Google 地图）'],
   [/^Listings updated (\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4})$/, (m) => '房源更新于 ' + m[3] + '年' + (['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(m[2]) + 1) + '月' + Number(m[1]) + '日'],
   [/^For (Sale|Rent) · (.+)$/, (m) => (m[1] === 'Sale' ? '出售' : '出租') + ' · ' + typeZh(m[2])],
   [/^RM (.+)\/month$/, (m) => 'RM ' + m[1] + '/月'],

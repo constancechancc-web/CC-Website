@@ -343,6 +343,10 @@ async function main() {
     renderListingsLd(listings),
   );
 
+  // "6+ Years Experience" in the hero counts up each January by itself.
+  html = html.replace(/(data-years-since="(\d{4})">)\d+\+(<)/, (_, a, since, b) =>
+    `${a}${Number(malaysiaDate().slice(0, 4)) - Number(since)}+${b}`);
+
   // Only bump the "updated" date when the listings really changed, so the daily
   // run doesn't create a commit on days with no new or removed listings.
   if (html !== original) {
