@@ -11,16 +11,40 @@ export const FAQ = [
     aZh: "Constance Chan（PEA3963）是常驻新山的房地产经纪，隶属 The Roof Realty（E(1)1605/1），自 2020 年起执业。她协助屋主、投资者和租户在新山买卖和租赁住宅及商业物业。",
   },
   {
+    q: "Are you a registered real estate agent?",
+    a: "Yes. I'm a registered Probationary Estate Agent (PEA3963) under The Roof Realty. You can check my registration on the LPPEH (Board of Valuers, Appraisers, Estate Agents and Property Managers) website.",
+    qZh: "你是注册经纪吗？",
+    aZh: "是的，我是 The Roof Realty 旗下的注册房产经纪（PEA3963），你可以在 LPPEH 官网查到我的注册资料。",
+  },
+  {
     q: "What types of property do you handle?",
     a: "Residential property (apartments, condominiums, serviced residences, terrace houses, cluster houses, semi-detached houses and bungalows), commercial property (shops, shop offices, offices and retail space) and industrial property (factories and industrial land), for sale and for rent.",
     qZh: "你处理哪些类型的物业？",
     aZh: "住宅（公寓、共管公寓、服务式公寓、排屋、群集屋、半独立式洋房和独立式洋房）、商业物业（店屋、店屋办公室、办公室和零售空间）以及工业物业（工厂和工业用地），出售与出租皆可。",
   },
   {
+    q: "Do you handle both new projects and subsale properties?",
+    a: "Yes. I handle subsale properties for sale and rent, and I can also introduce selected new projects in JB. Tell me your budget and preferred area, and I'll recommend what fits best.",
+    qZh: "你有做新盘和二手房吗？",
+    aZh: "都有。二手买卖和出租都做，也可以介绍新山的精选新项目。告诉我你的预算和想要的地区，我帮你配对最合适的。",
+  },
+  {
     q: "Which areas of Johor Bahru do you cover?",
     a: "Johor Bahru and the surrounding areas, including Skudai, Tebrau, Ulu Tiram, Masai, Senai, Kulai, Tampoi, Permas Jaya, Pasir Gudang and Iskandar Puteri. You can browse the current listings by area in the Listings section of this page.",
     qZh: "你服务新山哪些区域？",
     aZh: "新山及周边地区，包括士古来 Skudai、地不佬 Tebrau、乌鲁地南 Ulu Tiram、马赛 Masai、士乃 Senai、古来 Kulai、淡杯 Tampoi、Permas Jaya、巴西古当 Pasir Gudang 和依斯干达公主城 Iskandar Puteri。您可以在本页的“房源”部分按区域浏览现有房源。",
+  },
+  {
+    q: "Can foreigners or Singaporeans buy property in Johor Bahru?",
+    a: "Yes, but foreign buyers need state approval and have to meet a minimum purchase price set by the Johor government. These rules change from time to time, so contact me for the latest requirements before you start looking.",
+    qZh: "外国人或新加坡人可以在新山买房吗？",
+    aZh: "可以，但需要州政府批准，也要符合柔佛州规定的最低购买价。这些条例会变，开始看房前可以先找我了解最新规定。",
+  },
+  {
+    q: "How long does it take to complete a property purchase?",
+    a: "For a subsale property, completion usually takes about 3 to 4 months after the Sale & Purchase Agreement is signed. How long it takes depends on loan approval, the title type, and whether state consent is needed. Feel free to contact me if you need any additional information.",
+    qZh: "买房到交屋大概要多久？",
+    aZh: "二手房一般在签买卖合约后约 3 至 4 个月完成，实际时间要看贷款批准、地契类型，还有需不需要州政府批准。如需更多信息，请随时与我联系。",
   },
   {
     q: "How do I get a free price estimate for my property?",
@@ -35,28 +59,10 @@ export const FAQ = [
     aZh: "请使用本页的“告诉我您的需求”表格：选择买房或租房，再填写预算、偏好区域和物业类型。表格会打开 WhatsApp 并自动填入资料，Constance 就能为您推荐合适的选择。",
   },
   {
-    q: "How can I estimate my monthly mortgage repayment?",
-    a: "Use the Mortgage Calculator on this page: enter the loan amount, the annual interest rate and the loan tenure in years, then press Calculate. It shows an estimated monthly repayment, total interest and total payment. This is an estimate for reference only; the actual repayment, eligibility and interest rate depend on the bank's assessment.",
-    qZh: "如何估算每月房贷还款额？",
-    aZh: "请使用本页的房贷计算器：输入贷款金额、年利率和贷款年限，然后点击“计算”，即可看到预计每月还款额、总利息和还款总额。此结果仅供参考，实际还款额、贷款资格和利率须视银行评估而定。",
-  },
-  {
-    q: "Are the listings on this website up to date?",
-    a: "Yes. The listings are refreshed automatically every day from Constance's NextSix agent profile, and the page shows the date they were last updated. She also lists properties on Mudah, EdgeProp and Facebook.",
-    qZh: "本网站的房源是最新的吗？",
-    aZh: "是的。房源每天自动从 Constance 的 NextSix 经纪页面更新，页面上也会显示最近更新日期。她同时也在 Mudah、EdgeProp 和 Facebook 刊登房源。",
-  },
-  {
     q: "How can I contact Constance Chan?",
     a: "WhatsApp is the fastest way: +60 19-228 8249. You can also email constancechan.theroof@gmail.com.",
     qZh: "如何联系 Constance Chan？",
     aZh: "最快的方式是 WhatsApp：+60 19-228 8249，也可以电邮 constancechan.theroof@gmail.com。",
-  },
-  {
-    q: "Is this website available in Chinese?",
-    a: "Yes. Use the EN | 中文 switch at the top of the page, or go directly to constancechan.my/zh/ for the Chinese version.",
-    qZh: "这个网站有中文版吗？",
-    aZh: "有。请使用页面顶部的 EN | 中文 切换，或直接访问 constancechan.my/zh/ 查看中文版。",
   },
 ];
 
