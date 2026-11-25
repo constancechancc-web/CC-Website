@@ -128,6 +128,9 @@
       <h3>Text</h3>
       <p class="hint">Add text, then type your words below. Drag it on the photo to move it.</p>
       <button id="btnAddText" class="pill primary wide">+ Add text</button>
+      <h4>Ready-made designs <small class="soft">— tap one to add it</small></h4>
+      <div id="txtPresets" class="tpl-grid"></div>
+      <h4>Change the selected text</h4>
       <textarea id="txtContent" rows="2" placeholder="Type your words here" aria-label="Text"></textarea>
       <label class="field"><span>Font</span><select id="txtFont"></select></label>
       <div class="seg-row">
@@ -143,8 +146,8 @@
       <div class="swatches" id="txtColors"></div>
       <div class="seg-row">
         <button id="txtShadow" class="mini toggle">Shadow</button>
-        <button id="txtHighlight" class="mini toggle">Highlight box</button>
-        <input id="txtHlColor" type="color" value="#f6d24d" aria-label="Highlight colour">
+        <button id="txtHighlight" class="mini toggle">Label box</button>
+        <input id="txtHlColor" type="color" value="#f6d24d" aria-label="Label box colour" title="Label box colour">
       </div>
       <label class="slider"><span>Outline</span><input id="txtStroke" type="range" min="0" max="20" value="0"></label>
       <label class="field inline"><span>Outline colour</span><input id="txtStrokeColor" type="color" value="#1c2b45"></label>

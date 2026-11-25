@@ -22,6 +22,7 @@ export function initIcons() {
 }
 
 export function toast(msg, bad = false) {
+  [...document.querySelectorAll('#toasts .toast')].forEach(x => { if (x.textContent === msg) x.remove(); });
   const t = document.createElement('div');
   t.className = 'toast' + (bad ? ' bad' : '');
   t.textContent = msg;

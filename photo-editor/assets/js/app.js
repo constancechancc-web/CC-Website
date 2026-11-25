@@ -36,6 +36,18 @@ fabric.Object.prototype.set({
   transparentCorners: false, cornerColor: '#ffffff', cornerStrokeColor: '#6f63c6', borderColor: '#6f63c6',
   cornerStyle: 'circle', cornerSize: 14, touchCornerSize: 32, borderScaleFactor: 2,
 });
+// Text can have a rounded "label" box behind it: boxPad / boxRadius are fractions of the font size.
+const EXTRA_KEYS = ['uid', 'shapeKind', 'boxPad', 'boxRadius', 'glow'];
+fabric.IText.prototype._renderBackground = function (ctx) {
+  if (!this.backgroundColor) return;
+  const p = this.fontSize * (this.boxPad || 0), r = Math.min(this.fontSize * (this.boxRadius || 0), (this.height + p * 2) / 2);
+  const x = -this.width / 2 - p, y = -this.height / 2 - p, w = this.width + p * 2, h = this.height + p * 2;
+  ctx.fillStyle = this.backgroundColor;
+  ctx.beginPath();
+  ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); ctx.fill();
+  this._removeShadow(ctx);
+};
 
 /* ------------------------------------------------------------ images */
 function makeImage(src, opts = {}) {
@@ -246,7 +258,7 @@ stage.addEventListener('touchend', e => { if (e.touches.length < 2) pinch = null
 /* ------------------------------------------------------------ history */
 const PROPS = ['left', 'top', 'scaleX', 'scaleY', 'angle', 'flipX', 'flipY', 'opacity', 'originX', 'originY'];
 function serialize(o) {
-  if (o.type !== 'image') return { kind: 'obj', json: o.toObject(['uid', 'shapeKind']) };
+  if (o.type !== 'image') return { kind: 'obj', json: o.toObject(EXTRA_KEYS) };
   const p = {}; PROPS.forEach(k => { p[k] = o[k]; });
   if (o._ts) { p.scaleX = o._ts.x; p.scaleY = o._ts.y; }
   return { kind: 'img', uid: o.uid, ver: o.ver, rver: o.rver, adj: { ...o.adj }, isBase: !!o.isBase, p };
@@ -274,7 +286,7 @@ async function restore(doc, snap) {
   for (const s of snap.objs) {
     if (s.kind !== 'img') {
       const same = others.get(s.json.uid);
-      out.push(same && JSON.stringify(same.toObject(['uid', 'shapeKind'])) === JSON.stringify(s.json) ? same : await enliven(s.json));
+      out.push(same && JSON.stringify(same.toObject(EXTRA_KEYS)) === JSON.stringify(s.json) ? same : await enliven(s.json));
       continue;
     }
     const o = live.get(s.uid) || makeImage(makeCanvas(1, 1), { uid: s.uid });
@@ -635,7 +647,27 @@ function syncAdjust(thumbs = true) {
 $('#btnAdjReset').onclick = () => { const t = pixelTarget(); if (t) { t.adj = zeroAdj(); refreshImage(t); commit(); syncAdjust(false); } };
 
 /* ------------------------------------------------------------ text */
-const ts = { font: FONTS[0], size: 80, fill: '#ffffff', bold: true, italic: false, align: 'center', shadow: true, highlight: false, hl: '#f6d24d', stroke: 0, strokeColor: '#1c2b45' };
+const TS_DEFAULT = { font: FONTS[0], size: 80, fill: '#ffffff', bold: true, italic: false, align: 'center', shadow: true, highlight: false, hl: '#f6d24d', stroke: 0, strokeColor: '#1c2b45' };
+const ts = { ...TS_DEFAULT };
+// Ready-made text designs. Sizes are per 1000px of the photo's long side.
+const TEXT_PRESETS = [
+  { text: 'FOR SALE', w: 0.42, font: 'Bebas Neue', size: 120, fill: '#ffffff', box: '#e8505b', spacing: 120, shadow: true },
+  { text: 'FOR RENT', w: 0.42, font: 'Bebas Neue', size: 120, fill: '#ffffff', box: '#6f63c6', spacing: 120, shadow: true },
+  { text: 'SOLD!', w: 0.32, font: 'Bebas Neue', size: 150, fill: '#ffffff', box: '#d9343a', spacing: 80, angle: -8, shadow: true },
+  { text: 'NEW LISTING', w: 0.5, font: 'Poppins', bold: true, size: 70, fill: '#25223a', box: '#f6d36b', spacing: 60 },
+  { text: 'OPEN HOUSE', w: 0.48, font: 'Poppins', bold: true, size: 70, fill: '#ffffff', box: '#2fa36b', spacing: 60 },
+  { text: 'PRICE REDUCED', w: 0.55, tile: 12, font: 'Poppins', bold: true, size: 64, fill: '#ffffff', box: '#f08a3c', spacing: 40 },
+  { text: 'RM 650,000', w: 0.55, font: 'Poppins', bold: true, size: 110, fill: '#ffffff', stroke: 10, strokeColor: '#25223a', shadow: true },
+  { text: 'Call me today!', w: 0.5, font: 'Poppins', bold: true, size: 64, fill: '#6f63c6', box: '#ffffff', shadow: true },
+  { text: '出售', w: 0.28, font: 'Noto Sans SC', bold: true, size: 120, fill: '#ffffff', box: '#e8505b', spacing: 100, shadow: true },
+  { text: '出租', w: 0.28, font: 'Noto Sans SC', bold: true, size: 120, fill: '#ffffff', box: '#6f63c6', spacing: 100, shadow: true },
+  { text: '已售出', w: 0.36, font: 'Ma Shan Zheng', size: 150, fill: '#d9343a', stroke: 12, strokeColor: '#ffffff', angle: -8, shadow: true },
+  { text: '恭喜成交', w: 0.46, font: 'Ma Shan Zheng', size: 130, fill: '#ffe08a', box: '#c8202a', spacing: 40, shadow: true },
+  { text: '新盘推荐', w: 0.46, font: 'Noto Serif SC', bold: true, size: 100, fill: '#e8c77a', box: '#1f1b2e', spacing: 80 },
+  { text: '好房推荐', w: 0.44, font: 'ZCOOL KuaiLe', size: 120, fill: '#ffffff', stroke: 12, strokeColor: '#6f63c6', shadow: true },
+  { text: 'Dream Home', w: 0.5, font: 'Dancing Script', bold: true, size: 140, fill: '#ffffff', glow: 'rgba(0,0,0,0.55)', shadow: true },
+  { text: 'LUXURY LIVING', w: 0.6, tile: 11, font: 'Playfair Display', size: 90, fill: '#ffffff', spacing: 200, glow: 'rgba(0,0,0,0.6)', shadow: true },
+];
 const activeText = () => { const a = activeObj(); return a && a.type === 'i-text' ? a : null; };
 FONTS.forEach(f => { const o = new Option(f, f); o.style.fontFamily = `"${f}"`; $('#txtFont').append(o); });
 async function ensureFont(o) {
@@ -650,8 +682,10 @@ function styleText(o) {
   o.set({
     fontFamily: ts.font, fontSize: fs, scaleX: 1, scaleY: 1, fill: ts.fill, fontWeight: ts.bold ? 'bold' : 'normal',
     fontStyle: ts.italic ? 'italic' : 'normal', textAlign: ts.align,
-    shadow: ts.shadow ? new fabric.Shadow({ color: 'rgba(0,0,0,0.5)', blur: fs * 0.14, offsetX: fs * 0.03, offsetY: fs * 0.05 }) : null,
-    textBackgroundColor: ts.highlight ? ts.hl : '',
+    shadow: !ts.shadow ? null : o.glow ? new fabric.Shadow({ color: o.glow, blur: fs * 0.35, offsetX: 0, offsetY: fs * 0.02 })
+      : new fabric.Shadow({ color: ts.highlight ? 'rgba(0,0,0,0.28)' : 'rgba(0,0,0,0.5)', blur: fs * (ts.highlight ? 0.3 : 0.14), offsetX: fs * 0.03, offsetY: fs * (ts.highlight ? 0.08 : 0.05) }),
+    textBackgroundColor: '', backgroundColor: ts.highlight ? ts.hl : '',
+    boxPad: ts.highlight ? (o.boxPad || 0.3) : o.boxPad, boxRadius: o.boxRadius == null ? 0.22 : o.boxRadius,
     stroke: ts.stroke ? ts.strokeColor : null, strokeWidth: ts.stroke ? ts.stroke * fs / 150 : 0, paintFirst: 'stroke', strokeLineJoin: 'round',
   });
   o.setCoords(); ensureFont(o);
@@ -660,9 +694,9 @@ function readText(o) {
   const unit = Math.max(cur.w, cur.h) / 1000;
   Object.assign(ts, {
     font: o.fontFamily, size: Math.round(o.fontSize * o.scaleY / unit), fill: o.fill, bold: o.fontWeight === 'bold', italic: o.fontStyle === 'italic',
-    align: o.textAlign, shadow: !!o.shadow, highlight: !!o.textBackgroundColor, stroke: o.stroke ? Math.round(o.strokeWidth * 150 / o.fontSize) : 0,
+    align: o.textAlign, shadow: !!o.shadow, highlight: !!(o.backgroundColor || o.textBackgroundColor), stroke: o.stroke ? Math.round(o.strokeWidth * 150 / o.fontSize) : 0,
   });
-  if (o.textBackgroundColor) ts.hl = o.textBackgroundColor;
+  if (o.backgroundColor || o.textBackgroundColor) ts.hl = o.backgroundColor || o.textBackgroundColor;
   if (o.stroke) ts.strokeColor = o.stroke;
 }
 function syncTextPanel() {
@@ -689,12 +723,47 @@ function textChange(patch, save = true) {
 $('#btnAddText').onclick = () => {
   if (!cur) return;
   const o = new fabric.IText('Your text', { left: cur.w / 2, top: cur.h / 2, originX: 'center', originY: 'center' });
-  o.uid = uid(); ts.size = 80;
+  o.uid = uid(); Object.assign(ts, TS_DEFAULT);
   cur.canvas.add(o); styleText(o); cur.canvas.setActiveObject(o); cur.canvas.requestRenderAll(); commit();
   const t = $('#txtContent'); t.disabled = false; t.value = o.text;
   if (!matchMedia('(max-width:899px)').matches) { t.focus(); t.select(); }
   toast('Text added. Type your words in the box.');
 };
+function addPresetText(p) {
+  if (!cur) return;
+  const o = new fabric.IText(p.text, {
+    left: cur.w / 2, top: cur.h / 2, originX: 'center', originY: 'center', angle: p.angle || 0,
+    charSpacing: p.spacing || 0, lineHeight: 1.1, boxPad: p.box ? 0.3 : 0, boxRadius: 0.22, glow: p.glow || null,
+  });
+  o.uid = uid();
+  Object.assign(ts, TS_DEFAULT, {
+    font: p.font, size: p.size, fill: p.fill, bold: !!p.bold, italic: !!p.italic, align: 'center', shadow: !!p.shadow,
+    highlight: !!p.box, hl: p.box || TS_DEFAULT.hl, stroke: p.stroke || 0, strokeColor: p.strokeColor || TS_DEFAULT.strokeColor,
+  });
+  cur.canvas.add(o); styleText(o);
+  // Size it to a share of the photo's width, but never taller than a quarter of it.
+  const box = 1 + (p.box ? 0.6 * ts.size / o.width : 0);
+  const fit = Math.min(cur.w * (p.w || 0.5) / (o.getScaledWidth() * box), cur.h * 0.25 / o.getScaledHeight());
+  ts.size = Math.max(10, Math.round(ts.size * fit)); styleText(o);
+  cur.canvas.setActiveObject(o); cur.canvas.requestRenderAll(); commit(); syncTextPanel();
+  toast('Added. Change the words in the box below.');
+}
+TEXT_PRESETS.forEach((p, i) => {
+  const b = document.createElement('button');
+  b.className = 'tpl'; b.dataset.preset = i; b.title = 'Add "' + p.text + '"';
+  const span = document.createElement('span'); span.textContent = p.text;
+  const zh = /[\u4e00-\u9fff]/.test(p.text);
+  Object.assign(span.style, {
+    fontFamily: '"' + p.font + '"', fontWeight: p.bold ? '700' : '400', color: p.fill, letterSpacing: (p.spacing || 0) / 1000 + 'em',
+    background: p.box || 'transparent', padding: p.box ? '3px 10px' : '0', borderRadius: '8px',
+    transform: p.angle ? 'rotate(' + p.angle + 'deg)' : '',
+    webkitTextStroke: p.stroke ? Math.max(1, p.stroke / 6) + 'px ' + p.strokeColor : '', paintOrder: 'stroke fill',
+    textShadow: p.glow ? '0 1px 6px ' + p.glow : p.shadow && !p.box ? '0 2px 4px rgba(0,0,0,.35)' : '',
+    fontSize: (p.tile || (zh ? 20 : p.font === 'Bebas Neue' ? 22 : p.font === 'Dancing Script' ? 21 : 14)) + 'px',
+  });
+  b.append(span); b.onclick = () => addPresetText(p);
+  $('#txtPresets').append(b);
+});
 $('#txtContent').oninput = e => { const o = activeText(); if (o) { o.set('text', e.target.value); o.setCoords(); cur.canvas.requestRenderAll(); ensureFont(o); } };
 $('#txtContent').onchange = () => commit();
 $('#txtFont').onchange = e => textChange({ font: e.target.value });
@@ -907,7 +976,7 @@ async function duplicateActive() {
     c = makeImage(cloneCanvas(a.srcCanvas)); c.ver = a.ver; c.rver = a.rver; c.adj = { ...a.adj };
     if (a.restoreCanvas) c.restoreCanvas = cloneCanvas(a.restoreCanvas);
     PROPS.forEach(k => { c[k] = a[k]; }); refreshImage(c);
-  } else { c = await enliven(a.toObject(['shapeKind'])); c.uid = uid(); }
+  } else { c = await enliven(a.toObject(EXTRA_KEYS)); c.uid = uid(); }
   const off = Math.max(cur.w, cur.h) * 0.03;
   c.set({ left: a.left + off, top: a.top + off }); c.setCoords();
   cur.canvas.add(c); cur.canvas.setActiveObject(c); cur.canvas.requestRenderAll(); commit();
