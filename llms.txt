@@ -11,11 +11,11 @@ Service area: centred on Tebrau, covering Johor Bahru and surrounding areas (Sku
 - [Chinese site (简体中文)](https://constancechan.my/zh/): same content in Simplified Chinese
 
 ## Area pages
-- [Johor Bahru](https://constancechan.my/areas/johor-bahru/): 12 current listings
+- [Johor Bahru](https://constancechan.my/areas/johor-bahru/): 13 current listings
 - [Masai](https://constancechan.my/areas/masai/): 6 current listings
 - [Skudai](https://constancechan.my/areas/skudai/): 6 current listings
 - [Ulu Tiram](https://constancechan.my/areas/ulu-tiram/): 6 current listings
-- [Tebrau](https://constancechan.my/areas/tebrau/): 4 current listings
+- [Tebrau](https://constancechan.my/areas/tebrau/): 5 current listings
 - [Iskandar Puteri (Nusajaya)](https://constancechan.my/areas/iskandar-puteri-nusajaya/): 3 current listings
 - [Permas Jaya](https://constancechan.my/areas/permas-jaya/): 3 current listings
 - [Pasir Gudang](https://constancechan.my/areas/pasir-gudang/): 2 current listings
